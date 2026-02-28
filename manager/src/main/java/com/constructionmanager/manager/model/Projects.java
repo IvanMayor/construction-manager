@@ -1,8 +1,11 @@
 package com.constructionmanager.manager.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
-import java.util.Date;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name="projects")
@@ -15,12 +18,16 @@ public class Projects {
     private String name;
     private String address;
     private JobType jobType;
-    private Date dateStarted;
-    private Date dateFinished;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate dateStarted;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate dateFinished;
 
     public Projects() {}
 
-    public Projects(String name, String address, JobType jobType, Date dateStarted, Date dateFinished) {
+    public Projects(String name, String address, JobType jobType, LocalDate dateStarted, LocalDate dateFinished) {
         this.name = name;
         this.address = address;
         this.jobType = jobType;
@@ -40,11 +47,13 @@ public class Projects {
     public JobType getJobType() {return jobType;}
     public void setJobType(JobType jobType) {this.jobType = jobType;}
 
-    public Date getDateStarted() {return dateStarted;}
-    public void setDateStarted(Date dateStarted) {this.dateStarted = dateStarted;}
+    public LocalDate getDateStarted() {return dateStarted;}
+    public void setDateStarted(LocalDate dateStarted) {
+        this.dateStarted = dateStarted;
+    }
 
-    public Date getDateFinished() {return dateFinished;}
-    public void setDateFinished(Date dateFinished) {
+    public LocalDate getDateFinished() {return dateFinished;}
+    public void setDateFinished(LocalDate dateFinished) {
         this.dateFinished = dateFinished;
     }
 }
