@@ -35,7 +35,7 @@ public class ProjectsController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found"));
     }
 
-    @PostMapping("/add/")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Projects createProject(@RequestBody Projects projects) {
         return projectsRepository.save(projects);

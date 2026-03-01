@@ -19,15 +19,20 @@ public class Projects {
     private String address;
     private JobType jobType;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateStarted;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateFinished;
 
     public Projects() {}
 
-    public Projects(String name, String address, JobType jobType, LocalDate dateStarted, LocalDate dateFinished) {
+    public Projects(
+            String name,
+            String address,
+            JobType jobType,
+            LocalDate dateStarted,
+            LocalDate dateFinished) {
         this.name = name;
         this.address = address;
         this.jobType = jobType;
