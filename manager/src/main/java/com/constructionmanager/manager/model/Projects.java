@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="projects")
@@ -24,6 +26,9 @@ public class Projects {
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateFinished;
+
+    @OneToMany(mappedBy = "projects", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ChangeOrders> changeOrders = new ArrayList<>();
 
     public Projects() {}
 
@@ -61,4 +66,7 @@ public class Projects {
     public void setDateFinished(LocalDate dateFinished) {
         this.dateFinished = dateFinished;
     }
+
+    public List<ChangeOrders> getChangeOrders() {return changeOrders;}
+    public void setChangeOrders(List<ChangeOrders> changeOrders) {this.changeOrders = changeOrders;}
 }

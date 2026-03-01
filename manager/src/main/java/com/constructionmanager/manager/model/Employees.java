@@ -9,16 +9,24 @@ import java.time.LocalDate;
 @Table
 public class Employees {
     enum Position {OFFICE_STAFF, HELPER, MECHANIC, MASTER, SERVICE_STAFF, FOREMAN, SUPERVISOR}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
+
     private String fullName;
     private LocalDate dateOfBirth;
     private LocalDate hiredDate;
+    @Column(nullable = false)
     private Position position;
+
+    @Column(nullable = false)
     private String phoneNumber;
 
     public Employees() {}
