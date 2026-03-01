@@ -2,7 +2,6 @@ package com.constructionmanager.manager.controller;
 
 import com.constructionmanager.manager.model.Employees;
 import com.constructionmanager.manager.repository.EmployeeRepository;
-import org.hibernate.annotations.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/empluyees")
-public class EmpleyeesController {
+public class EmployeesController {
+
     @Autowired
     private EmployeeRepository employeeRepository;
 
