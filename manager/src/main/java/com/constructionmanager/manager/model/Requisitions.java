@@ -3,6 +3,7 @@ package com.constructionmanager.manager.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table
@@ -14,12 +15,12 @@ public class Requisitions {
 
     /* All requisition has:                                           (+(implemented)/-(not implemented))
     * 1. Contract SUM +
-    * 2. Change order SUM (so far) -
-    * 3. Contract sum including change order amount -
-    * 4. Total money received -
-    * 5. Retainage (10%) of each transaction (Change order, Contract) -
-    * 6. Company name -
-    * 7. Owner or representative name -
+    * 2. Change order SUM (so far) +
+    * 3. Contract sum including change order amount +
+    * 4. Total money received +
+    * 5. Retainage (10%) of each transaction (Change order, Contract) +
+    * 6. Company name +
+    * 7. Owner or representative name +
     * ------------- Page 2 ---------------------
     * 8. Base Contract items like Mobilization, Domestic Water piping,
     *       Sanitary Piping... including breakdown price (Schedule Value(
@@ -40,6 +41,7 @@ public class Requisitions {
     private String companyName;
     private String OwnerOrRepresentativeFullName;
 //    This will be relationship between One this table and Many other table with each element of oter like (Mobilization, Domestic water...)
-
+    @OneToMany(mappedBy = "requisitions", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RequisitionContractItems> requisitionContractItems;
 
 }
