@@ -5,30 +5,31 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+
+@SpringBootTest
 public class ProjectsRepositoryTest {
 
     @Autowired
-    ProjectsRepository projectsRepository;
-
-    @Autowired
-    TestEntityManager em;
+    private ProjectsRepository projectsRepository;
 
     @Test
-    public void saveProject() {
+    public void testProjects() {
         Projects projects = new Projects();
+
         projects.setName("The Surrey");
-        em.persist(projects);
-        em.flush();
+        projects.setAddress("20 e 76");
 
-        List<Projects> projectsList = projectsRepository.findAll();
+        Projects savedProject = projectsRepository.save(projects);
 
-        assertThat(projectsList).hasSize(1);
-        assertThat(projectsList.get(0).getName()).isEqualTo(projects.getName());
+        Optional<Projects> foundProject = projectsRepository.findById(savedProject.getId());
+        assertThat(foundProject).isPresent();
+        assertThat(foundProject.get().getAddress()).isEqualTo("20 e 76");
+
     }
 }

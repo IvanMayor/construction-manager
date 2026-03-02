@@ -22,8 +22,8 @@ public class RequisitionContractItems {
     private BigDecimal totalToFinish;
 
     @ManyToOne
-    @JoinColumn(name="requisition_id")
-    private Requisitions requisition;
+    @JoinColumn(name="requisitions_id")
+    private Requisitions requisitions;
 
     public RequisitionContractItems() {}
 

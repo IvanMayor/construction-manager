@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name="projects")
 public class Projects {
-    enum JobType {HOSPITALITY, RESIDENTIAL, COMMERCIAL, CHURCH, RESTAURANT}
+    public enum JobType {HOSPITALITY, RESIDENTIAL, COMMERCIAL, CHURCH, RESTAURANT}
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -44,9 +44,7 @@ public class Projects {
         this.dateStarted = dateStarted;
         this.dateFinished = dateFinished;
     }
-
     public Integer getId() {return id;}
-    public void setId(Integer id) {this.id = id;}
 
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
