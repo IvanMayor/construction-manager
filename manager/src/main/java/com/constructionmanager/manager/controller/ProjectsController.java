@@ -1,11 +1,11 @@
 package com.constructionmanager.manager.controller;
 
 import com.constructionmanager.manager.model.Projects;
-import com.constructionmanager.manager.repository.ProjectsRepository;
+import com.constructionmanager.manager.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class ProjectsController {
 
     @Autowired
-    private ProjectsRepository projectsRepository;
+    private ProjectService projectService;
 
     //Home Page
     @GetMapping("/")
@@ -25,44 +25,41 @@ public class ProjectsController {
     //GET ALL PROJECTS
     @GetMapping
     public List<Projects> getAllProjects() {
-        return projectsRepository.findAll();
+        return projectService.getAllProjects();
     }
 
     //GET PROJECT BY ID
     @GetMapping("/{id}")
     public Projects getProjectById(@PathVariable Integer id) {
-        return projectsRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found"));
+        return projectService.getProjectById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Projects createProject(@RequestBody Projects projects) {
-        return projectsRepository.save(projects);
+    public ResponseEntity<Projects> createProject(@RequestBody Projects projects) {
+
+        Projects savedProject = projectService.createProject(
+                projects.getName(),
+                projects.getAddress(),
+                projects.getJobType(),
+                projects.getDateStarted(),
+                projects.getDateFinished(),
+                projects.getChangeOrders()
+        );
+        return ResponseEntity.ok(savedProject);
+
     }
 
     //Update a Company
     @PutMapping("/{id}")
     public Projects updateProject(@PathVariable Integer id, @RequestBody Projects projectsDetails) {
-        Projects project = projectsRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found"));
-
-        project.setName(projectsDetails.getName());
-        project.setAddress(projectsDetails.getAddress());
-        project.setJobType(projectsDetails.getJobType());
-        project.setDateStarted(projectsDetails.getDateStarted());
-        project.setDateFinished(projectsDetails.getDateFinished());
-
-        return projectsRepository.save(project);
+        return projectService.updateProject(id, projectsDetails);
     }
 
     //DELETE PROJECT
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProject(@PathVariable Integer id) {
-        if (!projectsRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found");
-        }
-        projectsRepository.deleteById(id);
+        projectService.deleteProject(id);
     }
 }

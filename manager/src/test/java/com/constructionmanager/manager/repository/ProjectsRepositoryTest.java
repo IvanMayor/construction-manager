@@ -1,18 +1,18 @@
 package com.constructionmanager.manager.repository;
 
 import com.constructionmanager.manager.model.Projects;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
-import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-@SpringBootTest
+@DataJpaTest
 public class ProjectsRepositoryTest {
 
     @Autowired
@@ -24,10 +24,15 @@ public class ProjectsRepositoryTest {
 
         projects.setName("The Surrey");
         projects.setAddress("20 e 76");
+        projects.setJobType(Projects.JobType.HOSPITALITY);
+        projects.setDateStarted(LocalDate.now());
+        projects.setDateFinished(LocalDate.now());
 
-        Projects savedProject = projectsRepository.save(projects);
 
-        Optional<Projects> foundProject = projectsRepository.findById(savedProject.getId());
+        projectsRepository.save(projects);
+
+        Optional<Projects> foundProject = projectsRepository.findByAddressContaining("20");
+
         assertThat(foundProject).isPresent();
         assertThat(foundProject.get().getAddress()).isEqualTo("20 e 76");
 

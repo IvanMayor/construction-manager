@@ -1,6 +1,7 @@
 package com.constructionmanager.manager.model;
 
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.math.BigDecimal;
 
@@ -60,6 +61,9 @@ public class RequisitionContractItems {
         this.percentCompleted = percentCompleted;
         this.totalToFinish = totalToFinish;
     }
+
+    public Integer getId() {return id;}
+    public void setId(Integer id) {this.id = id;}
 
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}

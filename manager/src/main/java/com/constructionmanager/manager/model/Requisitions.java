@@ -65,6 +65,9 @@ public class Requisitions {
         this.requisitionContractItems = requisitionContractItems;
     }
 
+    public Integer getId() {return id;}
+    public void setId(Integer id) {this.id = id;}
+
     public BigDecimal getContractPrice() {return contractPrice;}
     public void setContractPrice(BigDecimal contractPrice) {this.contractPrice = contractPrice;}
 
