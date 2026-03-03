@@ -2,6 +2,7 @@ package com.constructionmanager.manager.controller;
 
 import com.constructionmanager.manager.model.Employees;
 import com.constructionmanager.manager.repository.EmployeeRepository;
+import com.constructionmanager.manager.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,43 +17,33 @@ public class EmployeesController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     @GetMapping
     public List<Employees> getEmployees() {
-        return employeeRepository.findAll();
+        return employeeService.getAllEmployees();
     }
 
     @GetMapping("/{id}")
     public Employees getEmployeeById(@PathVariable Integer id) {
-        return employeeRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found"));
+        return employeeService.getEmployeeById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Employees createEmployee(@RequestBody Employees employees) {
-        return employeeRepository.save(employees);
+        return employeeService.createEmployee(employees);
     }
 
     @PutMapping("/{id}")
     public Employees updateEmployee(@PathVariable Integer id, @RequestBody Employees employeesDetails) {
-        Employees employee = employeeRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee does not exist"));
-
-        employee.setFirstName(employeesDetails.getFirstName());
-        employee.setLastName(employeesDetails.getFirstName());
-        employee.setDateOfBirth(employeesDetails.getDateOfBirth());
-        employee.setHiredDate(employeesDetails.getHiredDate());
-        employee.setPosition(employeesDetails.getPosition());
-        employee.setPhoneNumber(employeesDetails.getPhoneNumber());
-
-        return employeeRepository.save(employee);
+        return employeeService.updateEmployee(id, employeesDetails);
     }
 
     @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Integer id) {
-        Employees employee = employeeRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee does not exist"));
-        employeeRepository.deleteById(id);
+        employeeService.deleteEmployee(id);
     }
 
 

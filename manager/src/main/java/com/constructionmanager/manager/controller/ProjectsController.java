@@ -16,12 +16,6 @@ public class ProjectsController {
     @Autowired
     private ProjectService projectService;
 
-    //Home Page
-    @GetMapping("/")
-    public String welcome() {
-        return "<html><body><h1>WELCOME</h1></body></html>";
-    }
-
     //GET ALL PROJECTS
     @GetMapping
     public List<Projects> getAllProjects() {
