@@ -1,10 +1,11 @@
 package com.constructionmanager.manager.controller;
 
 import com.constructionmanager.manager.model.Requisitions;
-import com.constructionmanager.manager.repository.RequisitionsRepository;
+import com.constructionmanager.manager.service.RequisitionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+
 
 import java.util.List;
 
@@ -12,45 +13,31 @@ import java.util.List;
 @RequestMapping("/requisitions")
 public class RequisitionsController {
 
-    private RequisitionsRepository requisitionsRepository;
+    @Autowired
+    private RequisitionService requisitionService;
 
     @GetMapping
-    public List<Requisitions> getRequisitions() {return requisitionsRepository.findAll();}
+    public List<Requisitions> getRequisitions() {return requisitionService.getAllRequisitions();}
 
     @GetMapping("/{id}")
     public Requisitions requisitions(@PathVariable Integer id) {
-        return requisitionsRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Requisition does not exist"));
+        return requisitionService.getRequisition(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Requisitions createRequisition(@RequestBody Requisitions requisitions) {
-        return requisitionsRepository.save(requisitions);
+        return requisitionService.createRequisition(requisitions);
     }
 
     @PutMapping("/{id}")
     public Requisitions updateRequisition(@PathVariable Integer id, @RequestBody Requisitions requisitionsDetail) {
-        Requisitions requisitions = requisitionsRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Requisition does not exist"));
-
-        requisitions.setContractPrice(requisitionsDetail.getContractPrice());
-        requisitions.setTotalChangeOrderAmount(requisitionsDetail.getTotalChangeOrderAmount());
-        requisitions.setTotalContractAndCOAmount(requisitionsDetail.getTotalContractAndCOAmount());
-        requisitions.setTotalMoneyReceived(requisitions.getTotalMoneyReceived());
-        requisitions.setRetainage(requisitionsDetail.getRetainage());
-        requisitions.setCompanyName(requisitionsDetail.getCompanyName());
-        requisitions.setOwnerOrRepresentativeFullName(requisitionsDetail.getOwnerOrRepresentativeFullName());
-
-        return requisitionsRepository.save(requisitions);
-
+        return requisitionService.updateRequisition(id, requisitionsDetail);
     }
 
     @DeleteMapping("/{id}")
     public void deleteRequisition(@PathVariable Integer id) {
-        requisitionsRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Requisition does not exist"));
-        requisitionsRepository.deleteById(id);
+        requisitionService.deleteRequisition(id);
     }
 
 }

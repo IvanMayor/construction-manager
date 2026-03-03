@@ -89,4 +89,8 @@ public class Requisitions {
     public String getOwnerOrRepresentativeFullName() {return ownerOrRepresentativeFullName;}
     public void setOwnerOrRepresentativeFullName(String ownerOrRepresentativeFullName) {this.ownerOrRepresentativeFullName = ownerOrRepresentativeFullName;}
 
+    public List<RequisitionContractItems> getRequisitionContractItems() {return requisitionContractItems;}
+    public void setRequisitionContractItems(List<RequisitionContractItems> requisitionContractItems) {
+        this.requisitionContractItems = requisitionContractItems;
+    }
 }
