@@ -20,7 +20,13 @@ public class ProjectService {
 
     public List<Projects> getAllProjects() {return projectsRepository.findAll();}
 
-    public Projects createProject(String name, String address, Projects.JobType jobType, LocalDate dateStarted, LocalDate dateFinished, List<ChangeOrders> changeOrders) {
+    public Projects createProject(
+            String name,
+            String address,
+            Projects.JobType jobType,
+            LocalDate dateStarted,
+            LocalDate dateFinished,
+            List<ChangeOrders> changeOrders) {
         Projects projects = new Projects();
         projects.setName(name);
         projects.setAddress(address);
@@ -36,12 +42,27 @@ public class ProjectService {
         Projects projects = projectsRepository.findById(id)
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project with this id does not exist"));
 
-        projects.setName(projectsDetail.getName());
-        projects.setAddress(projectsDetail.getAddress());
-        projects.setJobType(projectsDetail.getJobType());
-        projects.setDateStarted(projectsDetail.getDateStarted());
-        projects.setDateFinished(projectsDetail.getDateFinished());
-        projects.setChangeOrders(projectsDetail.getChangeOrders());
+
+        if (projectsDetail.getName() != null) {
+            projects.setName(projectsDetail.getName());
+        }
+        if (projectsDetail.getAddress() != null) {
+            projects.setAddress(projectsDetail.getAddress());
+        }
+        if (projectsDetail.getJobType() != null) {
+            projects.setJobType(projectsDetail.getJobType());
+        }
+        if (projectsDetail.getDateStarted() != null) {
+            projects.setDateStarted(projectsDetail.getDateStarted());
+        }
+        if (projectsDetail.getDateFinished() != null) {
+            projects.setDateFinished(projectsDetail.getDateFinished());
+        }
+        if (projectsDetail.getChangeOrders() != null) {
+            for (ChangeOrders changeOrder : projectsDetail.getChangeOrders()) {
+                projects.addChangeOrder(changeOrder);
+            }
+        }
 
         return projectsRepository.save(projects);
     }

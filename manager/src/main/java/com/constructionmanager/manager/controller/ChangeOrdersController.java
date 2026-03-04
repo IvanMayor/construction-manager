@@ -26,12 +26,6 @@ public class ChangeOrdersController {
         return changeOrderService.getChangeOrder(id);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ChangeOrders postChangeOrders(@RequestBody ChangeOrders changeOrders) {
-        return changeOrderService.createChangeOrder(changeOrders);
-    }
-
     @PutMapping("/{id}")
     public ChangeOrders updateChangeOrder(@PathVariable Integer id, @RequestBody ChangeOrders changeOrdersDetails) {
         return changeOrderService.updateChangeOrder(id, changeOrdersDetails);

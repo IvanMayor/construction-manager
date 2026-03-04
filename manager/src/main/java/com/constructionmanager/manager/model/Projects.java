@@ -1,9 +1,12 @@
 package com.constructionmanager.manager.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 
+import java.nio.channels.AsynchronousChannelGroup;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -27,7 +30,8 @@ public class Projects {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateFinished;
 
-    @OneToMany(mappedBy = "projects", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy="project", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ChangeOrders> changeOrders = new ArrayList<>();
 
     public Projects() {}
@@ -37,12 +41,15 @@ public class Projects {
             String address,
             JobType jobType,
             LocalDate dateStarted,
-            LocalDate dateFinished) {
+            LocalDate dateFinished,
+            List<ChangeOrders> changeOrders) {
         this.name = name;
         this.address = address;
         this.jobType = jobType;
         this.dateStarted = dateStarted;
         this.dateFinished = dateFinished;
+        this.changeOrders = changeOrders;
+
     }
     public Integer getId() {return id;}
     public void setId(Integer id) {this.id = id;}
@@ -68,4 +75,9 @@ public class Projects {
 
     public List<ChangeOrders> getChangeOrders() {return changeOrders;}
     public void setChangeOrders(List<ChangeOrders> changeOrders) {this.changeOrders = changeOrders;}
+
+    public void addChangeOrder(ChangeOrders changeOrder) {
+        this.changeOrders.add(changeOrder);
+        changeOrder.setProjects(this);
+    }
 }

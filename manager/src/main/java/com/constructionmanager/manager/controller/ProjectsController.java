@@ -1,6 +1,8 @@
 package com.constructionmanager.manager.controller;
 
+import com.constructionmanager.manager.model.ChangeOrders;
 import com.constructionmanager.manager.model.Projects;
+import com.constructionmanager.manager.service.ChangeOrderService;
 import com.constructionmanager.manager.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,9 @@ public class ProjectsController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private ChangeOrderService changeOrderService;
 
     //GET ALL PROJECTS
     @GetMapping
@@ -42,6 +47,12 @@ public class ProjectsController {
         );
         return ResponseEntity.ok(savedProject);
 
+    }
+
+    @PostMapping("/{projectId}/change-orders")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ChangeOrders postChangeOrders(@PathVariable Integer projectId, @RequestBody ChangeOrders changeOrders) {
+        return changeOrderService.createChangeOrder(projectId, changeOrders);
     }
 
     //Update a Company

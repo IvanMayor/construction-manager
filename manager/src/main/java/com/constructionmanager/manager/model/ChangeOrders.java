@@ -1,5 +1,7 @@
 package com.constructionmanager.manager.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -7,7 +9,7 @@ import java.time.LocalDate;
 
 
 @Entity
-@Table
+@Table(name="change_orders")
 public class ChangeOrders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +30,11 @@ public class ChangeOrders {
     private LocalDate dateCreated;
     private BigDecimal price;
 
-    @ManyToOne
-    @JoinColumn(name="projects_id")
-    private Projects projects;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "project_id")
+    @JsonIgnore
+    private Projects project;
 
     public ChangeOrders() {}
 
@@ -40,13 +44,13 @@ public class ChangeOrders {
             String description,
             String breakdown,
             BigDecimal price,
-            Projects projects) {
+            Projects project) {
         this.number = number;
         this.title = title;
         this.description = description;
         this.breakdown = breakdown;
         this.price = price;
-        this.projects = projects;
+        this.project = project;
     }
 
     public Integer getId() {return id;}
@@ -67,6 +71,7 @@ public class ChangeOrders {
     public BigDecimal getPrice() {return price;}
     public void setPrice(BigDecimal price) {this.price = price;}
 
-    public Projects getProjects() {return projects;}
-    public void setProjects(Projects projects) {this.projects = projects;}
+    public Projects getProjects() {return project;}
+    public void setProjects(Projects project) {this.project = project;}
+
 }
