@@ -61,6 +61,11 @@ public class ProjectsController {
         return changeOrderService.getChangeOrdersWithId(projectId);
     }
 
+    @PutMapping("/{projectId}/change-orders/{changeOrderId}")
+    public ChangeOrders updateChangeOrder(@PathVariable Integer projectId, @PathVariable Integer changeOrderId, @RequestBody ChangeOrders changeOrderDetails){
+        return changeOrderService.updateChangeOrder(projectId, changeOrderId, changeOrderDetails);
+    }
+
     //Update a Company
     @PutMapping("/{id}")
     public Projects updateProject(@PathVariable Integer id, @RequestBody Projects projectsDetails) {

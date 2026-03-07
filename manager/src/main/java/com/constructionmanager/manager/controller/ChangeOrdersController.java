@@ -26,11 +26,6 @@ public class ChangeOrdersController {
         return changeOrderService.getChangeOrder(id);
     }
 
-    @PutMapping("/{id}")
-    public ChangeOrders updateChangeOrder(@PathVariable Integer id, @RequestBody ChangeOrders changeOrdersDetails) {
-        return changeOrderService.updateChangeOrder(id, changeOrdersDetails);
-    }
-
     @DeleteMapping("/{id}")
     public void deleteEmployee(@PathVariable Integer id) {changeOrderService.deleteChangeOrder(id);}
 

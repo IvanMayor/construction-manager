@@ -48,8 +48,11 @@ public class ChangeOrderService {
         return project.getChangeOrders();
     }
 
-    public ChangeOrders updateChangeOrder(Integer id, ChangeOrders changeOrderDetails) {
-        ChangeOrders changeOrder = changeOrdersRepository.findById(id)
+    public ChangeOrders updateChangeOrder(Integer projectId, Integer changeOrderId, ChangeOrders changeOrderDetails) {
+        Projects project = projectsRepository.findById(projectId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project with this id does not exist."));
+
+        ChangeOrders changeOrder = changeOrdersRepository.findById(changeOrderId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This change order does not exist."));
 
         //TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore argument in copy property.
@@ -76,6 +79,8 @@ public class ChangeOrderService {
         if (changeOrderDetails.getProjects() != null) {
             changeOrder.setProjects(changeOrderDetails.getProjects());
         }
+
+        changeOrder.setProjects(project);
 
         return changeOrdersRepository.save(changeOrder);
     }
