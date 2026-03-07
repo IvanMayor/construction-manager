@@ -4,6 +4,7 @@ import com.constructionmanager.manager.model.ChangeOrders;
 import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.service.ChangeOrderService;
 import com.constructionmanager.manager.service.ProjectService;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +54,11 @@ public class ProjectsController {
     @ResponseStatus(HttpStatus.CREATED)
     public ChangeOrders postChangeOrders(@PathVariable Integer projectId, @RequestBody ChangeOrders changeOrders) {
         return changeOrderService.createChangeOrder(projectId, changeOrders);
+    }
+
+    @GetMapping("/{projectId}/change-orders")
+    public List<ChangeOrders> getAllChangeOrdersAtProject(@PathVariable Integer projectId) {
+        return changeOrderService.getChangeOrdersWithId(projectId);
     }
 
     //Update a Company

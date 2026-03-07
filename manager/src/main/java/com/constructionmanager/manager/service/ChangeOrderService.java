@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.constructionmanager.manager.model.ChangeOrders;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.lang.Integer;
 
@@ -37,6 +38,14 @@ public class ChangeOrderService {
         changeOrders.setProjects(project);
 
         return changeOrdersRepository.save(changeOrders);
+    }
+
+    public List<ChangeOrders> getChangeOrdersWithId(Integer id) {
+
+        Projects project = projectsRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Project does not exist."));
+
+        return project.getChangeOrders();
     }
 
     public ChangeOrders updateChangeOrder(Integer id, ChangeOrders changeOrderDetails) {
