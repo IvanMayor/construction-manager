@@ -1,9 +1,11 @@
 package com.constructionmanager.manager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table
@@ -23,8 +25,9 @@ public class RequisitionContractItems {
     private BigDecimal totalToFinish;
 
     @ManyToOne
-    @JoinColumn(name="requisitions_id")
-    private Requisitions requisitions;
+    @JoinColumn(name="requisition_id")
+    @JsonIgnore
+    private Requisitions requisition;
 
     public RequisitionContractItems() {}
 
@@ -38,6 +41,7 @@ public class RequisitionContractItems {
         this.totalCompleted = null;
         this.percentCompleted = null;
         this.totalToFinish = null;
+        this.requisition = null;
     }
 
     public RequisitionContractItems(
@@ -49,7 +53,8 @@ public class RequisitionContractItems {
        BigDecimal presentlyStoredMaterial,
        BigDecimal totalCompleted,
        Integer percentCompleted,
-       BigDecimal totalToFinish
+       BigDecimal totalToFinish,
+       Requisitions requisition
     ) {
         this.name = name;
         this.totalCost = totalCost;
@@ -60,6 +65,7 @@ public class RequisitionContractItems {
         this.totalCompleted = totalCompleted;
         this.percentCompleted = percentCompleted;
         this.totalToFinish = totalToFinish;
+        this.requisition = requisition;
     }
 
     public Integer getId() {return id;}
@@ -95,4 +101,7 @@ public class RequisitionContractItems {
     public void setTotalToFinish(BigDecimal totalToFinish) {
         this.totalToFinish = totalToFinish;
     }
+
+    public Requisitions getRequition() {return requisition;}
+    public void setRequisition(Requisitions requisitions) {this.requisition = requisitions;}
 }

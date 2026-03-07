@@ -1,5 +1,6 @@
 package com.constructionmanager.manager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -41,7 +42,8 @@ public class Requisitions {
     private String companyName;
     private String ownerOrRepresentativeFullName;
 //    This will be relationship between One this table and Many other table with each element of oter like (Mobilization, Domestic water...)
-    @OneToMany(mappedBy = "requisitions", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "requisition", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<RequisitionContractItems> requisitionContractItems;
 
     public Requisitions() {}

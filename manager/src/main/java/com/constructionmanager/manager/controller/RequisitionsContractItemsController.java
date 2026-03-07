@@ -26,17 +26,6 @@ public class RequisitionsContractItemsController {
 
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public RequisitionContractItems postRequisitionContractItem(@RequestBody RequisitionContractItems requisitionContractItems) {
-        return requisitionContractItemService.createRequisitionContractItem(requisitionContractItems);
-    }
-
-    @PutMapping("/{id}")
-    public RequisitionContractItems updateRequisitionContractItem(@PathVariable Integer id, @RequestBody RequisitionContractItems requisitionContractItemsDetail) {
-        return requisitionContractItemService.updateRequisitionContractItem(id, requisitionContractItemsDetail);
-    }
-
     @DeleteMapping("/{id}")
     public void deleteRequisitionContractItem(@PathVariable Integer id) {
         requisitionContractItemService.deleteRequisitionContractItem(id);

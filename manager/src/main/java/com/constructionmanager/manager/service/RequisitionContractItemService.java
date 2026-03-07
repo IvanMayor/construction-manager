@@ -1,6 +1,7 @@
 package com.constructionmanager.manager.service;
 
 import com.constructionmanager.manager.model.RequisitionContractItems;
+import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.repository.RequisitionContractItemsRepository;
 import com.constructionmanager.manager.repository.RequisitionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class RequisitionContractItemService {
     @Autowired
     private RequisitionContractItemsRepository requisitionContractItemsRepository;
 
+    @Autowired
+    private RequisitionsRepository requisitionsRepository;
+
     public List<RequisitionContractItems> getAllRequisitionContractItems() {return requisitionContractItemsRepository.findAll();}
 
     public RequisitionContractItems getRequisitionContractItem(Integer id) {
@@ -23,12 +27,28 @@ public class RequisitionContractItemService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Requisition Item does not exist"));
     }
 
-    public RequisitionContractItems createRequisitionContractItem(RequisitionContractItems requisitionContractItems) {
-        return requisitionContractItemsRepository.save(requisitionContractItems);
+    public RequisitionContractItems createRequisitionContractItem(Integer requisitionId, RequisitionContractItems requisitionContractItem) {
+        Requisitions requisition = requisitionsRepository.findById(requisitionId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This requisition does not exist."));
+
+        requisitionContractItem.setRequisition(requisition);
+
+        return requisitionContractItemsRepository.save(requisitionContractItem);
     }
 
-    public RequisitionContractItems updateRequisitionContractItem(Integer id, RequisitionContractItems requisitionContractItemDetail) {
-        RequisitionContractItems requisitionContractItem = requisitionContractItemsRepository.findById(id)
+    public List<RequisitionContractItems> getRequisitionContractItems(Integer requisitionId) {
+        Requisitions requisition = requisitionsRepository.findById(requisitionId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Requisition with provided ID does not exist"));
+
+        return requisition.getRequisitionContractItems();
+    }
+
+
+    public RequisitionContractItems updateRequisitionContractItem(Integer requisitionId, Integer contractItemId, RequisitionContractItems requisitionContractItemDetail) {
+        Requisitions requisition = requisitionsRepository.findById(requisitionId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Requisition with this id does not exist."));
+
+        RequisitionContractItems requisitionContractItem = requisitionContractItemsRepository.findById(contractItemId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This requisition contract item does not exist"));
 
 
@@ -68,6 +88,8 @@ public class RequisitionContractItemService {
         if (requisitionContractItemDetail.getTotalToFinish() != null) {
             requisitionContractItem.setTotalToFinish(requisitionContractItemDetail.getTotalToFinish());
         }
+
+        requisitionContractItem.setRequisition(requisition);
 
         return requisitionContractItemsRepository.save(requisitionContractItem);
     }
