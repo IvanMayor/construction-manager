@@ -89,6 +89,9 @@
 					<mainClass>
 						com.constructionmanager.manager.ui.MainApp
 					</mainClass>
+					<options>
+						<option>--enable-native-access=javafx.graphics</option>
+					</options>
 				</configuration>
 			</plugin>
 		</plugins>
