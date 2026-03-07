@@ -52,6 +52,7 @@ public class ChangeOrderService {
         ChangeOrders changeOrder = changeOrdersRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This change order does not exist."));
 
+        //TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore argument in copy property.
         if (changeOrderDetails.getNumber() != null) {
             changeOrder.setNumber(changeOrderDetails.getNumber());
         }
@@ -71,7 +72,7 @@ public class ChangeOrderService {
         if (changeOrderDetails.getPrice() != null) {
             changeOrder.setPrice(changeOrderDetails.getPrice());
         }
-        System.out.println(changeOrderDetails.getProjects()+"----------------------");
+
         if (changeOrderDetails.getProjects() != null) {
             changeOrder.setProjects(changeOrderDetails.getProjects());
         }

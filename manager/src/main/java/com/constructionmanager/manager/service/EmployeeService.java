@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.constructionmanager.manager.repository.EmployeeRepository;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -23,6 +24,11 @@ public class EmployeeService {
     }
 
     public Employees createEmployee(Employees employees) {
+
+        if (employees.getHiredDate() == null) {
+            employees.setHiredDate(LocalDate.now());
+        }
+
         return employeeRepository.save(employees);
     }
 
@@ -30,12 +36,33 @@ public class EmployeeService {
         Employees employees = employeeRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee with this id is not found"));
 
-        employees.setFirstName(employeesDetail.getFirstName());
-        employees.setLastName(employeesDetail.getLastName());
-        employees.setPosition(employeesDetail.getPosition());
-        employees.setPhoneNumber(employeesDetail.getPhoneNumber());
-        employees.setHiredDate(employeesDetail.getHiredDate());
-        employees.setDateOfBirth(employeesDetail.getDateOfBirth());
+
+        //  I know there is BeanUtils.copyProperties... but I think this version is completely fine and very straight forward so I will keep it as it is!
+        //  I might implement it later
+        //  TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore argument in copy property.
+        if(employeesDetail.getFirstName() != null) {
+            employees.setFirstName(employeesDetail.getFirstName());
+        }
+
+        if (employeesDetail.getLastName() != null) {
+            employees.setLastName(employeesDetail.getLastName());
+        }
+
+        if (employeesDetail.getPosition() != null) {
+            employees.setPosition(employeesDetail.getPosition());
+        }
+
+        if (employeesDetail.getPhoneNumber() != null) {
+            employees.setPhoneNumber(employeesDetail.getPhoneNumber());
+        }
+
+        if (employeesDetail.getDateOfBirth() != null) {
+            employees.setDateOfBirth(employeesDetail.getDateOfBirth());
+        }
+
+        if (employeesDetail.getHiredDate() != null) {
+            employees.setHiredDate(employeesDetail.getHiredDate());
+        }
 
         return employeeRepository.save(employees);
     }

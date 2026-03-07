@@ -29,14 +29,38 @@ public class RequisitionService {
     public Requisitions updateRequisition(Integer id, Requisitions requisitionDetail) {
         Requisitions requisitions = requisitionsRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Requisition does not exist"));
-        requisitions.setContractPrice(requisitionDetail.getContractPrice());
-        requisitions.setTotalChangeOrderAmount(requisitionDetail.getTotalChangeOrderAmount());
-        requisitions.setTotalContractAndCOAmount(requisitionDetail.getTotalContractAndCOAmount());
-        requisitions.setTotalMoneyReceived(requisitionDetail.getTotalMoneyReceived());
-        requisitions.setRetainage(requisitionDetail.getRetainage());
-        requisitions.setCompanyName(requisitionDetail.getCompanyName());
-        requisitions.setOwnerOrRepresentativeFullName(requisitionDetail.getOwnerOrRepresentativeFullName());
-        requisitions.setRequisitionContractItems(requisitionDetail.getRequisitionContractItems());
+
+        //TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore argument in copy property.
+        if (requisitionDetail.getContractPrice() != null) {
+            requisitions.setContractPrice(requisitionDetail.getContractPrice());
+        }
+        if (requisitionDetail.getTotalChangeOrderAmount() != null) {
+            requisitions.setTotalChangeOrderAmount(requisitionDetail.getTotalChangeOrderAmount());
+        }
+
+        if (requisitionDetail.getTotalContractAndCOAmount() != null) {
+            requisitions.setTotalContractAndCOAmount(requisitionDetail.getTotalContractAndCOAmount());
+        }
+
+        if (requisitionDetail.getTotalMoneyReceived() != null) {
+            requisitions.setTotalMoneyReceived(requisitionDetail.getTotalMoneyReceived());
+        }
+
+        if (requisitionDetail.getRetainage() != null) {
+            requisitions.setRetainage(requisitionDetail.getRetainage());
+        }
+
+        if (requisitionDetail.getCompanyName() != null) {
+            requisitions.setCompanyName(requisitionDetail.getCompanyName());
+        }
+
+        if (requisitionDetail.getOwnerOrRepresentativeFullName() != null) {
+            requisitions.setOwnerOrRepresentativeFullName(requisitionDetail.getOwnerOrRepresentativeFullName());
+        }
+
+        if (requisitionDetail.getRequisitionContractItems() != null) {
+            requisitions.setRequisitionContractItems(requisitionDetail.getRequisitionContractItems());
+        }
 
         return requisitionsRepository.save(requisitions);
     }

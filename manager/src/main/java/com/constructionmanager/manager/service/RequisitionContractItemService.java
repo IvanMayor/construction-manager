@@ -31,15 +31,43 @@ public class RequisitionContractItemService {
         RequisitionContractItems requisitionContractItem = requisitionContractItemsRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This requisition contract item does not exist"));
 
-        requisitionContractItem.setName(requisitionContractItemDetail.getName());
-        requisitionContractItem.setTotalCompleted(requisitionContractItemDetail.getTotalCompleted());
-        requisitionContractItem.setTotalCost(requisitionContractItemDetail.getTotalCost());
-        requisitionContractItem.setRetainage(requisitionContractItemDetail.getRetainage());
-        requisitionContractItem.setPreviousReq(requisitionContractItemDetail.getPreviousReq());
-        requisitionContractItem.setThisReq(requisitionContractItemDetail.getThisReq());
-        requisitionContractItem.setPresentlyStoredMaterial(requisitionContractItemDetail.getPresentlyStoredMaterial());
-        requisitionContractItem.setPercentCompleted(requisitionContractItemDetail.getPercentCompleted());
-        requisitionContractItem.setTotalToFinish(requisitionContractItemDetail.getTotalToFinish());
+
+        //TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore argument in copy property.
+        if (requisitionContractItemDetail.getName() != null) {
+            requisitionContractItem.setName(requisitionContractItemDetail.getName());
+        }
+
+        if (requisitionContractItemDetail.getTotalCompleted() != null) {
+            requisitionContractItem.setTotalCompleted(requisitionContractItemDetail.getTotalCompleted());
+        }
+
+        if (requisitionContractItemDetail.getTotalCost() != null) {
+            requisitionContractItem.setTotalCost(requisitionContractItemDetail.getTotalCost());
+        }
+
+        if (requisitionContractItemDetail.getRetainage() != null) {
+            requisitionContractItem.setRetainage(requisitionContractItemDetail.getRetainage());
+        }
+
+        if (requisitionContractItemDetail.getPreviousReq() != null) {
+            requisitionContractItem.setPreviousReq(requisitionContractItemDetail.getPreviousReq());
+        }
+
+        if (requisitionContractItemDetail.getThisReq() != null) {
+            requisitionContractItem.setThisReq(requisitionContractItemDetail.getThisReq());
+        }
+
+        if (requisitionContractItemDetail.getPresentlyStoredMaterial() != null) {
+            requisitionContractItem.setPresentlyStoredMaterial(requisitionContractItemDetail.getPresentlyStoredMaterial());
+        }
+
+        if (requisitionContractItemDetail.getPercentCompleted() != null) {
+            requisitionContractItem.setPercentCompleted(requisitionContractItemDetail.getPercentCompleted());
+        }
+
+        if (requisitionContractItemDetail.getTotalToFinish() != null) {
+            requisitionContractItem.setTotalToFinish(requisitionContractItemDetail.getTotalToFinish());
+        }
 
         return requisitionContractItemsRepository.save(requisitionContractItem);
     }

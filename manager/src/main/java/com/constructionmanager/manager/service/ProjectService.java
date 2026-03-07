@@ -42,7 +42,7 @@ public class ProjectService {
         Projects projects = projectsRepository.findById(id)
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project with this id does not exist"));
 
-
+        //TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore argument in copy property.
         if (projectsDetail.getName() != null) {
             projects.setName(projectsDetail.getName());
         }
