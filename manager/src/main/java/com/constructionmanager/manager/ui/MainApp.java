@@ -3,6 +3,7 @@ package com.constructionmanager.manager.ui;
 import com.constructionmanager.manager.ManagerApplication;
 import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.service.ProjectService;
+import com.constructionmanager.manager.ui.layout.MainLayout;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -30,46 +31,33 @@ import java.util.List;
 
 public class MainApp extends Application {
 
-//    private static ConfigurableApplicationContext springContext;
-//
-//    @Override
-//    public void init() {
-//        springContext = SpringApplication.run(ManagerApplication.class);
-//    }
-//
-//    private Parent createContent() {
-//        return new StackPane(new Text("This is welcome screen"));
-//    }
-//
-//    private Parent displayProjects() {
-//        ProjectService projectService = springContext.getBean(ProjectService.class);
-//
-//        VBox projects = new VBox();
-//
-//        List<Projects> projectsList = projectService.getAllProjects();
-//
-//        for (Projects project : projectsList) {
-//
-//            String projectRepresentation = "Id-" + project.getId() + " " + project.getName() + " " + project.getAddress() + ".";
-//
-//            projects.getChildren().add(new StackPane(new Text(projectRepresentation)));
-//        }
-//        return projects;
-//    }
+    public static ConfigurableApplicationContext springContext;
 
-    private void go() {
-        Stage stage = new Stage();
-        Group group = new Group();
-        Scene scene = new Scene(group, 1280, 720, Color.DARKGRAY);
+    @Override
+    public void init() {
+        springContext = SpringApplication.run(ManagerApplication.class);
+    }
 
+    @Override
+    public void start(Stage stage) {
+
+        MainLayout root = new MainLayout();
+        Scene scene = new Scene(root, 1280, 720);
+        scene.setFill(Color.DARKGRAY);
+
+        Image icon = new Image(getClass().getResource("/icons/Maramorosh-Digital-Logo-removebg.png").toExternalForm());
+        stage.getIcons().add(icon);
+
+        stage.setTitle("Construction Management System");
         stage.setScene(scene);
+
         stage.show();
 
     }
 
     @Override
-    public void start(Stage stage) {
-        go();
+    public void stop() {
+        springContext.close();
     }
 
     public static void main(String[] args) {
