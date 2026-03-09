@@ -3,15 +3,15 @@ package com.constructionmanager.manager.ui.view;
 import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.service.ProjectService;
 import com.constructionmanager.manager.ui.MainApp;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDate;
@@ -30,22 +30,19 @@ public class ProjectsView extends VBox {
         DatePicker dateFinished = new DatePicker();
         ComboBox<Projects.JobType> jobTypeComboBox = new ComboBox<>();
 
-        HBox hBoxName = new HBox();
-        HBox hBoxAddress = new HBox();
-
-        Label nameLabel = new Label("Project Name");
-        Label addressLabel = new Label("Project Address");
-
         TextField nameField = new TextField();
-        TextField addressField = new TextField();
+        nameField.setPromptText("Project Name");
+        nameField.setMaxWidth(256);
 
-        hBoxName.getChildren().addAll(nameLabel, nameField);
-        hBoxAddress.getChildren().addAll(addressLabel, addressField);
+        TextField addressField = new TextField();
+        addressField.setPromptText("Project Address");
+        addressField.setMaxWidth(256);
 
         dateStarted.setPromptText("Select Projects Started");
         dateFinished.setPromptText("Select Project Finished");
 
         jobTypeComboBox.getItems().addAll(Projects.JobType.values());
+        jobTypeComboBox.setPromptText("Select Project Type");
 
         Button createButton = new Button("Create");
 
@@ -57,9 +54,21 @@ public class ProjectsView extends VBox {
                 dateFinished.getValue() ));
 
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(hBoxName, hBoxAddress, jobTypeComboBox, dateStarted, dateFinished, createButton);
+        vBox.setSpacing(5);
+        vBox.getChildren().addAll(nameField, addressField, jobTypeComboBox, dateStarted, dateFinished, createButton);
 
-        createContainer.setCenter(vBox);
+//        VBox.setMargin(nameField, new Insets(5,0,0,0));
+
+        vBox.setStyle("-fx-background-color: #999999");
+        createContainer.setStyle("-fx-background-color: #A9A9A9");
+
+        BorderPane.setMargin(vBox, new Insets(5, 0, 0, 5));
+
+        createContainer.setPrefWidth(1280);
+        createContainer.setPrefHeight(720);
+
+
+        createContainer.setTop(vBox);
 
 
         return createContainer;
@@ -87,7 +96,19 @@ public class ProjectsView extends VBox {
         TableColumn<Projects, String> addressColumn = new TableColumn<>("Address");
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
 
-        tableView.getColumns().addAll(nameColumn, addressColumn);
+        TableColumn<Projects, Projects.JobType> jobTypeTableColumn = new TableColumn<>("Job Type");
+        jobTypeTableColumn.setCellValueFactory(new PropertyValueFactory<>("jobType"));
+
+        TableColumn<Projects, LocalDate> dateStartedColumn = new TableColumn<>("Date Started");
+        dateStartedColumn.setCellValueFactory(new PropertyValueFactory<>("dateStarted"));
+
+        TableColumn<Projects, LocalDate> dateFinishedColumn = new TableColumn<>("Date Finished");
+        dateFinishedColumn.setCellValueFactory(new PropertyValueFactory<>("dateFinished"));
+
+        TableColumn<Projects, Integer> idColumn = new TableColumn<>("ID");
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        tableView.getColumns().addAll(idColumn, nameColumn, addressColumn, jobTypeTableColumn, dateStartedColumn, dateFinishedColumn);
     }
 
     private void getAllProjects() {
@@ -101,6 +122,7 @@ public class ProjectsView extends VBox {
             Projects.JobType jobType,
             LocalDate dateStarted,
             LocalDate dateFinished) {
+
         projectService.createProject(
                 projectName != null && !projectName.isBlank() ? projectName : null,
                 projectAddress != null && !projectAddress.isBlank() ? projectAddress : null,
