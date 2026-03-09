@@ -31,7 +31,7 @@ This project is part of my journey learning **Java, Spring Boot, and software ar
 
 ### Create Project Template
 
-![Create Template](screenshots/construction-manager-create-template.png)
+![Create Template](construction-manager-create-template.png)
 
 ---
 
