@@ -6,7 +6,7 @@ import javafx.scene.layout.BorderPane;
 
 public class MainLayout extends BorderPane {
     public MainLayout() {
+//        setTop(new Sidebar());
         setCenter(new ProjectsView());
-        setTop(new Sidebar());
     }
 }

@@ -27,13 +27,15 @@ public class ProjectService {
             LocalDate dateStarted,
             LocalDate dateFinished,
             List<ChangeOrders> changeOrders) {
+
         Projects projects = new Projects();
-        projects.setName(name);
-        projects.setAddress(address);
-        projects.setJobType(jobType);
-        projects.setDateStarted(dateStarted);
-        projects.setDateFinished(dateFinished);
-        projects.setChangeOrders(changeOrders);
+
+        projects.setName(name != null ? name : null);
+        projects.setAddress(address != null ? address : null);
+        projects.setJobType(jobType != null ? jobType : null);
+        projects.setDateStarted(dateStarted != null ? dateStarted : null);
+        projects.setDateFinished(dateFinished != null ? dateFinished : null);
+        projects.setChangeOrders(changeOrders != null ? changeOrders : null);
 
         return projectsRepository.save(projects);
     }
