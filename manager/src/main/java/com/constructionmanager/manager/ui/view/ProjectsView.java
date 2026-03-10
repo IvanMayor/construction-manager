@@ -6,7 +6,9 @@ import com.constructionmanager.manager.ui.MainApp;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -75,7 +77,7 @@ public class ProjectsView extends VBox {
     }
 
     public ProjectsView() {
-
+        tableView.setEditable(true);
         setSpacing(10);
         setAlignment(Pos.CENTER);
 
@@ -92,21 +94,123 @@ public class ProjectsView extends VBox {
     public void setUpTableView() {
         TableColumn<Projects, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         TableColumn<Projects, String> addressColumn = new TableColumn<>("Address");
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 
         TableColumn<Projects, Projects.JobType> jobTypeTableColumn = new TableColumn<>("Job Type");
         jobTypeTableColumn.setCellValueFactory(new PropertyValueFactory<>("jobType"));
+        jobTypeTableColumn.setCellFactory(ComboBoxTableCell.forTableColumn(Projects.JobType.values()));
 
         TableColumn<Projects, LocalDate> dateStartedColumn = new TableColumn<>("Date Started");
         dateStartedColumn.setCellValueFactory(new PropertyValueFactory<>("dateStarted"));
+        dateStartedColumn.setCellFactory(column -> new TableCell<Projects, LocalDate>() {
+
+            private final DatePicker datePicker = new DatePicker();
+
+            {
+                datePicker.setOnAction(event -> {
+                    commitEdit(datePicker.getValue());
+                });
+            }
+
+            @Override
+            protected void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    datePicker.setValue(item);
+                    setGraphic(datePicker);
+                    setText(null);
+                }
+            }
+        });
 
         TableColumn<Projects, LocalDate> dateFinishedColumn = new TableColumn<>("Date Finished");
         dateFinishedColumn.setCellValueFactory(new PropertyValueFactory<>("dateFinished"));
+        dateFinishedColumn.setCellFactory(column -> new TableCell<Projects, LocalDate>() {
+
+            private final DatePicker datePicker = new DatePicker();
+
+            {
+                datePicker.setOnAction(event -> {
+                    commitEdit(datePicker.getValue());
+                });
+            }
+
+            @Override
+            protected void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    datePicker.setValue(item);
+                    setGraphic(datePicker);
+                    setText(null);
+                }
+            }
+        });
 
         TableColumn<Projects, Integer> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+
+        nameColumn.setOnEditCommit(event -> {
+            Projects project = event.getRowValue();
+            String newValue = event.getNewValue();
+
+            if (newValue != null && !newValue.trim().isEmpty()) {
+                project.setName(newValue.trim());
+                projectService.updateProject(project.getId(), project);
+            } else {
+                project.setName(event.getOldValue());
+                tableView.refresh();
+            }
+
+        });
+
+        addressColumn.setOnEditCommit(event -> {
+           Projects project = event.getRowValue();
+           String newValue = event.getNewValue();
+
+           if (newValue != null && !newValue.trim().isEmpty()) {
+               project.setAddress(newValue.trim());
+               projectService.updateProject(project.getId(), project);
+           } else {
+               project.setName(event.getOldValue());
+               tableView.refresh();
+           }
+        });
+
+        dateStartedColumn.setOnEditCommit(event -> {
+
+            Projects project = event.getRowValue();
+            LocalDate newDate = event.getNewValue();
+
+            project.setDateStarted(newDate);
+
+            projectService.updateProject(project.getId(), project);
+
+        });
+
+        dateFinishedColumn.setOnEditCommit(event -> {
+
+            Projects project = event.getRowValue();
+            LocalDate newDate = event.getNewValue();
+
+            project.setDateStarted(newDate);
+
+            projectService.updateProject(project.getId(), project);
+
+        });
+
+
 
         tableView.getColumns().addAll(idColumn, nameColumn, addressColumn, jobTypeTableColumn, dateStartedColumn, dateFinishedColumn);
     }

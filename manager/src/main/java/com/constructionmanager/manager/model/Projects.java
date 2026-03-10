@@ -30,7 +30,7 @@ public class Projects {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateFinished;
 
-    @OneToMany(mappedBy="project", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<ChangeOrders> changeOrders = new ArrayList<>();
 
@@ -75,9 +75,4 @@ public class Projects {
 
     public List<ChangeOrders> getChangeOrders() {return changeOrders;}
     public void setChangeOrders(List<ChangeOrders> changeOrders) {this.changeOrders = changeOrders;}
-
-    public void addChangeOrder(ChangeOrders changeOrder) {
-        this.changeOrders.add(changeOrder);
-        changeOrder.setProjects(this);
-    }
 }
