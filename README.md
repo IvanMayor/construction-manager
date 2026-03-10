@@ -1,3 +1,7 @@
+## Status
+
+🚧 Work in progress
+
 # Construction Manager Application
 
 A desktop application built with **JavaFX** for managing construction projects, change orders, and project data.
@@ -87,8 +91,3 @@ Ivan Maior
 
 Email: ivanmaior33@gmail.com  
 
----
-
-## Status
-
-🚧 Work in progress
