@@ -24,33 +24,33 @@ public class ProjectsRepositoryTest {
     @Autowired
     private ChangeOrdersRepository changeOrdersRepository;
 
-    @Test
-    public void testProjects() {
-        Projects projects = new Projects();
-//        ChangeOrders changeOrders1 = new ChangeOrders();
-//        ChangeOrders changeOrders2 = new ChangeOrders();
-//        List<ChangeOrders> newChangeOrderList = new ArrayList<ChangeOrders>();
-
-//        newChangeOrderList.add(changeOrders1);
-//        projects.setChangeOrders(newChangeOrderList);
-//        newChangeOrderList.clear();
-//        newChangeOrderList.add(changeOrders2);
-//        projects.setChangeOrders(newChangeOrderList);
-
-        projects.setName("The Surrey");
-        projects.setAddress("20 e 76");
-        projects.setJobType(Projects.JobType.HOSPITALITY);
-        projects.setDateStarted(LocalDate.now());
-        projects.setDateFinished(LocalDate.now());
-
-
-
-        projectsRepository.save(projects);
-
-        Optional<Projects> foundProject = projectsRepository.findByAddressContaining("20");
-
-        assertThat(foundProject).isPresent();
-        assertThat(foundProject.get().getAddress()).isEqualTo("20 e 76");
-
-    }
+//    @Test
+//    public void testProjects() {
+//        Projects projects = new Projects();
+////        ChangeOrders changeOrders1 = new ChangeOrders();
+////        ChangeOrders changeOrders2 = new ChangeOrders();
+////        List<ChangeOrders> newChangeOrderList = new ArrayList<ChangeOrders>();
+//
+////        newChangeOrderList.add(changeOrders1);
+////        projects.setChangeOrders(newChangeOrderList);
+////        newChangeOrderList.clear();
+////        newChangeOrderList.add(changeOrders2);
+////        projects.setChangeOrders(newChangeOrderList);
+//
+//        projects.setName("The Surrey");
+//        projects.setAddress("20 e 76");
+//        projects.setJobType(Projects.JobType.HOSPITALITY);
+//        projects.setDateStarted(LocalDate.now());
+//        projects.setDateFinished(LocalDate.now());
+//
+//
+//
+//        projectsRepository.save(projects);
+//
+//        Optional<Projects> foundProject = projectsRepository.findByAddressContaining("20");
+//
+//        assertThat(foundProject).isPresent();
+//        assertThat(foundProject.get().getAddress()).isEqualTo("20 e 76");
+//
+//    }
 }

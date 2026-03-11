@@ -5,6 +5,7 @@ import com.constructionmanager.manager.service.ProjectService;
 import com.constructionmanager.manager.ui.MainApp;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -78,6 +79,7 @@ public class ProjectsView extends VBox {
 
     public ProjectsView() {
         tableView.setEditable(true);
+
         setSpacing(10);
         setAlignment(Pos.CENTER);
 
@@ -106,14 +108,33 @@ public class ProjectsView extends VBox {
 
         TableColumn<Projects, LocalDate> dateStartedColumn = new TableColumn<>("Date Started");
         dateStartedColumn.setCellValueFactory(new PropertyValueFactory<>("dateStarted"));
+        dateStartedColumn.setEditable(true);
         dateStartedColumn.setCellFactory(column -> new TableCell<Projects, LocalDate>() {
 
-            private final DatePicker datePicker = new DatePicker();
+            private DatePicker datePicker = new DatePicker();
 
             {
                 datePicker.setOnAction(event -> {
                     commitEdit(datePicker.getValue());
                 });
+            }
+
+            @Override
+            public void startEdit() {
+                super.startEdit();
+
+                if (!isEmpty()) {
+                    datePicker.setValue(getItem());
+                    setText(null);
+                    setGraphic(datePicker);
+                }
+            }
+
+            @Override
+            public void cancelEdit() {
+                super.cancelEdit();
+                setText(getItem() == null ? "" : getItem().toString());
+                setGraphic(null);
             }
 
             @Override
@@ -123,16 +144,20 @@ public class ProjectsView extends VBox {
                 if (empty) {
                     setText(null);
                     setGraphic(null);
+                } else if (isEditing()) {
+                  datePicker.setValue(item);
+                  setText(null);
+                  setGraphic(datePicker);
                 } else {
-                    datePicker.setValue(item);
-                    setGraphic(datePicker);
-                    setText(null);
+                    setText(item == null ? "" : item.toString());
+                    setGraphic(null);
                 }
             }
         });
 
         TableColumn<Projects, LocalDate> dateFinishedColumn = new TableColumn<>("Date Finished");
         dateFinishedColumn.setCellValueFactory(new PropertyValueFactory<>("dateFinished"));
+        dateFinishedColumn.setEditable(true);
         dateFinishedColumn.setCellFactory(column -> new TableCell<Projects, LocalDate>() {
 
             private final DatePicker datePicker = new DatePicker();
@@ -144,19 +169,67 @@ public class ProjectsView extends VBox {
             }
 
             @Override
+            public void startEdit() {
+                super.startEdit();
+
+                if (!isEmpty()) {
+                    datePicker.setValue(getItem());
+                    setText(null);
+                    setGraphic(datePicker);
+                }
+            }
+
+            @Override
+            public void cancelEdit() {
+                super.cancelEdit();
+                setText(getItem() == null ? "" : getItem().toString());
+                setGraphic(null);
+            }
+
+            @Override
             protected void updateItem(LocalDate item, boolean empty) {
                 super.updateItem(item, empty);
 
                 if (empty) {
                     setText(null);
                     setGraphic(null);
-                } else {
+                } else if (isEditing()) {
                     datePicker.setValue(item);
-                    setGraphic(datePicker);
                     setText(null);
+                    setGraphic(datePicker);
+                } else {
+                    setText(item == null ? "" : item.toString());
+                    setGraphic(null);
                 }
             }
         });
+
+
+        TableColumn<Projects, Void> deleteButtonColumn = new TableColumn<>("Delete");
+        deleteButtonColumn.setCellFactory(col -> new TableCell<>() {
+            private final Button deleteButton = new Button("Delete");
+
+            {
+                deleteButton.setOnAction(event -> {
+                   Projects project = getTableView().getItems().get(getIndex());
+                   projectService.deleteProject(project.getId());
+                   getTableView().getItems().remove(project);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+
+                } else {
+                    setGraphic(deleteButton);
+                }
+            }
+        });
+
 
         TableColumn<Projects, Integer> idColumn = new TableColumn<>("ID");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -188,31 +261,48 @@ public class ProjectsView extends VBox {
            }
         });
 
-        dateStartedColumn.setOnEditCommit(event -> {
+        jobTypeTableColumn.setOnEditCommit(event -> {
+           Projects project = event.getRowValue();
+           Projects.JobType newValue = event.getNewValue();
 
+           if (newValue != null) {
+               project.setJobType(newValue);
+               projectService.updateProject(project.getId(), project);
+           } else {
+               project.setJobType(event.getOldValue());
+               tableView.refresh();
+           }
+        });
+
+        dateStartedColumn.setOnEditCommit(event -> {
             Projects project = event.getRowValue();
             LocalDate newDate = event.getNewValue();
 
-            project.setDateStarted(newDate);
-
-            projectService.updateProject(project.getId(), project);
-
+            if (newDate != null) {
+                project.setDateStarted(newDate);
+                projectService.updateProject(project.getId(), project);
+            } else {
+                project.setDateStarted(event.getOldValue());
+                tableView.refresh();
+            }
         });
 
         dateFinishedColumn.setOnEditCommit(event -> {
-
             Projects project = event.getRowValue();
             LocalDate newDate = event.getNewValue();
 
-            project.setDateStarted(newDate);
-
-            projectService.updateProject(project.getId(), project);
-
+            if (newDate != null) {
+                project.setDateFinished(newDate);
+                projectService.updateProject(project.getId(), project);
+            } else {
+                project.setDateFinished(event.getOldValue());
+                tableView.refresh();
+            }
         });
 
 
 
-        tableView.getColumns().addAll(idColumn, nameColumn, addressColumn, jobTypeTableColumn, dateStartedColumn, dateFinishedColumn);
+        tableView.getColumns().addAll(idColumn, nameColumn, addressColumn, jobTypeTableColumn, dateStartedColumn, dateFinishedColumn, deleteButtonColumn);
     }
 
     private void getAllProjects() {
