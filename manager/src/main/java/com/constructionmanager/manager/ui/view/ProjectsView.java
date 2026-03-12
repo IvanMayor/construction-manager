@@ -5,20 +5,15 @@ import com.constructionmanager.manager.service.ProjectService;
 import com.constructionmanager.manager.ui.MainApp;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
-
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public class ProjectsView extends VBox {
 
@@ -60,8 +55,6 @@ public class ProjectsView extends VBox {
         vBox.setSpacing(5);
         vBox.getChildren().addAll(nameField, addressField, jobTypeComboBox, dateStarted, dateFinished, createButton);
 
-//        VBox.setMargin(nameField, new Insets(5,0,0,0));
-
         vBox.setStyle("-fx-background-color: #999999");
         createContainer.setStyle("-fx-background-color: #A9A9A9");
 
@@ -70,8 +63,7 @@ public class ProjectsView extends VBox {
         createContainer.setPrefWidth(1280);
         createContainer.setPrefHeight(720);
 
-
-        createContainer.setTop(vBox);
+        createContainer.setCenter(vBox);
 
 
         return createContainer;
@@ -211,9 +203,19 @@ public class ProjectsView extends VBox {
 
             {
                 deleteButton.setOnAction(event -> {
-                   Projects project = getTableView().getItems().get(getIndex());
-                   projectService.deleteProject(project.getId());
-                   getTableView().getItems().remove(project);
+                    Projects project = getTableView().getItems().get(getIndex());
+
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Delete Project");
+                    alert.setHeaderText("Are you sure?");
+                    alert.setContentText("This project will be deleted.");
+
+                    Optional<ButtonType> result = alert.showAndWait();
+
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                        projectService.deleteProject(project.getId());
+                        getTableView().getItems().remove(project);
+                    }
                 });
             }
 
