@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.NavigationController">
+
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#switchToProjectScene" prefHeight="25.0" prefWidth="103.0" text="Projects" />
+            <Button mnemonicParsing="false" onAction="#switchToEmployeeScene" prefHeight="25.0" prefWidth="118.0" text="Employees" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Change Orders" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" text="Requisitions" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="144.0" text="RCI" />
+         </children>
+      </VBox>
+   </left>
+   <center>
+       <fx:include source="ProjectsTableView.fxml" />
+   </center>
+   <top>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text stroke="#d71212" strokeType="OUTSIDE" strokeWidth="0.0" text="name" wrappingWidth="71.5078125">
+               <font>
+                  <Font name="Arial" size="20.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="address" wrappingWidth="85.869140625" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Job Tyope" wrappingWidth="85.111328125" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date Started" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date finished" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Create" />
+         </children>
+      </VBox>
+   </top>
+</BorderPane>

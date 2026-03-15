@@ -1,33 +1,16 @@
 package com.constructionmanager.manager.ui;
 
 import com.constructionmanager.manager.ManagerApplication;
-import com.constructionmanager.manager.model.Projects;
-import com.constructionmanager.manager.service.ProjectService;
-import com.constructionmanager.manager.ui.layout.MainLayout;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 public class MainApp extends Application {
 
@@ -40,19 +23,27 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectsView.fxml"));
 
-        MainLayout root = new MainLayout();
-        Scene scene = new Scene(root, 1280, 720);
-        scene.setFill(Color.DARKGRAY);
+            loader.setControllerFactory(springContext::getBean);
 
-        Image icon = new Image(getClass().getResource("/icons/Maramorosh-Digital-Logo-removebg.png").toExternalForm());
-        stage.getIcons().add(icon);
+            Parent root = loader.load();
 
-        stage.setTitle("Construction Management System");
-        stage.setScene(scene);
+            Scene scene = new Scene(root);
+            scene.setFill(Color.DARKGRAY);
 
-        stage.show();
+            Image icon = new Image(getClass().getResource("/icons/Maramorosh-Digital-Logo-removebg.png").toExternalForm());
+            stage.getIcons().add(icon);
 
+            stage.setTitle("Construction Management System");
+            stage.setScene(scene);
+
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

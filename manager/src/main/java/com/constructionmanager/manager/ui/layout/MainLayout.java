@@ -9,7 +9,6 @@ import javafx.scene.layout.VBox;
 
 public class MainLayout extends BorderPane {
     public MainLayout() {
-        setTop(new Sidebar());
-        setCenter(new DashboardView());
+
     }
 }
