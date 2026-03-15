@@ -1,30 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 
-
-<BorderPane
-        maxHeight="-Infinity"
-        maxWidth="-Infinity"
-        minHeight="-Infinity"
-        minWidth="-Infinity"
-        prefHeight="400.0"
-        prefWidth="600.0"
-        xmlns="http://javafx.com/javafx/25"
-        xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="com.constructionmanager.manager.ui.controllers.ProjectTableViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.ProjectTableViewController">
    <center>
-      <TableView fx:id="projectsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="projectsTable" prefHeight="400.0" prefWidth="461.0" BorderPane.alignment="CENTER">
         <columns>
-            <TableColumn fx:id="idColumn" prefWidth="75.0" text="Project ID" />
-            <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Name" />
-            <TableColumn fx:id="addressColumn" prefWidth="75.0" text="Address" />
-            <TableColumn fx:id="jobTypeColumn" prefWidth="75.0" text="Type" />
-            <TableColumn fx:id="dateStartedColumn" prefWidth="75.0" text="Start" />
-            <TableColumn fx:id="dateFinishedColumn" prefWidth="75.0" text="Finish" />
+            <TableColumn fx:id="idColumn" prefWidth="42.0" text="ID" />
+            <TableColumn fx:id="nameColumn" prefWidth="112.0" text="Name" />
+            <TableColumn fx:id="addressColumn" prefWidth="112.0" text="Address" />
+            <TableColumn fx:id="jobTypeColumn" prefWidth="112.0" text="Type" />
+            <TableColumn fx:id="dateStartedColumn" prefWidth="112.0" text="Start" />
+            <TableColumn fx:id="dateFinishedColumn" prefWidth="112.0" text="Finish" />
         </columns>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
       </TableView>
    </center>
 </BorderPane>

@@ -31,7 +31,10 @@ public class ProjectTableViewController {
 
     private void loadProjects() {
         ObservableList<Projects> projects = FXCollections.observableArrayList(projectService.getAllProjects());
-        System.out.println(projects.getFirst() + "----------------------------------------");
+    }
+
+    public void refreshTable() {
+        projectsTable.getItems().setAll(projectService.getAllProjects());
     }
 
     @FXML
