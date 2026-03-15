@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.ProjectDetailController">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0">
+               <children>
+                  <Label prefWidth="80.0" text="Name" textAlignment="CENTER">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="projectName" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0">
+               <children>
+                  <Label prefWidth="80.0" text="Address" textAlignment="CENTER">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="projectAddress" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0">
+               <children>
+                  <Label prefWidth="80.0" text="Type" textAlignment="CENTER">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="projectType" prefWidth="150.0" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0">
+               <children>
+                  <Label prefWidth="80.0" text="Start Date" textAlignment="CENTER">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="projectStartDate" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0">
+               <children>
+                  <Label prefWidth="80.0" text="Finish Date" textAlignment="CENTER">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="projectFinishDate" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </HBox>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="235.0" text="Update Project" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

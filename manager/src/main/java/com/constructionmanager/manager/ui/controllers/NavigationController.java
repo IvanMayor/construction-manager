@@ -34,6 +34,7 @@ public class NavigationController {
 
         stage = (Stage) (((Node) event.getSource()).getScene().getWindow());
         stage.setScene(scene);
+        stage.show();
 
         return views.get(fxml);
 
@@ -41,11 +42,9 @@ public class NavigationController {
 
     public void switchToProjectScene(ActionEvent event) throws IOException {
         loadView("ProjectsView.fxml", event);
-        stage.show();
     }
 
     public void switchToEmployeeScene(ActionEvent event) throws IOException {
         loadView("EmployeeView.fxml", event);
-        stage.show();
     }
 }
