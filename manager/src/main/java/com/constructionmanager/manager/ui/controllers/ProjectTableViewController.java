@@ -28,7 +28,7 @@ public class ProjectTableViewController {
     private Stage stage;
     private String id;
 
-    public ProjectTableViewController(ProjectService projectService, ProjectDetailController projectDetailController) {
+    public ProjectTableViewController(ProjectService projectService) {
         this.projectService = projectService;
     }
 
@@ -39,6 +39,7 @@ public class ProjectTableViewController {
     @FXML private TableColumn<Projects, String> jobTypeColumn;
     @FXML private TableColumn<Projects, java.time.LocalDate> dateStartedColumn;
     @FXML private TableColumn<Projects, java.time.LocalDate> dateFinishedColumn;
+    @FXML private TableColumn<Projects, Void> editProjectButton;
 
     private void loadProjects() {
         ObservableList<Projects> projects = FXCollections.observableArrayList(projectService.getAllProjects());
@@ -50,25 +51,26 @@ public class ProjectTableViewController {
 
     @FXML
     public void initialize() {
-        nameColumn.setEditable(true);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        nameColumn.setCellFactory(col -> {
-            TableCell<Projects, String> cell = new TableCell<>() {
-                private final Hyperlink link = new Hyperlink();
+        editProjectButton.setCellFactory(param -> new TableCell<>() {
+           private final Button editButton = new Button("Edit");
+            {
+                editButton.setOnAction(event -> {
+                   Projects project = getTableView().getItems().get(getIndex());
+                   switchToProjectDetailView(project);
+                });
+            }
 
-                {
-                    link.setOnAction(e -> {
-                        Projects project = getTableView().getItems().get(getIndex());
-                        try {
-                            switchToProjectDetailView(project);
-                        } catch (IOException exception) {
-                            exception.printStackTrace();
-                        }
-                    });
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(editButton);
                 }
-            };
-            return cell;
+            }
         });
 
         projectsTable.getItems().setAll(projectService.getAllProjects());
@@ -83,33 +85,20 @@ public class ProjectTableViewController {
         loadProjects();
     }
 
-    public void switchToProjectDetailView(Projects project) throws IOException {
+    public void switchToProjectDetailView(Projects project) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectDetailView.fxml"));
+            root = loader.load();
+            ProjectDetailController projectDetailController = loader.getController();
+            projectDetailController.setupProjectDetail(project);
+            stage = (Stage) projectsTable.getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectDetailView.fxml"));
-
-        ProjectDetailController projectDetailController = loader.getController();
-        projectDetailController.initialize(project);
-
-        scene = new Scene(loader.load());
-        stage = (Stage) projectsTable.getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-
-//        Projects project = projectService.getProjectById(Integer.parseInt(idColumn.getText()));
-
-
-//        System.out.println(project.getName() + "--------------------------------");
-
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectDetailView.fxml"));
-//        root = loader.load();
-
-//        ProjectDetailController projectDetailController = loader.getController();
-//        projectDetailController.initialize(project);
-
-//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

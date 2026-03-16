@@ -10,11 +10,12 @@
       <TableView fx:id="projectsTable" prefHeight="400.0" prefWidth="461.0" BorderPane.alignment="CENTER">
         <columns>
             <TableColumn fx:id="idColumn" prefWidth="42.0" text="ID" />
-            <TableColumn fx:id="nameColumn" prefWidth="112.0" text="Name" />
+            <TableColumn fx:id="nameColumn" prefWidth="89.0" text="Name" />
             <TableColumn fx:id="addressColumn" prefWidth="112.0" text="Address" />
-            <TableColumn fx:id="jobTypeColumn" prefWidth="112.0" text="Type" />
-            <TableColumn fx:id="dateStartedColumn" prefWidth="112.0" text="Start" />
-            <TableColumn fx:id="dateFinishedColumn" prefWidth="112.0" text="Finish" />
+            <TableColumn fx:id="jobTypeColumn" prefWidth="89.0" text="Type" />
+            <TableColumn fx:id="dateStartedColumn" prefWidth="89.0" text="Start" />
+            <TableColumn fx:id="dateFinishedColumn" prefWidth="89.0" text="Finish" />
+            <TableColumn fx:id="editProjectButton" prefWidth="89.0" text="Edit" />
         </columns>
          <cursor>
             <Cursor fx:constant="DEFAULT" />
