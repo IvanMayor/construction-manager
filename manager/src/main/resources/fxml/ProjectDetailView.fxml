@@ -11,19 +11,30 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.ProjectDetailController">
+<BorderPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.ProjectDetailController">
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="247.0" prefWidth="301.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0">
+            <Button mnemonicParsing="false" onAction="#backToAllProjects" text="&lt;--">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="50.0">
                <children>
-                  <Label prefWidth="80.0" text="Name" textAlignment="CENTER">
+                  <Label prefWidth="80.0" text="ID" textAlignment="CENTER">
                      <font>
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="projectName" />
+                  <Label fx:id="projectId">
+                     <font>
+                        <Font name="Segoe UI Bold" size="16.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </Label>
                </children>
                <opaqueInsets>
                   <Insets />
@@ -31,6 +42,28 @@
                <padding>
                   <Insets left="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="232.0">
+               <children>
+                  <Label prefWidth="80.0" text="Name" textAlignment="CENTER">
+                     <font>
+                        <Font name="Segoe UI" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="projectName" prefWidth="150.0" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0">
                <children>
@@ -39,7 +72,7 @@
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="projectAddress" />
+                  <TextField fx:id="projectAddress" prefWidth="150.0" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -47,6 +80,9 @@
                <padding>
                   <Insets left="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0">
                <children>
@@ -63,6 +99,9 @@
                <padding>
                   <Insets left="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0">
                <children>
@@ -71,7 +110,7 @@
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="projectStartDate" />
+                  <DatePicker fx:id="projectStartDate" prefWidth="150.0" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -79,6 +118,9 @@
                <padding>
                   <Insets left="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="600.0">
                <children>
@@ -87,7 +129,7 @@
                         <Font name="Segoe UI" size="15.0" />
                      </font>
                   </Label>
-                  <DatePicker fx:id="projectFinishDate" />
+                  <DatePicker fx:id="projectFinishDate" prefWidth="150.0" />
                </children>
                <opaqueInsets>
                   <Insets />
@@ -95,9 +137,18 @@
                <padding>
                   <Insets left="5.0" />
                </padding>
+               <VBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </VBox.margin>
             </HBox>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="235.0" text="Update Project" />
+            <Button mnemonicParsing="false" onAction="#updateProject" prefHeight="25.0" prefWidth="230.0" text="Update Project">
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" top="5.0" />
+               </VBox.margin></Button>
          </children>
       </VBox>
    </center>
+   <padding>
+      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+   </padding>
 </BorderPane>

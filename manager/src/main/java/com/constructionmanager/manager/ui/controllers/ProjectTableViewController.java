@@ -18,6 +18,7 @@ import com.constructionmanager.manager.ui.MainApp;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class ProjectTableViewController {
@@ -40,6 +41,7 @@ public class ProjectTableViewController {
     @FXML private TableColumn<Projects, java.time.LocalDate> dateStartedColumn;
     @FXML private TableColumn<Projects, java.time.LocalDate> dateFinishedColumn;
     @FXML private TableColumn<Projects, Void> editProjectButton;
+    @FXML private TableColumn<Projects, Void> deleteProjectButton;
 
     private void loadProjects() {
         ObservableList<Projects> projects = FXCollections.observableArrayList(projectService.getAllProjects());
@@ -59,6 +61,7 @@ public class ProjectTableViewController {
                    Projects project = getTableView().getItems().get(getIndex());
                    switchToProjectDetailView(project);
                 });
+                editButton.setPrefWidth(65);
             }
 
             @Override
@@ -71,6 +74,34 @@ public class ProjectTableViewController {
                     setGraphic(editButton);
                 }
             }
+        });
+
+        deleteProjectButton.setCellFactory(param ->
+           new TableCell<>() {
+               private final Button deleteButton = new Button("Delete");
+               {
+                   deleteButton.setOnAction(e -> {
+                       Projects project = getTableView().getItems().get(getIndex());
+                       Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete " + project.getAddress() + "?");
+                       Optional<ButtonType> result = alert.showAndWait();
+                       if (result.isPresent() && result.get() == ButtonType.OK) {
+                           projectService.deleteProject(project.getId());
+                           refreshTable();
+                       } else {
+                           Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Be carefull next time please, I almost deleted it!");
+                           alert1.showAndWait();
+                       }
+                       deleteButton.setPrefWidth(65);
+                   });
+               }
+               @Override
+               protected void updateItem(Void item, boolean empty) {
+                   if (empty) {
+                       setGraphic(null);
+                   } else {
+                       setGraphic(deleteButton);
+                   }
+               }
         });
 
         projectsTable.getItems().setAll(projectService.getAllProjects());
@@ -88,9 +119,13 @@ public class ProjectTableViewController {
     public void switchToProjectDetailView(Projects project) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectDetailView.fxml"));
+            loader.setControllerFactory(MainApp.springContext::getBean);
+
             root = loader.load();
+
             ProjectDetailController projectDetailController = loader.getController();
             projectDetailController.setupProjectDetail(project);
+
             stage = (Stage) projectsTable.getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
