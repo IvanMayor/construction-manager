@@ -34,6 +34,10 @@ public class Projects {
     @JsonIgnore
     private List<ChangeOrders> changeOrders = new ArrayList<>();
 
+    @OneToMany(mappedBy="project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<Requisitions> requisitions = new ArrayList<>();
+
     public Projects() {}
 
     public Projects(
@@ -75,4 +79,7 @@ public class Projects {
 
     public List<ChangeOrders> getChangeOrders() {return changeOrders;}
     public void setChangeOrders(List<ChangeOrders> changeOrders) {this.changeOrders = changeOrders;}
+
+    public List<Requisitions> getRequisitions() {return requisitions;}
+    public void setRequisitions(List<Requisitions> requisitions) {this.requisitions = requisitions;}
 }

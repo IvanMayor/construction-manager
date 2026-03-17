@@ -38,6 +38,7 @@ public class Requisitions {
     private BigDecimal totalChangeOrderAmount;
     private BigDecimal totalContractAndCOAmount;
     private BigDecimal totalMoneyReceived;
+    private BigDecimal thisRequisitionBilling;
     private Integer retainage;
     private String companyName;
     private String ownerOrRepresentativeFullName;
@@ -46,6 +47,11 @@ public class Requisitions {
     @JsonIgnore
     private List<RequisitionContractItems> requisitionContractItems;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "project_id")
+    @JsonIgnore
+    private Projects project;
+
     public Requisitions() {}
 
     public Requisitions(
@@ -53,6 +59,7 @@ public class Requisitions {
             BigDecimal totalChangeOrderAmount,
             BigDecimal totalContractAndCOAmount,
             BigDecimal totalMoneyReceived,
+            BigDecimal thisRequisitionBilling,
             Integer retainage,
             String companyName,
             String ownerOrRepresentativeFullName,
@@ -61,6 +68,7 @@ public class Requisitions {
         this.totalChangeOrderAmount = totalChangeOrderAmount;
         this.totalContractAndCOAmount = totalContractAndCOAmount;
         this.totalMoneyReceived = totalMoneyReceived;
+        this.thisRequisitionBilling = thisRequisitionBilling;
         this.retainage = retainage;
         this.companyName = companyName;
         this.ownerOrRepresentativeFullName = ownerOrRepresentativeFullName;
@@ -74,13 +82,24 @@ public class Requisitions {
     public void setContractPrice(BigDecimal contractPrice) {this.contractPrice = contractPrice;}
 
     public BigDecimal getTotalChangeOrderAmount() {return totalChangeOrderAmount;}
-    public void setTotalChangeOrderAmount(BigDecimal totalChangeOrderAmount) {this.totalChangeOrderAmount = totalChangeOrderAmount;}
+    public void setTotalChangeOrderAmount(BigDecimal totalChangeOrderAmount) {
+        this.totalChangeOrderAmount = totalChangeOrderAmount;
+    }
 
     public BigDecimal getTotalContractAndCOAmount() {return totalContractAndCOAmount;}
-    public void setTotalContractAndCOAmount(BigDecimal totalContractAndCOAmount) {this.totalContractAndCOAmount = totalContractAndCOAmount;}
+    public void setTotalContractAndCOAmount(BigDecimal totalContractAndCOAmount) {
+        this.totalContractAndCOAmount = totalContractAndCOAmount;
+    }
 
     public BigDecimal getTotalMoneyReceived() {return totalMoneyReceived;}
-    public void setTotalMoneyReceived(BigDecimal totalMoneyReceived) {this.totalMoneyReceived = totalMoneyReceived;}
+    public void setTotalMoneyReceived(BigDecimal totalMoneyReceived) {
+        this.totalMoneyReceived = totalMoneyReceived;
+    }
+
+    public BigDecimal getThisRequisitionBilling() {return thisRequisitionBilling;}
+    public void setThisRequisitionBilling(BigDecimal thisRequisitionBilling) {
+        this.thisRequisitionBilling = thisRequisitionBilling;
+    }
 
     public Integer getRetainage() {return retainage;}
     public void setRetainage(Integer retainage) {this.retainage = retainage;}
@@ -89,10 +108,16 @@ public class Requisitions {
     public void setCompanyName(String companyName) {this.companyName = companyName;}
 
     public String getOwnerOrRepresentativeFullName() {return ownerOrRepresentativeFullName;}
-    public void setOwnerOrRepresentativeFullName(String ownerOrRepresentativeFullName) {this.ownerOrRepresentativeFullName = ownerOrRepresentativeFullName;}
+    public void setOwnerOrRepresentativeFullName(String ownerOrRepresentativeFullName) {
+        this.ownerOrRepresentativeFullName = ownerOrRepresentativeFullName;
+    }
 
     public List<RequisitionContractItems> getRequisitionContractItems() {return requisitionContractItems;}
     public void setRequisitionContractItems(List<RequisitionContractItems> requisitionContractItems) {
         this.requisitionContractItems = requisitionContractItems;
     }
+
+    public Projects getProject() {return project;}
+    public void setProject(Projects project) {this.project = project;}
+
 }

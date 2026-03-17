@@ -1,8 +1,11 @@
 package com.constructionmanager.manager.ui.controllers;
 
+import com.constructionmanager.manager.model.ChangeOrders;
 import com.constructionmanager.manager.model.Projects;
+import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.service.ProjectService;
 import com.constructionmanager.manager.ui.MainApp;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,10 +13,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
@@ -32,11 +38,37 @@ public class ProjectDetailController {
     @FXML private DatePicker projectStartDate;
     @FXML private DatePicker projectFinishDate;
 
+    @FXML private TableView<ChangeOrders> changeOrderTable;
+    @FXML private TableColumn<ChangeOrders, Integer> changeOrderId;
+    @FXML private TableColumn<ChangeOrders, Integer> changeOrderNumber;
+    @FXML private TableColumn<ChangeOrders, String> changeOrderTitle;
+    @FXML private TableColumn<ChangeOrders, BigDecimal> changeOrderCost;
+    @FXML private TableColumn<ChangeOrders, LocalDate> changeOrderDate;
+    @FXML private TableColumn<ChangeOrders, Void> changeOrderDetail;
+
+    @FXML private TableView<Requisitions> requisitionTable;
+    @FXML private TableColumn<Requisitions, Integer> requisitionId;
+    @FXML private TableColumn<Requisitions, Integer> requisitionNumber;
+    @FXML private TableColumn<Requisitions, BigDecimal> requisitionBilled;
+    @FXML private TableColumn<Requisitions, LocalDate> requisitionDateCreated;
+    @FXML private TableColumn<Requisitions, Void> requisitionDetail;
+
     public ProjectDetailController(ProjectService projectService) {
         this.projectService = projectService;
     }
 
     public void setupProjectDetail(Projects project) {
+        this.project = project;
+        System.out.println(projectService.getProjectChangeOrders(project.getId()) + "----------------------------------------------------");
+
+        changeOrderTable.setItems(FXCollections.observableArrayList(project.getChangeOrders()));
+
+        changeOrderId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        changeOrderNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
+        changeOrderTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+        changeOrderCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+        changeOrderDate.setCellValueFactory(new PropertyValueFactory<>("dateCreated"));
+
 
         projectType.getItems().addAll(Projects.JobType.values());
 
@@ -75,7 +107,4 @@ public class ProjectDetailController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Project was successfully updated!!");
         alert.showAndWait();
     }
-
-
-
 }

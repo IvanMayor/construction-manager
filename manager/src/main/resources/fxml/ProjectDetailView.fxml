@@ -5,15 +5,20 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.ProjectDetailController">
-   <center>
-      <VBox prefHeight="247.0" prefWidth="301.0" BorderPane.alignment="CENTER">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.ProjectDetailController">
+   <padding>
+      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+   </padding>
+   <top>
+      <VBox prefHeight="224.0" prefWidth="1230.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#backToAllProjects" text="&lt;--">
                <VBox.margin>
@@ -146,9 +151,32 @@
                   <Insets bottom="5.0" left="5.0" top="5.0" />
                </VBox.margin></Button>
          </children>
+         <padding>
+            <Insets left="500.0" />
+         </padding>
       </VBox>
-   </center>
-   <padding>
-      <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
-   </padding>
+   </top>
+   <left>
+      <TableView fx:id="changeOrderTable" prefHeight="396.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="changeOrderId" prefWidth="75.0" text="CO ID" />
+          <TableColumn fx:id="changeOrderNumber" prefWidth="75.0" text="CO #" />
+            <TableColumn fx:id="changeOrderTitle" prefWidth="75.0" text="CO Title" />
+            <TableColumn fx:id="changeOrderCost" prefWidth="75.0" text="CO Cost" />
+            <TableColumn fx:id="changeOrderDate" prefWidth="75.0" text="CO Date" />
+            <TableColumn fx:id="changeOrderDetail" prefWidth="75.0" text="Detail" />
+        </columns>
+      </TableView>
+   </left>
+   <right>
+      <TableView fx:id="requisitionTable" prefHeight="396.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="requisitionId" prefWidth="75.0" text="REQ ID" />
+          <TableColumn fx:id="requisitionNumber" prefWidth="75.0" text="REQ #" />
+            <TableColumn fx:id="requisitionBilled" text="REQ Billed" />
+            <TableColumn fx:id="requisitionDate" text="REQ Date" />
+            <TableColumn fx:id="requisitionDetail" text="Detail" />
+        </columns>
+      </TableView>
+   </right>
 </BorderPane>

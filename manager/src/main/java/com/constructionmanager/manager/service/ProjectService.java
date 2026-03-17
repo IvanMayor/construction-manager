@@ -79,7 +79,16 @@ public class ProjectService {
 
     public Projects getProjectById(Integer id) {
         return projectsRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Project does not exist"));
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "This Project does not exist"));
+    }
+
+    public List<ChangeOrders> getProjectChangeOrders(Integer id) {
+        Projects project = projectsRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "This Project does not exist"));
+
+        return project.getChangeOrders();
     }
 
 
