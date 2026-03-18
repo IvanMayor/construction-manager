@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane
+        maxHeight="-Infinity"
+        maxWidth="-Infinity"
+        minHeight="-Infinity"
+        minWidth="-Infinity"
+        prefHeight="400.0"
+        prefWidth="600.0"
+        xmlns="http://javafx.com/javafx/25"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.constructionmanager.manager.ui.controllers.ChangeOrderCreateViewController">
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" maxWidth="250.0" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Change Order Number">
+                     <font>
+                        <Font name="Inter Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="changeOrderNumber" alignment="CENTER" promptText="Change Order Number" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" maxWidth="250.0" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Change Order Title">
+                     <font>
+                        <Font name="Inter Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="changeOrderTitle" alignment="CENTER" promptText="Title" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" maxWidth="250.0" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Change Order Description">
+                     <font>
+                        <Font name="Inter Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="changeOrderDescription" alignment="CENTER" promptText="Description" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" maxWidth="250.0" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Change Order Breakdown">
+                     <font>
+                        <Font name="Inter Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="changeOrderBreakdown" alignment="CENTER" promptText="Breakdown" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" maxWidth="250.0" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Change Order Price">
+                     <font>
+                        <Font name="Inter Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="changeOrderPrice" alignment="CENTER" promptText="Price" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Create Change Order">
+                     <font>
+                        <Font name="Inter Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="createButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="250.0" text="Create" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin></VBox>
+   </center>
+   <top>
+      <HBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Create new Change Order" textAlignment="CENTER">
+               <font>
+                  <Font name="Inter Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>

@@ -7,9 +7,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import java.awt.*;
 import java.io.IOException;
 
 public class MainApp extends Application {
@@ -24,18 +27,21 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectsView.fxml"));
+            Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-Regular.ttf"), 14);
+            Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-Bold.ttf"), 14);
+            Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-SemiBold.ttf"), 14);
 
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectsView.fxml"));
             loader.setControllerFactory(springContext::getBean);
 
             Parent root = loader.load();
-
             Scene scene = new Scene(root);
+
             scene.setFill(Color.DARKGRAY);
+            Image icon = new Image(getClass().getResource(
+                    "/icons/Maramorosh-Digital-Logo-removebg.png").toExternalForm());
 
-            Image icon = new Image(getClass().getResource("/icons/Maramorosh-Digital-Logo-removebg.png").toExternalForm());
             stage.getIcons().add(icon);
-
             stage.setTitle("Construction Management System");
             stage.setScene(scene);
 

@@ -37,6 +37,7 @@ public class ProjectDetailController {
     @FXML private ComboBox<Projects.JobType> projectType;
     @FXML private DatePicker projectStartDate;
     @FXML private DatePicker projectFinishDate;
+    @FXML private Button createChangeOrderButton;
 
     @FXML private TableView<ChangeOrders> changeOrderTable;
     @FXML private TableColumn<ChangeOrders, Integer> changeOrderId;
@@ -85,6 +86,24 @@ public class ProjectDetailController {
         projectType.setValue(project.getJobType());
         projectStartDate.setValue(project.getDateStarted());
         projectFinishDate.setValue(project.getDateFinished());
+
+        createChangeOrderButton.setOnAction(e -> {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChangeOrderCreateView.fxml"));
+            loader.setControllerFactory(MainApp.springContext::getBean);
+            try {
+                ChangeOrderCreateViewController controller = loader.getController();
+                controller.setupCreateChangeOrderView(project);
+
+                root = loader.load();
+                stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+
+            } catch (IOException exception) {
+                exception.printStackTrace();
+            }
+        });
     }
 
     public void backToAllProjects(ActionEvent event) throws IOException {

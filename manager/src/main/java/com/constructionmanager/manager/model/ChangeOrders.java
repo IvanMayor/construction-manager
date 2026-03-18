@@ -43,12 +43,14 @@ public class ChangeOrders {
             String title,
             String description,
             String breakdown,
+            LocalDate dateCreated,
             BigDecimal price,
             Projects project) {
         this.number = number;
         this.title = title;
         this.description = description;
         this.breakdown = breakdown;
+        this.dateCreated = dateCreated;
         this.price = price;
         this.project = project;
     }
