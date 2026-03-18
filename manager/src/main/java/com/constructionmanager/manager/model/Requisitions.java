@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -42,6 +43,7 @@ public class Requisitions {
     private Integer retainage;
     private String companyName;
     private String ownerOrRepresentativeFullName;
+    private LocalDate dateCreated = LocalDate.now();
 //    This will be relationship between One this table and Many other table with each element of oter like (Mobilization, Domestic water...)
     @OneToMany(mappedBy = "requisition", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -63,6 +65,7 @@ public class Requisitions {
             Integer retainage,
             String companyName,
             String ownerOrRepresentativeFullName,
+            LocalDate dateCreated,
             List<RequisitionContractItems> requisitionContractItems) {
         this.contractPrice = contractPrice;
         this.totalChangeOrderAmount = totalChangeOrderAmount;
@@ -70,6 +73,7 @@ public class Requisitions {
         this.totalMoneyReceived = totalMoneyReceived;
         this.thisRequisitionBilling = thisRequisitionBilling;
         this.retainage = retainage;
+        this.dateCreated = dateCreated;
         this.companyName = companyName;
         this.ownerOrRepresentativeFullName = ownerOrRepresentativeFullName;
         this.requisitionContractItems = requisitionContractItems;
@@ -103,6 +107,9 @@ public class Requisitions {
 
     public Integer getRetainage() {return retainage;}
     public void setRetainage(Integer retainage) {this.retainage = retainage;}
+
+    public LocalDate getDateCreated() {return dateCreated;}
+    public void setDateCreated(LocalDate dateCreated) {this.dateCreated = dateCreated;}
 
     public String getCompanyName() {return companyName;}
     public void setCompanyName(String companyName) {this.companyName = companyName;}

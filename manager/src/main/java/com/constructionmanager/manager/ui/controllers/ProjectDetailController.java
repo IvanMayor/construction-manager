@@ -59,7 +59,6 @@ public class ProjectDetailController {
 
     public void setupProjectDetail(Projects project) {
         this.project = project;
-        System.out.println(projectService.getProjectChangeOrders(project.getId()) + "----------------------------------------------------");
 
         changeOrderTable.setItems(FXCollections.observableArrayList(project.getChangeOrders()));
 
@@ -68,6 +67,13 @@ public class ProjectDetailController {
         changeOrderTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         changeOrderCost.setCellValueFactory(new PropertyValueFactory<>("price"));
         changeOrderDate.setCellValueFactory(new PropertyValueFactory<>("dateCreated"));
+
+        requisitionTable.setItems(FXCollections.observableArrayList(project.getRequisitions()));
+
+        requisitionId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        requisitionNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
+        requisitionBilled.setCellValueFactory(new PropertyValueFactory<>("thisRequisitionBilling"));
+        requisitionDateCreated.setCellValueFactory(new PropertyValueFactory<>("dateCreated"));
 
 
         projectType.getItems().addAll(Projects.JobType.values());
@@ -107,4 +113,5 @@ public class ProjectDetailController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Project was successfully updated!!");
         alert.showAndWait();
     }
+
 }
