@@ -140,7 +140,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="140.0">
                <children>
-                  <Button fx:id="createChangeOrderButton" alignment="CENTER" mnemonicParsing="false" prefWidth="150.0" text="Create Change Order" textAlignment="CENTER">
+                  <Button fx:id="createChangeOrderButton" alignment="CENTER" mnemonicParsing="false" onAction="#createChangeOrderButton" prefWidth="150.0" text="Create Change Order" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets left="10.0" top="18.0" />
                      </VBox.margin>

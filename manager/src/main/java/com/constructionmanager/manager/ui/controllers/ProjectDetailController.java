@@ -58,53 +58,57 @@ public class ProjectDetailController {
         this.projectService = projectService;
     }
 
-    public void setupProjectDetail(Projects project) {
-        this.project = project;
-
-        changeOrderTable.setItems(FXCollections.observableArrayList(project.getChangeOrders()));
+    public void setUpChangeOrderTable(Projects project) {
+        changeOrderTable.setItems(FXCollections.observableArrayList(projectService.getProjectChangeOrders(project.getId())));
 
         changeOrderId.setCellValueFactory(new PropertyValueFactory<>("id"));
         changeOrderNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
         changeOrderTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         changeOrderCost.setCellValueFactory(new PropertyValueFactory<>("price"));
         changeOrderDate.setCellValueFactory(new PropertyValueFactory<>("dateCreated"));
+    }
 
+    public void setUpRequisitionTable() {
         requisitionTable.setItems(FXCollections.observableArrayList(project.getRequisitions()));
 
         requisitionId.setCellValueFactory(new PropertyValueFactory<>("id"));
         requisitionNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
         requisitionBilled.setCellValueFactory(new PropertyValueFactory<>("thisRequisitionBilling"));
         requisitionDateCreated.setCellValueFactory(new PropertyValueFactory<>("dateCreated"));
+    }
 
-
+    public void setUpProjectEditFields() {
         projectType.getItems().addAll(Projects.JobType.values());
-
-
         projectId.setText(String.valueOf(project.getId()));
         projectName.setText(project.getName());
         projectAddress.setText(project.getAddress());
         projectType.setValue(project.getJobType());
         projectStartDate.setValue(project.getDateStarted());
         projectFinishDate.setValue(project.getDateFinished());
+    }
 
-        createChangeOrderButton.setOnAction(e -> {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChangeOrderCreateView.fxml"));
-            loader.setControllerFactory(MainApp.springContext::getBean);
-            try {
-                root = loader.load();
+    @FXML
+    public void createChangeOrderButton(ActionEvent event) throws IOException {
 
-                ChangeOrderCreateViewController changeOrderCreateViewController = loader.getController();
-                changeOrderCreateViewController.setProject(project);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChangeOrderCreateView.fxml"));
+        loader.setControllerFactory(MainApp.springContext::getBean);
+        root = loader.load();
 
-                stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
+        ChangeOrderCreateViewController changeOrderCreateViewController = loader.getController();
+        changeOrderCreateViewController.setProject(project);
 
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
-        });
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void setupProjectDetail(Projects project) {
+        this.project = project;
+        setUpProjectEditFields();
+        setUpChangeOrderTable(project);
+        setUpProjectEditFields();
+
     }
 
     public void backToAllProjects(ActionEvent event) throws IOException {
