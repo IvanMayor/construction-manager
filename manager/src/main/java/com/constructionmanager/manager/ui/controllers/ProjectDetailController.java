@@ -91,10 +91,11 @@ public class ProjectDetailController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChangeOrderCreateView.fxml"));
             loader.setControllerFactory(MainApp.springContext::getBean);
             try {
-                ChangeOrderCreateViewController controller = loader.getController();
-                controller.setupCreateChangeOrderView(project);
-
                 root = loader.load();
+
+                ChangeOrderCreateViewController changeOrderCreateViewController = loader.getController();
+                changeOrderCreateViewController.setProject(project);
+
                 stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
                 scene = new Scene(root);
                 stage.setScene(scene);

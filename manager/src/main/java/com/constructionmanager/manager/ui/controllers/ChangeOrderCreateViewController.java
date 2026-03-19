@@ -5,20 +5,20 @@ import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.service.ChangeOrderService;
 import com.constructionmanager.manager.service.ProjectService;
 import com.constructionmanager.manager.ui.MainApp;
-import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Component
 public class ChangeOrderCreateViewController {
     private Stage stage;
     private Scene scene;
@@ -26,13 +26,13 @@ public class ChangeOrderCreateViewController {
 
     private ChangeOrderService changeOrderService;
     private ProjectService projectService;
+    private Projects project;
 
     @FXML private TextField changeOrderNumber;
     @FXML private TextField changeOrderTitle;
     @FXML private TextField changeOrderDescription;
     @FXML private TextField changeOrderBreakdown;
     @FXML private TextField changeOrderPrice;
-    @FXML private Button createButton;
 
     public ChangeOrderCreateViewController(
             ChangeOrderService changeOrderService,
@@ -41,8 +41,10 @@ public class ChangeOrderCreateViewController {
         this.projectService = projectService;
     }
 
-    public void setupCreateChangeOrderView(Projects project) {
+    public void setProject(Projects project) {this.project = project;}
 
+    @FXML
+    public void initializeCreateButton(ActionEvent event) {
         ChangeOrders changeOrder = new ChangeOrders(
                 Integer.parseInt(changeOrderNumber.getText()),
                 changeOrderTitle.getText(),
@@ -54,24 +56,23 @@ public class ChangeOrderCreateViewController {
 
         changeOrderService.createChangeOrder(project.getId(), changeOrder);
         try {
-            switchBackToProjectDetail(project);
+            switchBackToProjectDetail();
         } catch (IOException exception) {
             exception.printStackTrace();
         }
     }
 
-    public void switchBackToProjectDetail(Projects project) throws IOException {
+    public void switchBackToProjectDetail() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectDetailView.fxml"));
+        loader.setControllerFactory(MainApp.springContext::getBean);
+
+        root = loader.load();
         ProjectDetailController projectDetailController =  loader.getController();
         projectDetailController.setupProjectDetail(project);
-        loader.setControllerFactory(MainApp.springContext::getBean);
-        root = loader.load();
+
         stage = (Stage) changeOrderTitle.getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-
     }
-
 }

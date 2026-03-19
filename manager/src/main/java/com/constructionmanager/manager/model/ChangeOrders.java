@@ -70,6 +70,9 @@ public class ChangeOrders {
     public String getBreakdown() {return breakdown;}
     public void setBreakdown(String breakdown) {this.breakdown = breakdown;}
 
+    public LocalDate getDateCreated() {return dateCreated;}
+    public void setDateCreated(LocalDate dateCreated) {this.dateCreated = dateCreated;}
+
     public BigDecimal getPrice() {return price;}
     public void setPrice(BigDecimal price) {this.price = price;}
 
