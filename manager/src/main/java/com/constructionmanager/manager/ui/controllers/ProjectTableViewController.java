@@ -1,6 +1,8 @@
 package com.constructionmanager.manager.ui.controllers;
 
 import com.constructionmanager.manager.model.Projects;
+import com.constructionmanager.manager.model.SessionContext;
+import com.constructionmanager.manager.service.AuthService;
 import com.constructionmanager.manager.service.ProjectService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,13 +26,18 @@ import java.util.Optional;
 public class ProjectTableViewController {
 
     private final ProjectService projectService;
+    private final SessionContext sessionContext;
+
     private Parent root;
     private Scene scene;
     private Stage stage;
     private String id;
 
-    public ProjectTableViewController(ProjectService projectService) {
+    public ProjectTableViewController(
+            ProjectService projectService,
+            SessionContext sessionContext) {
         this.projectService = projectService;
+        this.sessionContext = sessionContext;
     }
 
     @FXML private TableView<Projects> projectsTable;
@@ -53,6 +60,19 @@ public class ProjectTableViewController {
 
     @FXML
     public void initialize() {
+
+        if (!sessionContext.isLoggedIn()) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/LoginUserView.fxml"));
+            try {
+                root = loader.load();
+                scene = new Scene(root);
+                stage = (Stage) projectsTable.getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         editProjectButton.setCellFactory(param -> new TableCell<>() {
            private final Button editButton = new Button("Edit");

@@ -27,6 +27,47 @@ public class UserService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "There is no user with this ID"));
     }
 
+    public boolean userExist(Integer id) {
+        if (userRepository.existsById(id)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean verifyUserLogin(String login) {
+        Optional<User> existUserEmail = userRepository.findByEmail(login);
+        Optional<User> existUserPhoneNumber = userRepository.findByPhoneNumber(login);
+
+        if ((existUserEmail.isPresent() && !existUserEmail.isEmpty())
+                || (existUserPhoneNumber.isPresent() && !existUserPhoneNumber.isEmpty())) {
+            return true;
+        }
+        return false;
+    }
+
+    public User login(String login, String password) {
+        Optional<User> existUserEmail = userRepository.findByEmail(login);
+        Optional<User> existUserPhoneNumber = userRepository.findByPhoneNumber(login);
+
+        if (existUserEmail.isPresent() && !existUserEmail.isEmpty()) {
+            if (existUserEmail.get().getPassword().equals(password.toCharArray())) {
+                return existUserEmail
+                        .orElseThrow(() -> new ResponseStatusException(
+                                HttpStatus.NOT_FOUND, "This user does not exist!"));
+            }
+
+            if (existUserPhoneNumber.isPresent() && !existUserPhoneNumber.isEmpty()) {
+                if (existUserPhoneNumber.get().getPassword().equals(password.toCharArray())){
+                    return existUserPhoneNumber
+                            .orElseThrow(() -> new ResponseStatusException(
+                                    HttpStatus.NOT_FOUND, "This user does not exist!"));
+                }
+            }
+        }
+
+        return null;
+    }
+
     public User updateUser(Integer id, User newUserDetail) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "There is no user with this id"));

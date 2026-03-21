@@ -2,16 +2,26 @@ package com.constructionmanager.manager.ui.controllers;
 
 import com.constructionmanager.manager.model.User;
 import com.constructionmanager.manager.service.UserService;
+import com.constructionmanager.manager.ui.MainApp;
 import com.constructionmanager.manager.validators.PasswordValidator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 
 @Component
 public class UserCreateView {
+    private Parent root;
+    private Scene scene;
+    private Stage stage;
 
     private UserService userService;
 
@@ -31,7 +41,6 @@ public class UserCreateView {
         String email = userEmailField.getText();
         String phoneNumber = userPhoneNumberField.getText();
         String password = userPasswordField.getText();
-        System.out.println("This is the password!--------------" + password);
 
         try {
             PasswordValidator.ValidatePassword.isValid(password);
@@ -48,6 +57,22 @@ public class UserCreateView {
         );
 
         userService.registerUser(user);
+
+        try {
+            redirectUser();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void redirectUser() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/LoginUserView.fxml"));
+        loader.setControllerFactory(MainApp.springContext::getBean);
+        root = loader.load();
+        scene = new Scene(root);
+        stage = (Stage) userEmailField.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
