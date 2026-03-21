@@ -47,4 +47,8 @@ public class NavigationController {
     public void switchToEmployeeScene(ActionEvent event) throws IOException {
         loadView("EmployeeView.fxml", event);
     }
+
+    public void switchToRegistrationScene(ActionEvent event) throws IOException {
+        loadView("user/RegisterUserView.fxml", event);
+    }
 }

@@ -11,8 +11,8 @@
        <fx:include source="ProjectsTableView.fxml" />
    </center>
    <top>
-      <HBox>
-         <VBox prefHeight="200.0" prefWidth="100.0">
+      <HBox prefHeight="270.0" prefWidth="400.0">
+         <VBox prefHeight="250.0" prefWidth="100.0">
             <children>
                <Button mnemonicParsing="false" onAction="#switchToProjectScene" prefHeight="35.0" prefWidth="100.0" text="Projects" textAlignment="CENTER">
                   <VBox.margin>
@@ -34,7 +34,10 @@
                      <Insets bottom="5.0" />
                   </VBox.margin>
                </Button>
-               <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="RCI" textAlignment="CENTER" />
+               <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="100.0" text="RCI" textAlignment="CENTER">
+                  <VBox.margin>
+                     <Insets bottom="5.0" />
+                  </VBox.margin></Button>
             </children>
             <HBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -45,8 +48,15 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
          <BorderPane.margin>
-            <Insets />
+            <Insets right="100.0" />
          </BorderPane.margin>
       </HBox>
    </top>
+   <right>
+      <HBox prefHeight="330.0" prefWidth="114.0" BorderPane.alignment="BOTTOM_RIGHT">
+         <children>
+            <Button mnemonicParsing="false" onAction="#switchToRegistrationScene" prefHeight="43.0" prefWidth="101.0" text="Register" />
+         </children>
+      </HBox>
+   </right>
 </BorderPane>

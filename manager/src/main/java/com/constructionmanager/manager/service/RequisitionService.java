@@ -1,10 +1,8 @@
 package com.constructionmanager.manager.service;
 
-import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.repository.RequisitionContractItemsRepository;
 import com.constructionmanager.manager.repository.RequisitionsRepository;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
