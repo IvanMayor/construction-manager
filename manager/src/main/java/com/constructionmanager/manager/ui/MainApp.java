@@ -3,7 +3,6 @@ package com.constructionmanager.manager.ui;
 import com.constructionmanager.manager.ManagerApplication;
 import com.constructionmanager.manager.model.SessionContext;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.awt.*;
 import java.io.IOException;
 
 public class MainApp extends Application {
@@ -35,7 +33,6 @@ public class MainApp extends Application {
             Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-Regular.ttf"), 14);
             Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-Bold.ttf"), 14);
             Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-SemiBold.ttf"), 14);
-
             if (!sessionContext.isLoggedIn()) {
                 loader = new FXMLLoader(getClass().getResource("/fxml/user/LoginUserView.fxml"));
                 loader.setControllerFactory(MainApp.springContext::getBean);
