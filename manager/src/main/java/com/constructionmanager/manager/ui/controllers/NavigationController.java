@@ -1,8 +1,10 @@
 package com.constructionmanager.manager.ui.controllers;
 
+import com.constructionmanager.manager.model.SessionContext;
 import com.constructionmanager.manager.ui.MainApp;
 import com.constructionmanager.manager.ui.layout.MainLayout;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -16,10 +18,17 @@ import java.util.Map;
 
 @Component
 public class NavigationController {
+    private final SessionContext sessionContext;
+//    private final RedirectTool redirectTool;
+
     private Stage stage;
     private Scene scene;
     private Parent root;
     private Map<String, Scene> views = new HashMap<>();
+
+    public NavigationController(SessionContext sessionContext) {
+        this.sessionContext = sessionContext;
+    }
 
     private Scene loadView(String fxml, ActionEvent event) throws IOException {
         if (!views.containsKey(fxml)) {
@@ -50,5 +59,12 @@ public class NavigationController {
 
     public void switchToRegistrationScene(ActionEvent event) throws IOException {
         loadView("user/RegisterUserView.fxml", event);
+    }
+
+    @FXML
+    public void logoutButtonPerform(ActionEvent event) {
+        sessionContext.clear();
+//        redirectTool.redirectToLogin();
+
     }
 }

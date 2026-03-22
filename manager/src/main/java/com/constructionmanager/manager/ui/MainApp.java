@@ -1,7 +1,10 @@
 package com.constructionmanager.manager.ui;
 
 import com.constructionmanager.manager.ManagerApplication;
+import com.constructionmanager.manager.model.Navigator;
+import com.constructionmanager.manager.model.Route;
 import com.constructionmanager.manager.model.SessionContext;
+import com.constructionmanager.manager.model.StageManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,8 +22,7 @@ public class MainApp extends Application {
 
     public static ConfigurableApplicationContext springContext;
 
-    private FXMLLoader loader;
-    private SessionContext sessionContext = new SessionContext();
+    private Navigator navigator;
 
     @Override
     public void init() {
@@ -28,31 +30,25 @@ public class MainApp extends Application {
     }
 
     @Override
-    public void start(Stage stage) {
-        try {
-            Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-Regular.ttf"), 14);
-            Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-Bold.ttf"), 14);
-            Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-SemiBold.ttf"), 14);
-            if (!sessionContext.isLoggedIn()) {
-                loader = new FXMLLoader(getClass().getResource("/fxml/user/LoginUserView.fxml"));
-                loader.setControllerFactory(MainApp.springContext::getBean);
-            } else {
-                loader = new FXMLLoader(getClass().getResource("/fxml/ProjectsView.fxml"));
-                loader.setControllerFactory(springContext::getBean);
-            }
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            scene.setFill(Color.DARKGRAY);
-            Image icon = new Image(getClass().getResource(
-                    "/icons/Maramorosh-Digital-Logo-removebg.png").toExternalForm());
-            stage.getIcons().add(icon);
-            stage.setTitle("Construction Management System");
-            stage.setScene(scene);
-            stage.show();
+    public void start(Stage stage) throws Exception {
+        Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-Regular.ttf"), 14);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-Bold.ttf"), 14);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-SemiBold.ttf"), 14);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StageManager stageManager = springContext.getBean(StageManager.class);
+        stageManager.setPrimaryStage(stage);
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/LoginUserView.fxml"));
+        loader.setControllerFactory(springContext::getBean);
+
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+
+        stage.setTitle("Construction Manager System");
+        stage.setScene(scene);
+        stage.setMinWidth(1280);
+        stage.setMinHeight(720);
+        stage.show();
     }
 
     @Override

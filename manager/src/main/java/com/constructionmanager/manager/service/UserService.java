@@ -1,5 +1,6 @@
 package com.constructionmanager.manager.service;
 
+import com.constructionmanager.manager.model.SessionContext;
 import com.constructionmanager.manager.model.User;
 import com.constructionmanager.manager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,21 +15,22 @@ public class UserService {
 
     // TODO: Need to make sure all actions being performed by user to himself and no other users
 
-
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SessionContext sessionContext;
 
     public User registerUser(User user) {
         return userRepository.save(user);
     }
 
-    public User getCurrentUser(Integer id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "There is no user with this ID"));
+    public User getCurrentUser() {
+        return sessionContext.getCurrentUser();
     }
 
-    public boolean userExist(Integer id) {
-        if (userRepository.existsById(id)) {
+    public boolean userExist() {
+        if (sessionContext.getCurrentUser() != null) {
             return true;
         }
         return false;
@@ -68,9 +70,8 @@ public class UserService {
         return null;
     }
 
-    public User updateUser(Integer id, User newUserDetail) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "There is no user with this id"));
+    public User updateUser(User newUserDetail) {
+        User user = sessionContext.getCurrentUser();
 
         user.setEmail(newUserDetail.getEmail());
         user.setPhoneNumber(newUserDetail.getPhoneNumber());
@@ -79,10 +80,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void deleteUser(Integer id) {
-        if (!userRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User does not exist!");
-        }
-        userRepository.deleteById(id);
+    public void deleteUser() {
+        User user = sessionContext.getCurrentUser();
+        userRepository.deleteById(user.getId());
     }
 }

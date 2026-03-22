@@ -2,6 +2,7 @@ package com.constructionmanager.manager.model;
 
 import com.constructionmanager.manager.validators.PasswordValidator;
 import jakarta.persistence.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
 @Table(name="users")
@@ -10,15 +11,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String email;
-    private char[] password;
+    private String password;
     private String phoneNumber;
+    private String firstName;
+    private String lastName;
+    private String username;
+
 
     public User() {}
 
     public User(String email, String password) {
         this.email = email;
         if (validatePassword(password)) {
-            this.password = setFirstPassword(password);
+            this.password = BCrypt.hashpw(password, BCrypt.gensalt());
         }
     }
 
@@ -26,9 +31,7 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         if (validatePassword(password)) {
-            this.password = setFirstPassword(password);
-        } else {
-            System.out.println("-----------------Invalid Password------------------------");
+            this.password = BCrypt.hashpw(password, BCrypt.gensalt());
         }
     }
 
@@ -42,10 +45,6 @@ public class User {
         return true;
     }
 
-    private char[] setFirstPassword(String password) {
-        return password.toCharArray();
-    }
-
     public Integer getId() {return id;}
     public void setId(Integer id) {this.id = id;}
 
@@ -55,14 +54,8 @@ public class User {
     public String getPhoneNumber() {return phoneNumber;}
     public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
 
-    public char[] getPassword() {return password;}
-
+    public String getPassword() {return password;}
     public void setPassword(String password) {
-        if (validatePassword(password)) {
-            this.password = setFirstPassword(password);
-        }
-    }
-    public void setPassword(char[] password) {
-        this.password = password;
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 }

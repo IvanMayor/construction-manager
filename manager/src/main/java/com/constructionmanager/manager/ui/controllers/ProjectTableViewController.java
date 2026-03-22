@@ -61,19 +61,6 @@ public class ProjectTableViewController {
     @FXML
     public void initialize() {
 
-        if (!sessionContext.isLoggedIn()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/LoginUserView.fxml"));
-            try {
-                root = loader.load();
-                scene = new Scene(root);
-                stage = (Stage) projectsTable.getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
         editProjectButton.setCellFactory(param -> new TableCell<>() {
            private final Button editButton = new Button("Edit");
             {
@@ -155,5 +142,4 @@ public class ProjectTableViewController {
             e.printStackTrace();
         }
     }
-
 }

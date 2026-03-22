@@ -11,7 +11,7 @@
        <fx:include source="ProjectsTableView.fxml" />
    </center>
    <top>
-      <HBox prefHeight="270.0" prefWidth="400.0">
+      <HBox prefHeight="270.0">
          <VBox prefHeight="250.0" prefWidth="100.0">
             <children>
                <Button mnemonicParsing="false" onAction="#switchToProjectScene" prefHeight="35.0" prefWidth="100.0" text="Projects" textAlignment="CENTER">
@@ -44,19 +44,17 @@
             </HBox.margin>
          </VBox>
          <fx:include prefWidth="350.0" source="ProjectCreateVIew.fxml" />
+         <HBox prefHeight="260.0" prefWidth="343.0" />
+         <Button mnemonicParsing="false" onAction="#logoutButtonPerform" prefHeight="30.0" prefWidth="75.0" text="Logout" />
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
          <BorderPane.margin>
-            <Insets right="100.0" />
+            <Insets />
          </BorderPane.margin>
       </HBox>
    </top>
    <right>
-      <HBox prefHeight="330.0" prefWidth="114.0" BorderPane.alignment="BOTTOM_RIGHT">
-         <children>
-            <Button mnemonicParsing="false" onAction="#switchToRegistrationScene" prefHeight="43.0" prefWidth="101.0" text="Register" />
-         </children>
-      </HBox>
+      <HBox prefHeight="330.0" prefWidth="114.0" BorderPane.alignment="BOTTOM_RIGHT" />
    </right>
 </BorderPane>
