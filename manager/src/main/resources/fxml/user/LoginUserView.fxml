@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -19,11 +20,11 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="userPassword" promptText="Password">
+                  <PasswordField fx:id="userPassword" promptText="Password">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
-                  </TextField>
+                  </PasswordField>
                   <Button mnemonicParsing="false" onAction="#performLoginButton" prefWidth="100.0" text="Login">
                      <VBox.margin>
                         <Insets bottom="10.0" />

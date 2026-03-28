@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class UserCreateView {
 
     @FXML private TextField userEmailField;
     @FXML private TextField userPhoneNumberField;
-    @FXML private TextField userPasswordField;
+    @FXML private PasswordField userPasswordField;
 
 
 
