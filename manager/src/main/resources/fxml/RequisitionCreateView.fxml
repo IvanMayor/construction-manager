@@ -25,7 +25,7 @@
                <children>
                   <HBox>
                      <children>
-                        <VBox prefHeight="200.0" prefWidth="182.0">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
                               <TextField alignment="CENTER" prefWidth="182.0" text="Contract Price">
                                  <VBox.margin>
@@ -34,7 +34,7 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="182.0">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
                               <TextField alignment="CENTER" prefWidth="182.0" text="Total Change Order">
                                  <VBox.margin>
@@ -43,7 +43,7 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="182.0">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
                               <TextField alignment="CENTER" prefWidth="182.0" text="Money Received">
                                  <VBox.margin>
@@ -52,7 +52,7 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="182.0">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
                               <TextField alignment="CENTER" prefWidth="182.0" text="This period billing">
                                  <VBox.margin>
@@ -61,7 +61,7 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="182.0">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
                               <TextField alignment="CENTER" prefWidth="182.0" text="retainage %">
                                  <VBox.margin>
@@ -70,7 +70,7 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="182.0">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
                               <TextField alignment="CENTER" prefWidth="182.0" text="Company Name">
                                  <VBox.margin>
@@ -79,7 +79,7 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="182.0">
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
                               <TextField alignment="CENTER" prefWidth="182.0" text="Owner or Repr Full Name">
                                  <VBox.margin>

@@ -86,13 +86,25 @@
          </BorderPane.margin></VBox>
    </center>
    <top>
-      <HBox alignment="CENTER" prefHeight="57.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="57.0" prefWidth="600.0" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <Label text="Create new Change Order" textAlignment="CENTER">
-               <font>
-                  <Font name="Inter Bold" size="30.0" />
-               </font>
-            </Label>
+            <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="53.0">
+               <children>
+                  <Button fx:id="backToProjectDetailViewButton" mnemonicParsing="false" onAction="#returnActionButton" text="&lt;--" />
+               </children>
+               <HBox.margin>
+                  <Insets right="50.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox>
+               <children>
+                  <Label text="Create new Change Order">
+                     <font>
+                        <Font name="Inter Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
          </children>
       </HBox>
    </top>

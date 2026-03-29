@@ -22,7 +22,7 @@ public class MainApp extends Application {
 
     public static ConfigurableApplicationContext springContext;
 
-    private Navigator navigator;
+//    private Navigator navigator;
 
     @Override
     public void init() {
@@ -38,7 +38,8 @@ public class MainApp extends Application {
         StageManager stageManager = springContext.getBean(StageManager.class);
         stageManager.setPrimaryStage(stage);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/LoginUserView.fxml"));
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/user/LoginUserView.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectsView.fxml"));
         loader.setControllerFactory(springContext::getBean);
 
         Parent root = loader.load();
