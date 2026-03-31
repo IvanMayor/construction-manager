@@ -1,6 +1,8 @@
 package com.constructionmanager.manager.service;
 
+import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.Requisitions;
+import com.constructionmanager.manager.repository.ProjectsRepository;
 import com.constructionmanager.manager.repository.RequisitionContractItemsRepository;
 import com.constructionmanager.manager.repository.RequisitionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,24 +19,36 @@ public class RequisitionService {
     private RequisitionsRepository requisitionsRepository;
 
     @Autowired
+    private ProjectsRepository projectsRepository;
+
+    @Autowired
     private RequisitionContractItemsRepository requisitionContractItemsRepository;
 
-    public List<Requisitions> getAllRequisitions() {return requisitionsRepository.findAll();}
+    public List<Requisitions> getAllRequisitions() {
+        return requisitionsRepository.findAll();
+    }
 
     public Requisitions getRequisition(Integer id) {
         return requisitionsRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Requisition does not exist"));
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Requisition does not exist"));
     }
 
-    public Requisitions createRequisition(Requisitions requisitions) {
+    public Requisitions createRequisition(Integer projectId, Requisitions requisitions) {
+        Projects project = projectsRepository.findById(projectId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Project with this ID does not exist"));
+        requisitions.setProject(project);
         return requisitionsRepository.save(requisitions);
     }
 
     public Requisitions updateRequisition(Integer id, Requisitions requisitionDetail) {
         Requisitions requisitions = requisitionsRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Requisition does not exist"));
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Requisition does not exist"));
 
-        //TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore argument in copy property.
+        // TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore
+        // argument in copy property.
         if (requisitionDetail.getContractPrice() != null) {
             requisitions.setContractPrice(requisitionDetail.getContractPrice());
         }

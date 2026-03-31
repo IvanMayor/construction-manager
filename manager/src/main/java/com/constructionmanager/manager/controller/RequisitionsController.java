@@ -7,36 +7,36 @@ import com.constructionmanager.manager.service.RequisitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
-
 import java.util.List;
 
 @RestController
 @RequestMapping("/requisitions")
 public class RequisitionsController {
-
     @Autowired
     private RequisitionService requisitionService;
     @Autowired
     private RequisitionContractItemService requisitionContractItemService;
 
     @GetMapping
-    public List<Requisitions> getRequisitions() {return requisitionService.getAllRequisitions();}
+    public List<Requisitions> getRequisitions() {
+        return requisitionService.getAllRequisitions();
+    }
 
     @GetMapping("/{id}")
     public Requisitions requisitions(@PathVariable Integer id) {
         return requisitionService.getRequisition(id);
     }
 
-    @PostMapping
+    @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Requisitions createRequisition(@RequestBody Requisitions requisitions) {
-        return requisitionService.createRequisition(requisitions);
+    public Requisitions createRequisition(@PathVariable Integer id, @RequestBody Requisitions requisitions) {
+        return requisitionService.createRequisition(id, requisitions);
     }
 
     @PostMapping("/{requisitionId}/requisition-contract-items")
     @ResponseStatus(HttpStatus.CREATED)
-    public RequisitionContractItems createRequisitionContractItem(@PathVariable Integer requisitionId, @RequestBody RequisitionContractItems requisitionContractItem) {
+    public RequisitionContractItems createRequisitionContractItem(@PathVariable Integer requisitionId,
+            @RequestBody RequisitionContractItems requisitionContractItem) {
         return requisitionContractItemService.createRequisitionContractItem(requisitionId, requisitionContractItem);
     }
 
@@ -48,10 +48,11 @@ public class RequisitionsController {
     @PutMapping("/{requisitionId}/requisition-contract-items/{contractItemId}")
     public RequisitionContractItems updateRequisitionContractItem(
             @PathVariable Integer requisitionId,
-            @PathVariable Integer  contractItemId,
-            @RequestBody RequisitionContractItems requisitionContractItemDetails ) {
+            @PathVariable Integer contractItemId,
+            @RequestBody RequisitionContractItems requisitionContractItemDetails) {
 
-        return requisitionContractItemService.updateRequisitionContractItem(requisitionId, contractItemId, requisitionContractItemDetails);
+        return requisitionContractItemService.updateRequisitionContractItem(requisitionId, contractItemId,
+                requisitionContractItemDetails);
 
     }
 

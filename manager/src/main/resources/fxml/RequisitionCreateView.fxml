@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.RequisitionCreateController">
    <center>
       <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
@@ -23,11 +23,11 @@
          <children>
             <VBox>
                <children>
-                  <HBox>
+                  <HBox prefHeight="50.0">
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
-                              <TextField alignment="CENTER" prefWidth="182.0" text="Contract Price">
+                              <TextField fx:id="contractPriceField" alignment="CENTER" prefWidth="182.0" promptText="Contract Price">
                                  <VBox.margin>
                                     <Insets left="10.0" />
                                  </VBox.margin>
@@ -36,7 +36,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
-                              <TextField alignment="CENTER" prefWidth="182.0" text="Total Change Order">
+                              <TextField fx:id="totalChangeOrderField" alignment="CENTER" prefWidth="182.0" promptText="Total Change Order">
                                  <VBox.margin>
                                     <Insets left="10.0" />
                                  </VBox.margin>
@@ -45,7 +45,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
-                              <TextField alignment="CENTER" prefWidth="182.0" text="Money Received">
+                              <TextField fx:id="moneyReceivedField" alignment="CENTER" prefWidth="182.0" promptText="Money Received">
                                  <VBox.margin>
                                     <Insets left="10.0" />
                                  </VBox.margin>
@@ -54,7 +54,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
-                              <TextField alignment="CENTER" prefWidth="182.0" text="This period billing">
+                              <TextField fx:id="thisPeriodBillingField" alignment="CENTER" prefWidth="182.0" promptText="This period billing">
                                  <VBox.margin>
                                     <Insets left="10.0" />
                                  </VBox.margin>
@@ -63,7 +63,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
-                              <TextField alignment="CENTER" prefWidth="182.0" text="retainage %">
+                              <TextField fx:id="retainageField" alignment="CENTER" prefWidth="182.0" promptText="retainage %">
                                  <VBox.margin>
                                     <Insets left="10.0" />
                                  </VBox.margin>
@@ -72,7 +72,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
-                              <TextField alignment="CENTER" prefWidth="182.0" text="Company Name">
+                              <TextField fx:id="companyNameField" alignment="CENTER" prefWidth="182.0" promptText="Company Name">
                                  <VBox.margin>
                                     <Insets left="10.0" />
                                  </VBox.margin>
@@ -81,7 +81,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
-                              <TextField alignment="CENTER" prefWidth="182.0" text="Owner or Repr Full Name">
+                              <TextField fx:id="ownerFullNameField" alignment="CENTER" prefWidth="182.0" promptText="Owner or Repr Full Name">
                                  <VBox.margin>
                                     <Insets left="10.0" />
                                  </VBox.margin>
@@ -92,8 +92,11 @@
                   </HBox>
                   <HBox alignment="CENTER">
                      <children>
-                        <Button alignment="CENTER" mnemonicParsing="false" text="Button" textAlignment="CENTER" />
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#createRequisition" text="Create" textAlignment="CENTER" />
                      </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
                   </HBox>
                </children>
             </VBox>

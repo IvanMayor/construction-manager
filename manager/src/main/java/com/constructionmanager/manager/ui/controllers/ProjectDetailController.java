@@ -31,35 +31,102 @@ public class ProjectDetailController {
 
     private final ProjectService projectService;
 
-    @FXML private Label projectId;
-    @FXML private TextField projectName;
-    @FXML private TextField projectAddress;
-    @FXML private ComboBox<Projects.JobType> projectType;
-    @FXML private DatePicker projectStartDate;
-    @FXML private DatePicker projectFinishDate;
-    @FXML private Button createChangeOrderButton;
+    @FXML
+    private Label projectId;
+    @FXML
+    private TextField projectName;
+    @FXML
+    private TextField projectAddress;
+    @FXML
+    private ComboBox<Projects.JobType> projectType;
+    @FXML
+    private DatePicker projectStartDate;
+    @FXML
+    private DatePicker projectFinishDate;
+    @FXML
+    private Button createChangeOrderButton;
 
-    @FXML private TableView<ChangeOrders> changeOrderTable;
-    @FXML private TableColumn<ChangeOrders, Integer> changeOrderId;
-    @FXML private TableColumn<ChangeOrders, Integer> changeOrderNumber;
-    @FXML private TableColumn<ChangeOrders, String> changeOrderTitle;
-    @FXML private TableColumn<ChangeOrders, BigDecimal> changeOrderCost;
-    @FXML private TableColumn<ChangeOrders, LocalDate> changeOrderDate;
-    @FXML private TableColumn<ChangeOrders, Void> changeOrderDetail;
+    @FXML
+    private TableView<ChangeOrders> changeOrderTable;
+    @FXML
+    private TableColumn<ChangeOrders, Integer> changeOrderId;
+    @FXML
+    private TableColumn<ChangeOrders, Integer> changeOrderNumber;
+    @FXML
+    private TableColumn<ChangeOrders, String> changeOrderTitle;
+    @FXML
+    private TableColumn<ChangeOrders, BigDecimal> changeOrderCost;
+    @FXML
+    private TableColumn<ChangeOrders, LocalDate> changeOrderDate;
+    @FXML
+    private TableColumn<ChangeOrders, Void> changeOrderDetail;
 
-    @FXML private TableView<Requisitions> requisitionTable;
-    @FXML private TableColumn<Requisitions, Integer> requisitionId;
-    @FXML private TableColumn<Requisitions, Integer> requisitionNumber;
-    @FXML private TableColumn<Requisitions, BigDecimal> requisitionBilled;
-    @FXML private TableColumn<Requisitions, LocalDate> requisitionDateCreated;
-    @FXML private TableColumn<Requisitions, Void> requisitionDetail;
+    @FXML
+    private TableView<Requisitions> requisitionTable;
+    @FXML
+    private TableColumn<Requisitions, Integer> requisitionId;
+    @FXML
+    private TableColumn<Requisitions, Integer> requisitionNumber;
+    @FXML
+    private TableColumn<Requisitions, BigDecimal> requisitionBilled;
+    @FXML
+    private TableColumn<Requisitions, LocalDate> requisitionDateCreated;
+    @FXML
+    private TableColumn<Requisitions, Void> requisitionDetail;
 
     public ProjectDetailController(ProjectService projectService) {
         this.projectService = projectService;
     }
 
+    public void initialize() {
+
+        requisitionDetail.setCellFactory(param -> new TableCell<>() {
+            private final Button editRequisitionButton = new Button();
+            {
+                editRequisitionButton.setOnAction(e -> {
+                    Requisitions requisitions = getTableView().getItems().get(getIndex());
+                    redirectToEditRequisition(requisitions);
+                });
+                editRequisitionButton.setPrefWidth(65);
+                editRequisitionButton.setText("Edit");
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(editRequisitionButton);
+                }
+            }
+        });
+        changeOrderDetail.setCellFactory(param -> new TableCell<>() {
+            private final Button editChangeOrderButton = new Button();
+            {
+                editChangeOrderButton.setOnAction(e -> {
+                    ChangeOrders changeOrder = getTableView().getItems().get(getIndex());
+                    redirectToEditChangeOrder(changeOrder);
+                });
+                editChangeOrderButton.setPrefWidth(65);
+                editChangeOrderButton.setText("Edit");
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(editChangeOrderButton);
+                }
+            }
+        });
+    }
+
     public void setUpChangeOrderTable(Projects project) {
-        changeOrderTable.setItems(FXCollections.observableArrayList(projectService.getProjectChangeOrders(project.getId())));
+        changeOrderTable
+                .setItems(FXCollections.observableArrayList(projectService.getProjectChangeOrders(project.getId())));
 
         changeOrderId.setCellValueFactory(new PropertyValueFactory<>("id"));
         changeOrderNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
@@ -103,10 +170,26 @@ public class ProjectDetailController {
         stage.show();
     }
 
+    @FXML
+    public void createRequisitionButton(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RequisitionCreateView.fxml"));
+        loader.setControllerFactory(MainApp.springContext::getBean);
+        root = loader.load();
+
+        RequisitionCreateController requisitionCreateController = loader.getController();
+        requisitionCreateController.setProject(project);
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void setupProjectDetail(Projects project) {
         this.project = project;
         setUpProjectEditFields();
         setUpChangeOrderTable(project);
+        setUpRequisitionTable();
         setUpProjectEditFields();
 
     }
@@ -124,18 +207,23 @@ public class ProjectDetailController {
     }
 
     public void updateProject(ActionEvent event) {
-        Projects project = new Projects(
-                projectName.getText(),
-                projectAddress.getText(),
-                projectType.getValue(),
-                projectStartDate.getValue(),
-                projectFinishDate.getValue(),
-                null);
+        Projects project = new Projects();
+        project.setName(projectName.getText());
+        project.setAddress(projectAddress.getText());
+        project.setJobType(projectType.getValue());
+        project.setDateStarted(projectStartDate.getValue());
+        project.setDateFinished(projectFinishDate.getValue());
 
         projectService.updateProject(Integer.parseInt(projectId.getText()), project);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Project was successfully updated!!");
         alert.showAndWait();
+    }
+
+    public void redirectToEditRequisition(Requisitions requisition) {
+    }
+
+    public void redirectToEditChangeOrder(ChangeOrders changeOrder) {
     }
 
 }
