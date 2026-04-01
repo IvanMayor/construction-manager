@@ -2,6 +2,7 @@ package com.constructionmanager.manager.service;
 
 import com.constructionmanager.manager.model.ChangeOrders;
 import com.constructionmanager.manager.model.Projects;
+import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.repository.ProjectsRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,9 @@ public class ProjectService {
     @Autowired
     private ProjectsRepository projectsRepository;
 
-    public List<Projects> getAllProjects() {return projectsRepository.findAll();}
+    public List<Projects> getAllProjects() {
+        return projectsRepository.findAll();
+    }
 
     public Projects createProject(
             String name,
@@ -44,9 +47,11 @@ public class ProjectService {
     @Transactional
     public Projects updateProject(Integer id, Projects projectsDetail) {
         Projects projects = projectsRepository.findById(id)
-                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project with this id does not exist"));
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project with this id does not exist"));
 
-        //TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore argument in copy property.
+        // TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore
+        // argument in copy property.
         if (projectsDetail.getName() != null) {
             projects.setName(projectsDetail.getName());
         }
@@ -91,6 +96,11 @@ public class ProjectService {
         return project.getChangeOrders();
     }
 
+    public List<Requisitions> getProjectRequisitions(Integer id) {
+        Projects project = projectsRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This project does not exist"));
 
+        return project.getRequisitions();
+    }
 
 }

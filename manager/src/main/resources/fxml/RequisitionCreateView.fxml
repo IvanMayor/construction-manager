@@ -63,7 +63,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="182.0">
                            <children>
-                              <TextField fx:id="retainageField" alignment="CENTER" prefWidth="182.0" promptText="retainage %">
+                              <TextField fx:id="retainageField" alignment="CENTER" prefWidth="182.0" promptText="retainage">
                                  <VBox.margin>
                                     <Insets left="10.0" />
                                  </VBox.margin>

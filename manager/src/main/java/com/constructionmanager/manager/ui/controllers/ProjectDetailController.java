@@ -20,7 +20,6 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Optional;
 
 @Component
 public class ProjectDetailController {
@@ -135,8 +134,9 @@ public class ProjectDetailController {
         changeOrderDate.setCellValueFactory(new PropertyValueFactory<>("dateCreated"));
     }
 
-    public void setUpRequisitionTable() {
-        requisitionTable.setItems(FXCollections.observableArrayList(project.getRequisitions()));
+    public void setUpRequisitionTable(Projects project) {
+        requisitionTable
+                .setItems(FXCollections.observableArrayList(projectService.getProjectRequisitions(project.getId())));
 
         requisitionId.setCellValueFactory(new PropertyValueFactory<>("id"));
         requisitionNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
@@ -189,7 +189,7 @@ public class ProjectDetailController {
         this.project = project;
         setUpProjectEditFields();
         setUpChangeOrderTable(project);
-        setUpRequisitionTable();
+        setUpRequisitionTable(project);
         setUpProjectEditFields();
 
     }
@@ -223,7 +223,28 @@ public class ProjectDetailController {
     public void redirectToEditRequisition(Requisitions requisition) {
     }
 
+    @FXML
     public void redirectToEditChangeOrder(ChangeOrders changeOrder) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChangeOrderDetailView.fxml"));
+            loader.setControllerFactory(MainApp.springContext::getBean);
+
+            root = loader.load();
+
+            ChangeOrderDetailController changeOrderDetailController = loader.getController();
+            changeOrderDetailController.setChangeOrder(changeOrder);
+            changeOrderDetailController.setProject(project);
+            changeOrderDetailController.setupContext();
+
+            scene = new Scene(root);
+            stage = (Stage) ((Node) changeOrderTable).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
     }
 
 }

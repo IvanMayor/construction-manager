@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.constructionmanager.manager.model.ChangeOrders;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.lang.Integer;
 
@@ -24,11 +23,14 @@ public class ChangeOrderService {
     @Autowired
     private ProjectsRepository projectsRepository;
 
-    public List<ChangeOrders> getAllChangeOrders() {return changeOrdersRepository.findAll();}
+    public List<ChangeOrders> getAllChangeOrders() {
+        return changeOrdersRepository.findAll();
+    }
 
     public ChangeOrders getChangeOrder(Integer id) {
         return changeOrdersRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This change order does not exist."));
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This change order does not exist."));
     }
 
     public ChangeOrders createChangeOrder(Integer projectId, ChangeOrders changeOrders) {
@@ -50,17 +52,20 @@ public class ChangeOrderService {
 
     public ChangeOrders updateChangeOrder(Integer projectId, Integer changeOrderId, ChangeOrders changeOrderDetails) {
         Projects project = projectsRepository.findById(projectId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project with this id does not exist."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "Project with this id does not exist."));
 
         ChangeOrders changeOrder = changeOrdersRepository.findById(changeOrderId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This change order does not exist."));
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This change order does not exist."));
 
-        //TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore argument in copy property.
+        // TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore
+        // argument in copy property.
         if (changeOrderDetails.getNumber() != null) {
             changeOrder.setNumber(changeOrderDetails.getNumber());
         }
 
-        if (changeOrderDetails.getTitle() != null){
+        if (changeOrderDetails.getTitle() != null) {
             changeOrder.setTitle(changeOrderDetails.getTitle());
         }
 
@@ -92,7 +97,5 @@ public class ChangeOrderService {
 
         changeOrdersRepository.deleteById(id);
     }
-
-
 
 }

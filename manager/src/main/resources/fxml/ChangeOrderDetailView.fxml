@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.ChangeOrderDetailController">
+   <center>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox>
+               <children>
+                  <HBox maxHeight="300.0" minHeight="50.0" prefHeight="60.0">
+                     <children>
+                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Label text="CO Number" />
+                                    <TextField fx:id="changeOrderNumber" promptText="CO Number" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Label text="Title" />
+                                    <TextField fx:id="changeOrderTitle" promptText="Title" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Label text="Description" />
+                                    <TextField fx:id="changeOrderDescription" promptText="Description" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Label text="Breakdown" />
+                                    <TextField fx:id="changeOrderBreakdown" promptText="Breakdown" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Label text="Price" />
+                                    <TextField fx:id="changeOrderPrice" promptText="Price" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Button maxWidth="150.0" minWidth="70.0" mnemonicParsing="false" onAction="#updateChangeOrderButton" prefWidth="100.0" text="Update" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>
