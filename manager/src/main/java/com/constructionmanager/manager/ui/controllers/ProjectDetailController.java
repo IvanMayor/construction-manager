@@ -190,7 +190,6 @@ public class ProjectDetailController {
         setUpProjectEditFields();
         setUpChangeOrderTable(project);
         setUpRequisitionTable(project);
-        setUpProjectEditFields();
 
     }
 
