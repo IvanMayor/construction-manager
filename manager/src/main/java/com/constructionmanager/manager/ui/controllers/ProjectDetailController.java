@@ -220,6 +220,25 @@ public class ProjectDetailController {
     }
 
     public void redirectToEditRequisition(Requisitions requisition) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RequisitionDetailView.fxml"));
+            loader.setControllerFactory(MainApp.springContext::getBean);
+
+            root = loader.load();
+
+            RequisitionDetailController requisitionDetailController = loader.getController();
+            requisitionDetailController.setRequisition(requisition);
+            requisitionDetailController.setProject(project);
+            requisitionDetailController.setupContext();
+
+            scene = new Scene(root);
+            stage = (Stage) ((Node) changeOrderTable).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
     }
 
     @FXML
