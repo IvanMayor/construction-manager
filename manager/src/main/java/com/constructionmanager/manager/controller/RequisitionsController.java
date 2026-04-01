@@ -56,9 +56,10 @@ public class RequisitionsController {
 
     }
 
-    @PutMapping("/{id}")
-    public Requisitions updateRequisition(@PathVariable Integer id, @RequestBody Requisitions requisitionsDetail) {
-        return requisitionService.updateRequisition(id, requisitionsDetail);
+    @PutMapping("/{projectId}/requisitions/{requisitionId}")
+    public Requisitions updateRequisition(@PathVariable Integer projectId, @PathVariable Integer requisitionId,
+            @RequestBody Requisitions requisitionsDetail) {
+        return requisitionService.updateRequisition(projectId, requisitionId, requisitionsDetail);
     }
 
     @DeleteMapping("/{id}")

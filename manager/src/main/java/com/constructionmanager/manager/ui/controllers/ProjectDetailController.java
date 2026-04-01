@@ -65,7 +65,7 @@ public class ProjectDetailController {
     @FXML
     private TableColumn<Requisitions, Integer> requisitionId;
     @FXML
-    private TableColumn<Requisitions, Integer> requisitionNumber;
+    private TableColumn<Requisitions, Integer> requisitionCompanyName;
     @FXML
     private TableColumn<Requisitions, BigDecimal> requisitionBilled;
     @FXML
@@ -139,7 +139,7 @@ public class ProjectDetailController {
                 .setItems(FXCollections.observableArrayList(projectService.getProjectRequisitions(project.getId())));
 
         requisitionId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        requisitionNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
+        requisitionCompanyName.setCellValueFactory(new PropertyValueFactory<>("companyName"));
         requisitionBilled.setCellValueFactory(new PropertyValueFactory<>("thisRequisitionBilling"));
         requisitionDateCreated.setCellValueFactory(new PropertyValueFactory<>("dateCreated"));
     }
@@ -227,8 +227,7 @@ public class ProjectDetailController {
             root = loader.load();
 
             RequisitionDetailController requisitionDetailController = loader.getController();
-            requisitionDetailController.setRequisition(requisition);
-            requisitionDetailController.setProject(project);
+            requisitionDetailController.setRequisitionAndProject(requisition, project);
             requisitionDetailController.setupContext();
 
             scene = new Scene(root);

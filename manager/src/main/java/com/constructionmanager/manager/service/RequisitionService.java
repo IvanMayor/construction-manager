@@ -42,8 +42,12 @@ public class RequisitionService {
         return requisitionsRepository.save(requisitions);
     }
 
-    public Requisitions updateRequisition(Integer id, Requisitions requisitionDetail) {
-        Requisitions requisitions = requisitionsRepository.findById(id)
+    public Requisitions updateRequisition(Integer projectId, Integer requisitionId, Requisitions requisitionDetail) {
+
+        Projects project = projectsRepository.findById(projectId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This project does not exist."));
+
+        Requisitions requisitions = requisitionsRepository.findById(requisitionId)
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Requisition does not exist"));
 
@@ -79,6 +83,8 @@ public class RequisitionService {
         if (requisitionDetail.getRequisitionContractItems() != null) {
             requisitions.setRequisitionContractItems(requisitionDetail.getRequisitionContractItems());
         }
+
+        requisitions.setProject(project);
 
         return requisitionsRepository.save(requisitions);
     }

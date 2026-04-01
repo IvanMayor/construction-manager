@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.RequisitionDetailController">
    <center>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -109,7 +108,7 @@
                               <VBox alignment="TOP_CENTER" prefWidth="200.0">
                                  <children>
                                     <Label text="Owner Full Name" />
-                                    <TextField fx:id="requisitionFullName" alignment="CENTER" promptText="Owner Full Name" />
+                                    <TextField fx:id="requisitionOwnerFullName" alignment="CENTER" promptText="Owner Full Name" />
                                  </children>
                               </VBox>
                            </children>
@@ -127,7 +126,7 @@
    <bottom>
       <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Button minWidth="50.0" mnemonicParsing="false" prefWidth="150.0" text="Update">
+            <Button minWidth="50.0" mnemonicParsing="false" onAction="#requisitionUpdateButton" prefWidth="150.0" text="Update">
                <HBox.margin>
                   <Insets bottom="10.0" />
                </HBox.margin>

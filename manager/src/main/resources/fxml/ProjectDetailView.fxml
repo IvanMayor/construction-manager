@@ -33,7 +33,7 @@
       <TableView fx:id="requisitionTable" prefHeight="396.0" prefWidth="500.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="requisitionId" prefWidth="75.0" text="REQ ID" />
-          <TableColumn fx:id="requisitionNumber" prefWidth="75.0" text="REQ #" />
+          <TableColumn fx:id="requisitionCompanyName" prefWidth="75.0" text="COMPANY" />
             <TableColumn fx:id="requisitionBilled" text="REQ Billed" />
             <TableColumn fx:id="requisitionDateCreated" text="REQ Date" />
             <TableColumn fx:id="requisitionDetail" text="Detail" />
