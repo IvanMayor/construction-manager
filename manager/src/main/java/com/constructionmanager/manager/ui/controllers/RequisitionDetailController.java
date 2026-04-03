@@ -57,11 +57,6 @@ public class RequisitionDetailController {
 
 	public void setupContext() {
 		requisitionContractPrice.setText(String.valueOf(requisition.getContractPrice()));
-		requisitionTotalCOAmount.setText(String.valueOf(requisition.getTotalChangeOrderAmount()));
-		requisitionTotalContractAndCO.setText(String.valueOf(requisition.getTotalContractAndCOAmount()));
-		requisitionTotalMoneyReceived.setText(String.valueOf(requisition.getTotalMoneyReceived()));
-		requisitionThisRequisitionBilling.setText(String.valueOf(requisition.getThisRequisitionBilling()));
-		requisitionRetainage.setText(String.valueOf(requisition.getRetainage()));
 		requisitionCompanyName.setText(requisition.getCompanyName());
 		requisitionOwnerFullName.setText(requisition.getOwnerOrRepresentativeFullName());
 	}
@@ -70,26 +65,6 @@ public class RequisitionDetailController {
 	public void requisitionUpdateButton(ActionEvent event) {
 		if (!requisitionContractPrice.getText().isBlank() && !requisitionContractPrice.getText().isEmpty()) {
 			requisition.setContractPrice(new BigDecimal(requisitionContractPrice.getText()));
-		}
-		if (!requisitionTotalCOAmount.getText().isBlank() && !requisitionTotalCOAmount.getText().isEmpty()) {
-			requisition.setTotalChangeOrderAmount(new BigDecimal(requisitionTotalCOAmount.getText()));
-		}
-		if (!requisitionTotalContractAndCO.getText().isBlank()
-				&& !requisitionTotalContractAndCO.getText().isEmpty()) {
-			requisition.setTotalContractAndCOAmount(
-					new BigDecimal(requisitionTotalContractAndCO.getText()));
-		}
-		if (!requisitionTotalMoneyReceived.getText().isBlank()
-				&& !requisitionTotalMoneyReceived.getText().isEmpty()) {
-			requisition.setTotalMoneyReceived(new BigDecimal(requisitionTotalMoneyReceived.getText()));
-		}
-		if (!requisitionThisRequisitionBilling.getText().isBlank()
-				&& !requisitionThisRequisitionBilling.getText().isEmpty()) {
-			requisition.setThisRequisitionBilling(
-					new BigDecimal(requisitionThisRequisitionBilling.getText()));
-		}
-		if (!requisitionRetainage.getText().isBlank() && !requisitionRetainage.getText().isEmpty()) {
-			requisition.setRetainage(Integer.parseInt(requisitionRetainage.getText()));
 		}
 		if (!requisitionCompanyName.getText().isBlank() && !requisitionCompanyName.getText().isEmpty()) {
 			requisition.setCompanyName(requisitionCompanyName.getText());

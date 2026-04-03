@@ -33,14 +33,6 @@ public class RequisitionCreateController {
 	@FXML
 	private TextField contractPriceField;
 	@FXML
-	private TextField totalChangeOrderField;
-	@FXML
-	private TextField moneyReceivedField;
-	@FXML
-	private TextField thisPeriodBillingField;
-	@FXML
-	private TextField retainageField;
-	@FXML
 	private TextField companyNameField;
 	@FXML
 	private TextField ownerFullNameField;
@@ -57,13 +49,8 @@ public class RequisitionCreateController {
 	public void createRequisition(ActionEvent event) throws IOException {
 		Requisitions requisition = new Requisitions();
 		requisition.setContractPrice(new BigDecimal(contractPriceField.getText()));
-		requisition.setTotalChangeOrderAmount(new BigDecimal(totalChangeOrderField.getText()));
-		requisition.setTotalMoneyReceived(new BigDecimal(moneyReceivedField.getText()));
-		requisition.setThisRequisitionBilling(new BigDecimal(thisPeriodBillingField.getText()));
-		requisition.setRetainage(Integer.parseInt(retainageField.getText()));
 		requisition.setCompanyName(companyNameField.getText());
 		requisition.setOwnerOrRepresentativeFullName(ownerFullNameField.getText());
-		requisition.setDateCreated(LocalDate.now());
 
 		requisitionService.createRequisition(project.getId(), requisition);
 

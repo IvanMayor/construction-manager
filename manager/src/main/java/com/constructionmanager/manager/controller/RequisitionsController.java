@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/requisitions")
@@ -40,9 +41,9 @@ public class RequisitionsController {
         return requisitionContractItemService.createRequisitionContractItem(requisitionId, requisitionContractItem);
     }
 
-    @GetMapping("/{requisitionId}/requisition-contract-items")
-    public List<RequisitionContractItems> getRequisitionContractItems(@PathVariable Integer requisitionId) {
-        return requisitionContractItemService.getRequisitionContractItems(requisitionId);
+    @GetMapping("/{processRequisitionId}/requisition-contract-items")
+    public Set<RequisitionContractItems> getRequisitionContractItems(@PathVariable Integer processRequisitionId) {
+        return requisitionContractItemService.getRequisitionContractItems(processRequisitionId);
     }
 
     @PutMapping("/{requisitionId}/requisition-contract-items/{contractItemId}")

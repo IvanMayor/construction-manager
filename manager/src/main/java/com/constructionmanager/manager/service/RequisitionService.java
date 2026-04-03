@@ -3,7 +3,6 @@ package com.constructionmanager.manager.service;
 import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.repository.ProjectsRepository;
-import com.constructionmanager.manager.repository.RequisitionContractItemsRepository;
 import com.constructionmanager.manager.repository.RequisitionsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +19,6 @@ public class RequisitionService {
 
     @Autowired
     private ProjectsRepository projectsRepository;
-
-    @Autowired
-    private RequisitionContractItemsRepository requisitionContractItemsRepository;
 
     public List<Requisitions> getAllRequisitions() {
         return requisitionsRepository.findAll();
@@ -56,21 +52,6 @@ public class RequisitionService {
         if (requisitionDetail.getContractPrice() != null) {
             requisitions.setContractPrice(requisitionDetail.getContractPrice());
         }
-        if (requisitionDetail.getTotalChangeOrderAmount() != null) {
-            requisitions.setTotalChangeOrderAmount(requisitionDetail.getTotalChangeOrderAmount());
-        }
-
-        if (requisitionDetail.getTotalContractAndCOAmount() != null) {
-            requisitions.setTotalContractAndCOAmount(requisitionDetail.getTotalContractAndCOAmount());
-        }
-
-        if (requisitionDetail.getTotalMoneyReceived() != null) {
-            requisitions.setTotalMoneyReceived(requisitionDetail.getTotalMoneyReceived());
-        }
-
-        if (requisitionDetail.getRetainage() != null) {
-            requisitions.setRetainage(requisitionDetail.getRetainage());
-        }
 
         if (requisitionDetail.getCompanyName() != null) {
             requisitions.setCompanyName(requisitionDetail.getCompanyName());
@@ -78,10 +59,6 @@ public class RequisitionService {
 
         if (requisitionDetail.getOwnerOrRepresentativeFullName() != null) {
             requisitions.setOwnerOrRepresentativeFullName(requisitionDetail.getOwnerOrRepresentativeFullName());
-        }
-
-        if (requisitionDetail.getRequisitionContractItems() != null) {
-            requisitions.setRequisitionContractItems(requisitionDetail.getRequisitionContractItems());
         }
 
         requisitions.setProject(project);
