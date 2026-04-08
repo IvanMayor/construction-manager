@@ -72,9 +72,12 @@ public class RequisitionService {
         if (!requisitionsRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Requisition does not exist ID: " + id);
         }
-        System.out.println("Delete Clicked: " + id);
-        requisitionsRepository.deleteById(id);
-        requisitionsRepository.flush();
+        Requisitions requisition = requisitionsRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This requisition does not exist!"));
+        Projects project = requisition.getProject();
+        project.getRequisitions().remove(requisition);
+        projectsRepository.save(project);
     }
 
 }

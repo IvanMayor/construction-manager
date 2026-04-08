@@ -40,7 +40,6 @@ public class ProcessRequisitionService {
 		Requisitions requisition = requisitionsRepository.findById(requisitionId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"This Requisition does not exist"));
-		processRequisition.setRequisition(requisition);
 		return processRequisitionRepository.save(processRequisition);
 	}
 
@@ -114,11 +113,6 @@ public class ProcessRequisitionService {
 			processRequisition.setPercentCompletedItemToDate(
 					processRequisitionDetail.getPercentCompletedItemToDate());
 		}
-		if (processRequisitionDetail.getRequisitionDate() != null) {
-			processRequisition.setRequisition(processRequisitionDetail.getRequisition());
-		}
-
-		processRequisition.setRequisition(requisition);
 
 		return processRequisitionRepository.save(processRequisition);
 	}

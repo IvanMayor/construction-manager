@@ -18,10 +18,6 @@ public class Requisitions {
     private String companyName;
     private String ownerOrRepresentativeFullName;
 
-    @OneToMany(mappedBy = "requisition", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private List<ProcessRequisition> processRequisitions = new ArrayList<>();
-
     @ManyToOne
     @JoinColumn(name = "project_id")
     @JsonIgnore
@@ -69,14 +65,6 @@ public class Requisitions {
 
     public void setOwnerOrRepresentativeFullName(String ownerOrRepresentativeFullName) {
         this.ownerOrRepresentativeFullName = ownerOrRepresentativeFullName;
-    }
-
-    public List<ProcessRequisition> getProcessRequisitions() {
-        return processRequisitions;
-    }
-
-    public void setProcessRequisitions(List<ProcessRequisition> processRequisitions) {
-        this.processRequisitions = processRequisitions;
     }
 
     public Projects getProject() {
