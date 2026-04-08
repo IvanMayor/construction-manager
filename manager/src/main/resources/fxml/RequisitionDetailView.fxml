@@ -16,7 +16,7 @@
                <children>
                   <VBox alignment="CENTER" minWidth="200.0" prefHeight="200.0" prefWidth="400.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="300.0">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
                            <children>
                               <VBox alignment="TOP_CENTER" prefWidth="200.0">
                                  <children>
@@ -27,50 +27,10 @@
                                     <Insets right="5.0" />
                                  </HBox.margin>
                               </VBox>
-                              <VBox alignment="TOP_CENTER" prefWidth="200.0">
-                                 <children>
-                                    <Label text="This Requisition Billing" />
-                                    <TextField fx:id="requisitionThisRequisitionBilling" alignment="CENTER" promptText="This Requisition Billing" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </VBox>
                            </children>
                         </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <VBox alignment="TOP_CENTER" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Total CO Amount $" />
-                                    <TextField fx:id="requisitionTotalCOAmount" alignment="CENTER" promptText="Total CO Amount $" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </VBox>
-                              <VBox alignment="TOP_CENTER" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Retainage" />
-                                    <TextField fx:id="requisitionRetainage" alignment="CENTER" promptText="Retainage" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <VBox alignment="TOP_CENTER" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Total Contract and CO $" />
-                                    <TextField fx:id="requisitionTotalContractAndCO" alignment="CENTER" promptText="Total Contract and CO $" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </VBox>
                               <VBox alignment="TOP_CENTER" prefWidth="200.0">
                                  <children>
                                     <Label text="Company Name" />
@@ -82,17 +42,8 @@
                               </VBox>
                            </children>
                         </HBox>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <VBox alignment="TOP_CENTER" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Total Money Received" />
-                                    <TextField fx:id="requisitionTotalMoneyReceived" alignment="CENTER" promptText="Total Money Received" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </VBox>
                               <VBox alignment="TOP_CENTER" prefWidth="200.0">
                                  <children>
                                     <Label text="Owner Full Name" />

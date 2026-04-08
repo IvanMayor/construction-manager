@@ -2,11 +2,13 @@ package com.constructionmanager.manager.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,6 +26,7 @@ public class ProcessRequisition {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	private BigDecimal totalChangeOrdersToDate;
 	private BigDecimal totalChangeOrdersAndOriginalContract;
 	private BigDecimal totalCompletedWork;
@@ -39,15 +43,18 @@ public class ProcessRequisition {
 	private BigDecimal currentRetainageItemToDate;
 	private Integer percentCompletedItemToDate;
 	private LocalDate requisitionDate;
+	@Column(nullable = false, updatable = false)
+	private LocalDateTime createdAt;
+
+	@PrePersist
+	protected void onCreated() {
+		this.createdAt = LocalDateTime.now();
+	}
 
 	@ManyToOne
 	@JoinColumn(name = "requisition_id")
 	@JsonIgnore
 	private Requisitions requisition;
-
-	@ManyToMany
-	@JoinTable(name = "process_requisition_requisition_contract_item", joinColumns = @JoinColumn(name = "process_requisition_id"), inverseJoinColumns = @JoinColumn(name = "student_id"))
-	private Set<RequisitionContractItems> requisitionContractItems = new HashSet<>();
 
 	public ProcessRequisition() {
 
@@ -88,7 +95,7 @@ public class ProcessRequisition {
 		this.requisitionDate = requisitionDate;
 	}
 
-	public BigDecimal getTotalChangeOrderToDate() {
+	public BigDecimal getTotalChangeOrdersToDate() {
 		return totalChangeOrdersToDate;
 	}
 
@@ -100,7 +107,7 @@ public class ProcessRequisition {
 		return totalChangeOrdersAndOriginalContract;
 	}
 
-	public void setTotalChagneOrdersAndOriginalContract(BigDecimal totalChangeOrdersAndOriginalContract) {
+	public void setTotalChangeOrdersAndOriginalContract(BigDecimal totalChangeOrdersAndOriginalContract) {
 		this.totalChangeOrdersAndOriginalContract = totalChangeOrdersAndOriginalContract;
 	}
 
@@ -214,14 +221,6 @@ public class ProcessRequisition {
 
 	public void setRequisitionDate(LocalDate requisitionDate) {
 		this.requisitionDate = requisitionDate;
-	}
-
-	public Set<RequisitionContractItems> getRequisitionContractItems() {
-		return requisitionContractItems;
-	}
-
-	public void setRequisitionContractItems(Set<RequisitionContractItems> requisitionContractItems) {
-		this.requisitionContractItems = requisitionContractItems;
 	}
 
 	public Requisitions getRequisition() {

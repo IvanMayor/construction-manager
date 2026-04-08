@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.RequisitionContractItemCreateController">
+   <top>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox>
+               <children>
+                  <Button mnemonicParsing="false" onAction="#returnToDetailProjectController" text="&lt;--" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <Label fx:id="informationAboutProject" text="This is should be some information about project">
+                     <font>
+                        <Font name="Hack Nerd Font Regular" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="114.0" prefWidth="346.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <VBox alignment="TOP_CENTER">
+                           <children>
+                              <Label text="Name">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="requisitionTextFieldName" promptText="Insert Name ot the Item">
+                                 <VBox.margin>
+                                    <Insets right="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER">
+                           <children>
+                              <Label text="Total Cost">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="requisitionTextFieldTotalCost" promptText="Total Cost of this item" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#createRequisitionContractItem" text="Create Contract Item">
+                           <HBox.margin>
+                              <Insets top="10.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="250.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="requisitionContractItemTable" prefHeight="128.0" prefWidth="434.0">
+               <columns>
+                  <TableColumn fx:id="requisitionCIId" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="requisitionCIName" prefWidth="75.0" text="Name" />
+                  <TableColumn fx:id="requisitionCITotalCost" prefWidth="75.0" text="Total Cost" />
+               </columns>
+            </TableView>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

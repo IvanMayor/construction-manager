@@ -22,7 +22,7 @@ public class Requisitions {
     @JsonIgnore
     private List<ProcessRequisition> processRequisitions = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "project_id")
     @JsonIgnore
     private Projects project;
@@ -33,12 +33,10 @@ public class Requisitions {
     public Requisitions(
             BigDecimal contractPrice,
             String companyName,
-            String ownerOrRepresentativeFullName,
-            List<ProcessRequisition> processRequisitions) {
+            String ownerOrRepresentativeFullName) {
         this.contractPrice = contractPrice;
         this.companyName = companyName;
         this.ownerOrRepresentativeFullName = ownerOrRepresentativeFullName;
-        this.processRequisitions = processRequisitions;
     }
 
     public Integer getId() {
@@ -73,11 +71,11 @@ public class Requisitions {
         this.ownerOrRepresentativeFullName = ownerOrRepresentativeFullName;
     }
 
-    public List<ProcessRequisition> getRequisitionContractItems() {
+    public List<ProcessRequisition> getProcessRequisitions() {
         return processRequisitions;
     }
 
-    public void setRequisitionContractItems(List<ProcessRequisition> processRequisitions) {
+    public void setProcessRequisitions(List<ProcessRequisition> processRequisitions) {
         this.processRequisitions = processRequisitions;
     }
 

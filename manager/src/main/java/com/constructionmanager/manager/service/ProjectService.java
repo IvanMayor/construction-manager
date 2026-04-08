@@ -2,6 +2,7 @@ package com.constructionmanager.manager.service;
 
 import com.constructionmanager.manager.model.ChangeOrders;
 import com.constructionmanager.manager.model.Projects;
+import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.repository.ProjectsRepository;
 import jakarta.transaction.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -103,4 +105,20 @@ public class ProjectService {
         return project.getRequisitions();
     }
 
+    public BigDecimal getTotalChangeOrderAmount(Integer projectId) {
+        BigDecimal totalPrice = new BigDecimal(0);
+        Projects project = projectsRepository.findById(projectId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Project does not exist!!!"));
+        List<ChangeOrders> changeOrders = project.getChangeOrders();
+        for (ChangeOrders changeOrder : changeOrders) {
+            totalPrice = totalPrice.add(changeOrder.getPrice());
+        }
+        return totalPrice;
+    }
+
+    public List<RequisitionContractItems> getRequisitionContractItems(Integer projectId) {
+        Projects project = projectsRepository.findById(projectId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This project does not exist!!!"));
+        return project.getRequisitionContractItems();
+    }
 }

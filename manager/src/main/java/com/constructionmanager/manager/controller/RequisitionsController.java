@@ -1,7 +1,9 @@
 package com.constructionmanager.manager.controller;
 
+import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.model.Requisitions;
+import com.constructionmanager.manager.service.ProjectService;
 import com.constructionmanager.manager.service.RequisitionContractItemService;
 import com.constructionmanager.manager.service.RequisitionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +43,9 @@ public class RequisitionsController {
         return requisitionContractItemService.createRequisitionContractItem(requisitionId, requisitionContractItem);
     }
 
-    @GetMapping("/{processRequisitionId}/requisition-contract-items")
-    public Set<RequisitionContractItems> getRequisitionContractItems(@PathVariable Integer processRequisitionId) {
-        return requisitionContractItemService.getRequisitionContractItems(processRequisitionId);
+    @GetMapping("/{projectId}/requisition-contract-items")
+    public List<RequisitionContractItems> getRequisitionContractItems(@PathVariable Integer projectId) {
+        return requisitionContractItemService.getRequisitionContractItemById(projectId);
     }
 
     @PutMapping("/{requisitionId}/requisition-contract-items/{contractItemId}")

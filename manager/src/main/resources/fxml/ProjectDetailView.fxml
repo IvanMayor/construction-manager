@@ -18,7 +18,7 @@
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
    </padding>
    <left>
-      <TableView fx:id="changeOrderTable" prefHeight="396.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="changeOrderTable" prefHeight="570.0" prefWidth="527.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="changeOrderId" prefWidth="75.0" text="CO ID" />
           <TableColumn fx:id="changeOrderNumber" prefWidth="75.0" text="CO #" />
@@ -26,17 +26,19 @@
             <TableColumn fx:id="changeOrderCost" prefWidth="75.0" text="CO Cost" />
             <TableColumn fx:id="changeOrderDate" prefWidth="75.0" text="CO Date" />
             <TableColumn fx:id="changeOrderDetail" prefWidth="75.0" text="Detail" />
+            <TableColumn fx:id="changeOrderDelete" prefWidth="75.0" text="Delete" />
         </columns>
       </TableView>
    </left>
    <right>
-      <TableView fx:id="requisitionTable" prefHeight="396.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="requisitionTable" prefHeight="570.0" prefWidth="474.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="requisitionId" prefWidth="75.0" text="REQ ID" />
           <TableColumn fx:id="requisitionCompanyName" prefWidth="75.0" text="COMPANY" />
             <TableColumn fx:id="requisitionBilled" text="REQ Billed" />
             <TableColumn fx:id="requisitionDateCreated" text="REQ Date" />
             <TableColumn fx:id="requisitionDetail" text="Detail" />
+            <TableColumn fx:id="requisitionDelete" text="Delete" />
         </columns>
       </TableView>
    </right>
@@ -44,7 +46,7 @@
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#backToAllProjects" text="&lt;--" />
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="25.0">
                <children>
                   <Label alignment="CENTER" prefWidth="80.0" text="ID" textAlignment="CENTER">
                      <font>
@@ -150,6 +152,15 @@
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="140.0">
                <children>
                   <Button fx:id="createRequisitionButton" alignment="CENTER" mnemonicParsing="false" onAction="#createRequisitionButton" prefWidth="150.0" text="Create Requisition" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets left="10.0" top="18.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#createRequisitionContractItemButton" text="Create Req Item">
                      <VBox.margin>
                         <Insets left="10.0" top="18.0" />
                      </VBox.margin>

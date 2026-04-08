@@ -33,9 +33,13 @@ public class Projects {
     @JsonIgnore
     private List<ChangeOrders> changeOrders = new ArrayList<>();
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Requisitions> requisitions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<RequisitionContractItems> requisitionContractItems = new ArrayList<>();
 
     public Projects() {
     }
@@ -47,7 +51,8 @@ public class Projects {
             LocalDate dateStarted,
             LocalDate dateFinished,
             List<ChangeOrders> changeOrders,
-            List<Requisitions> requisitions) {
+            List<Requisitions> requisitions,
+            List<RequisitionContractItems> requisitionContractItems) {
         this.name = name;
         this.address = address;
         this.jobType = jobType;
@@ -55,6 +60,7 @@ public class Projects {
         this.dateFinished = dateFinished;
         this.changeOrders = changeOrders;
         this.requisitions = requisitions;
+        this.requisitionContractItems = requisitionContractItems;
 
     }
 
@@ -120,5 +126,13 @@ public class Projects {
 
     public void setRequisitions(List<Requisitions> requisitions) {
         this.requisitions = requisitions;
+    }
+
+    public List<RequisitionContractItems> getRequisitionContractItems() {
+        return requisitionContractItems;
+    }
+
+    public void setRequisitionContractItems(List<RequisitionContractItems> requisitionContractItems) {
+        this.requisitionContractItems = requisitionContractItems;
     }
 }

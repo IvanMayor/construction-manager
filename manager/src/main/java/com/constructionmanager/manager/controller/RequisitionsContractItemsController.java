@@ -1,12 +1,9 @@
 package com.constructionmanager.manager.controller;
 
 import com.constructionmanager.manager.model.RequisitionContractItems;
-import com.constructionmanager.manager.repository.RequisitionContractItemsRepository;
 import com.constructionmanager.manager.service.RequisitionContractItemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -18,7 +15,9 @@ public class RequisitionsContractItemsController {
     private RequisitionContractItemService requisitionContractItemService;
 
     @GetMapping
-    public List<RequisitionContractItems> getRequisitionContractItems() {return requisitionContractItemService.getAllRequisitionContractItems();}
+    public List<RequisitionContractItems> getRequisitionContractItems() {
+        return requisitionContractItemService.getAllRequisitionContractItems();
+    }
 
     @GetMapping("/{id}")
     public RequisitionContractItems requisitionContractItems(@PathVariable Integer id) {

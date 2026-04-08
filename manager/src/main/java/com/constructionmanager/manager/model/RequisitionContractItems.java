@@ -1,11 +1,10 @@
 package com.constructionmanager.manager.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "requisiton_contract_item")
@@ -17,17 +16,18 @@ public class RequisitionContractItems {
     private String name;
     private BigDecimal totalCost;
 
-    @ManyToMany(mappedBy = "requisitionContractItems")
-    private Set<ProcessRequisition> processRequisitions = new HashSet<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "project_id")
+    @JsonIgnore
+    private Projects project;
 
     public RequisitionContractItems() {
     }
 
-    public RequisitionContractItems(String name, BigDecimal totalCost,
-            Set<ProcessRequisition> processRequisitions) {
+    public RequisitionContractItems(String name, BigDecimal totalCost, Projects project) {
         this.name = name;
         this.totalCost = totalCost;
-        this.processRequisitions = processRequisitions;
+        this.project = project;
     }
 
     public Integer getId() {
@@ -54,11 +54,11 @@ public class RequisitionContractItems {
         this.totalCost = totalCost;
     }
 
-    public Set<ProcessRequisition> getProcessRequisition() {
-        return processRequisitions;
+    public Projects getProject() {
+        return project;
     }
 
-    public void setProcessRequisition(Set<ProcessRequisition> processRequisitions) {
-        this.processRequisitions = processRequisitions;
+    public void setProject(Projects project) {
+        this.project = project;
     }
 }

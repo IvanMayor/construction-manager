@@ -1,20 +1,22 @@
 package com.constructionmanager.manager.service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.constructionmanager.manager.model.ProcessRequisition;
 import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.repository.ProcessRequisitionRepository;
-import com.constructionmanager.manager.repository.RequisitionContractItemsRepository;
 import com.constructionmanager.manager.repository.RequisitionsRepository;
 
+import jakarta.transaction.Transactional;
+
+@Service
 public class ProcessRequisitionService {
 
 	@Autowired
@@ -22,9 +24,6 @@ public class ProcessRequisitionService {
 
 	@Autowired
 	private RequisitionsRepository requisitionsRepository;
-
-	@Autowired
-	private RequisitionContractItemsRepository requisitionContractItemsRepository;
 
 	public List<ProcessRequisition> getAllProcessRequisitions() {
 		return processRequisitionRepository.findAll();
@@ -41,13 +40,12 @@ public class ProcessRequisitionService {
 		Requisitions requisition = requisitionsRepository.findById(requisitionId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"This Requisition does not exist"));
-		processRequisition.setRequisitionContractItems(requisitionContractItems);
 		processRequisition.setRequisition(requisition);
 		return processRequisitionRepository.save(processRequisition);
 	}
 
+	@Transactional
 	public ProcessRequisition updateProcessRequisition(Integer requisitionId,
-			Set<RequisitionContractItems> requisitionContractItems,
 			Integer processRequisitionId, ProcessRequisition processRequisitionDetail) {
 
 		Requisitions requisition = requisitionsRepository.findById(requisitionId)
@@ -58,11 +56,71 @@ public class ProcessRequisitionService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"This Requisition wasnt processed, its not exist."));
 
-		processRequisitionDetail.setRequisition(requisition);
-		processRequisition.setRequisitionContractItems(requisitionContractItems);
+		if (processRequisitionDetail.getTotalChangeOrdersToDate() != null) {
+			processRequisition.setTotalChangeOrdersToDate(
+					processRequisitionDetail.getTotalChangeOrdersToDate());
+		}
+		if (processRequisitionDetail.getTotalCompletedWork() != null) {
+			processRequisition.setTotalCompletedWork(processRequisitionDetail.getTotalCompletedWork());
+		}
+		if (processRequisitionDetail.getTotalCompletedRetainage() != null) {
+			processRequisition.setTotalCompletedRetainage(
+					processRequisitionDetail.getTotalCompletedRetainage());
+		}
+		if (processRequisitionDetail.getTotalCompletedWorkNoRetainage() != null) {
+			processRequisition.setTotalCompletedWorkNoRetainage(
+					processRequisitionDetail.getTotalCompletedWorkNoRetainage());
+		}
+		if (processRequisitionDetail.getPreviousRequisitionBilled() != null) {
+			processRequisition.setPreviousRequisitionBilled(
+					processRequisitionDetail.getPreviousContractItemBilled());
+		}
+		if (processRequisitionDetail.getCurrentlyPaymentDue() != null) {
+			processRequisition.setCurrentlyPaymentDue(processRequisitionDetail.getCurrentlyPaymentDue());
+		}
+		if (processRequisitionDetail.getBalanceToFinishIncludingRetainage() != null) {
+			processRequisition.setBalanceToFinishIncludingRetainage(
+					processRequisitionDetail.getBalanceToFinishIncludingRetainage());
+		}
+		if (processRequisitionDetail.getTotalApprovedChangeOrdersThisMonth() != null) {
+			processRequisition.setTotalApprovedChangeOrdersThisMonth(
+					processRequisitionDetail.getTotalApprovedChangeOrdersThisMonth());
+		}
+		if (processRequisitionDetail.getPreviousContractItemBilled() != null) {
+			processRequisition.setPreviousContractItemBilled(
+					processRequisitionDetail.getPreviousContractItemBilled());
+		}
+		if (processRequisitionDetail.getThisContractItemBilled() != null) {
+			processRequisition.setPreviousContractItemBilled(
+					processRequisitionDetail.getPreviousContractItemBilled());
+		}
+		if (processRequisitionDetail.getThisContractItemBilled() != null) {
+			processRequisition.setThisContractItemBilled(
+					processRequisitionDetail.getThisContractItemBilled());
+		}
+		if (processRequisitionDetail.getTotalCompletedItemToDate() != null) {
+			processRequisition.setTotalCompletedItemToDate(
+					processRequisitionDetail.getTotalCompletedItemToDate());
+		}
+		if (processRequisitionDetail.getTotalBalanceToFinishItem() != null) {
+			processRequisition.setTotalBalanceToFinishItem(
+					processRequisitionDetail.getTotalBalanceToFinishItem());
+		}
+		if (processRequisitionDetail.getCurrentRetainageItemToDate() != null) {
+			processRequisition.setCurrentRetainageItemToDate(
+					processRequisitionDetail.getCurrentRetainageItemToDate());
+		}
+		if (processRequisitionDetail.getPercentCompletedItemToDate() != null) {
+			processRequisition.setPercentCompletedItemToDate(
+					processRequisitionDetail.getPercentCompletedItemToDate());
+		}
+		if (processRequisitionDetail.getRequisitionDate() != null) {
+			processRequisition.setRequisition(processRequisitionDetail.getRequisition());
+		}
+
 		processRequisition.setRequisition(requisition);
 
-		return null;
+		return processRequisitionRepository.save(processRequisition);
 	}
 
 }

@@ -4,6 +4,9 @@ import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.repository.ProjectsRepository;
 import com.constructionmanager.manager.repository.RequisitionsRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -47,8 +50,6 @@ public class RequisitionService {
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Requisition does not exist"));
 
-        // TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore
-        // argument in copy property.
         if (requisitionDetail.getContractPrice() != null) {
             requisitions.setContractPrice(requisitionDetail.getContractPrice());
         }
@@ -66,11 +67,14 @@ public class RequisitionService {
         return requisitionsRepository.save(requisitions);
     }
 
+    @Transactional
     public void deleteRequisition(Integer id) {
-        if (requisitionsRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This requisition does not exist");
+        if (!requisitionsRepository.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Requisition does not exist ID: " + id);
         }
+        System.out.println("Delete Clicked: " + id);
         requisitionsRepository.deleteById(id);
+        requisitionsRepository.flush();
     }
 
 }
