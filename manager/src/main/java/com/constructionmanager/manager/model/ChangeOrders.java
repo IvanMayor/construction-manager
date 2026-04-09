@@ -1,21 +1,19 @@
 package com.constructionmanager.manager.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-
 @Entity
-@Table(name="change_orders")
+@Table(name = "change_orders")
 public class ChangeOrders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable=false)
+    @Column(nullable = false)
     private Integer number;
 
     @Column(nullable = false)
@@ -30,13 +28,13 @@ public class ChangeOrders {
     private LocalDate dateCreated;
     private BigDecimal price;
 
-
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "project_id")
     @JsonIgnore
     private Projects project;
 
-    public ChangeOrders() {}
+    public ChangeOrders() {
+    }
 
     public ChangeOrders(
             Integer number,
@@ -55,28 +53,68 @@ public class ChangeOrders {
         this.project = project;
     }
 
-    public Integer getId() {return id;}
-    public void setId(Integer id) {this.id = id;}
+    public Integer getId() {
+        return id;
+    }
 
-    public Integer getNumber() {return number;}
-    public void setNumber(Integer number) {this.number = number;}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public String getTitle() {return title;}
-    public void setTitle(String title) {this.title = title;}
+    public Integer getNumber() {
+        return number;
+    }
 
-    public String getDescription() {return description;}
-    public void setDescription(String description) {this.description = description;}
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
 
-    public String getBreakdown() {return breakdown;}
-    public void setBreakdown(String breakdown) {this.breakdown = breakdown;}
+    public String getTitle() {
+        return title;
+    }
 
-    public LocalDate getDateCreated() {return dateCreated;}
-    public void setDateCreated(LocalDate dateCreated) {this.dateCreated = dateCreated;}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-    public BigDecimal getPrice() {return price;}
-    public void setPrice(BigDecimal price) {this.price = price;}
+    public String getDescription() {
+        return description;
+    }
 
-    public Projects getProjects() {return project;}
-    public void setProjects(Projects project) {this.project = project;}
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getBreakdown() {
+        return breakdown;
+    }
+
+    public void setBreakdown(String breakdown) {
+        this.breakdown = breakdown;
+    }
+
+    public LocalDate getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Projects getProjects() {
+        return project;
+    }
+
+    public void setProjects(Projects project) {
+        this.project = project;
+    }
 
 }

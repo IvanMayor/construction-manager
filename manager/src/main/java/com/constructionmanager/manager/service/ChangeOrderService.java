@@ -3,6 +3,8 @@ package com.constructionmanager.manager.service;
 import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.repository.ChangeOrdersRepository;
 import com.constructionmanager.manager.repository.ProjectsRepository;
+
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -90,12 +92,14 @@ public class ChangeOrderService {
         return changeOrdersRepository.save(changeOrder);
     }
 
+    @Transactional
     public void deleteChangeOrder(Integer id) {
-        if (!changeOrdersRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This change order does not exist.");
-        }
-
-        changeOrdersRepository.deleteById(id);
+        ChangeOrders changeOrders = changeOrdersRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Change Order does not exist"));
+        Projects project = changeOrders.getProjects();
+        project.getChangeOrders().remove(changeOrders);
+        projectsRepository.save(project);
     }
 
 }

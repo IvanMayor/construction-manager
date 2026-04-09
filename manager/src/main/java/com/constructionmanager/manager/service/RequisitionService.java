@@ -69,9 +69,6 @@ public class RequisitionService {
 
     @Transactional
     public void deleteRequisition(Integer id) {
-        if (!requisitionsRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Requisition does not exist ID: " + id);
-        }
         Requisitions requisition = requisitionsRepository.findById(id)
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This requisition does not exist!"));
