@@ -62,7 +62,7 @@ public class ProjectDetailController {
 	@FXML
 	private TableColumn<ChangeOrders, BigDecimal> changeOrderCost;
 	@FXML
-	private TableColumn<ChangeOrders, LocalDate> changeOrderDate;
+	private TableColumn<ChangeOrders, Boolean> changeOrderApproved;
 	@FXML
 	private TableColumn<ChangeOrders, Void> changeOrderDetail;
 	@FXML
@@ -125,7 +125,6 @@ public class ProjectDetailController {
 			{
 				deleteChangeOrderButton.setOnAction(e -> {
 					ChangeOrders changeOrder = getTableView().getItems().get(getIndex());
-					deleteChangeOrderButton.setPrefWidth(65);
 					Alert alert = new Alert(AlertType.CONFIRMATION);
 					alert.setTitle("Confirm Delete");
 					alert.setHeaderText("Delete Item");
@@ -136,6 +135,7 @@ public class ProjectDetailController {
 						changeOrderService.deleteChangeOrder(changeOrder.getId());
 						setUpChangeOrderTable(project);
 					}
+					deleteChangeOrderButton.setPrefWidth(65);
 				});
 			}
 
@@ -202,6 +202,7 @@ public class ProjectDetailController {
 		changeOrderNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
 		changeOrderTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
 		changeOrderCost.setCellValueFactory(new PropertyValueFactory<>("price"));
+		changeOrderApproved.setCellValueFactory(new PropertyValueFactory<>("approved"));
 	}
 
 	public void setUpRequisitionTable(Projects project) {

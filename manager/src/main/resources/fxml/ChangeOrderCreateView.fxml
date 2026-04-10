@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -15,7 +16,7 @@
          <children>
             <VBox alignment="CENTER" maxWidth="250.0" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label text="Change Order Number">
+                  <Label text="Number">
                      <font>
                         <Font name="Inter Bold" size="15.0" />
                      </font>
@@ -25,7 +26,7 @@
             </VBox>
             <VBox alignment="CENTER" maxWidth="250.0" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label text="Change Order Title">
+                  <Label text="Title">
                      <font>
                         <Font name="Inter Bold" size="15.0" />
                      </font>
@@ -35,7 +36,7 @@
             </VBox>
             <VBox alignment="CENTER" maxWidth="250.0" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label text="Change Order Description">
+                  <Label text="Description">
                      <font>
                         <Font name="Inter Bold" size="15.0" />
                      </font>
@@ -45,7 +46,7 @@
             </VBox>
             <VBox alignment="CENTER" maxWidth="250.0" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label text="Change Order Breakdown">
+                  <Label text="Breakdown">
                      <font>
                         <Font name="Inter Bold" size="15.0" />
                      </font>
@@ -55,7 +56,7 @@
             </VBox>
             <VBox alignment="CENTER" maxWidth="250.0" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label text="Change Order Price">
+                  <Label text="Price">
                      <font>
                         <Font name="Inter Bold" size="15.0" />
                      </font>
@@ -63,13 +64,13 @@
                   <TextField fx:id="changeOrderPrice" alignment="CENTER" promptText="Price" />
                </children>
             </VBox>
+            <VBox alignment="CENTER" maxWidth="250.0" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <CheckBox fx:id="changeOrderApproved" mnemonicParsing="false" text="Approved" />
+               </children>
+            </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Label text="Create Change Order">
-                     <font>
-                        <Font name="Inter Bold" size="15.0" />
-                     </font>
-                  </Label>
                   <Button fx:id="createButton" mnemonicParsing="false" onAction="#initializeCreateButton" prefHeight="27.0" prefWidth="250.0" text="Create" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="13.0" />
@@ -86,23 +87,28 @@
          </BorderPane.margin></VBox>
    </center>
    <top>
-      <HBox prefHeight="57.0" prefWidth="600.0" BorderPane.alignment="CENTER_LEFT">
+      <HBox prefHeight="57.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="57.0" prefWidth="53.0">
+            <HBox prefHeight="58.0" prefWidth="600.0">
                <children>
-                  <Button fx:id="backToProjectDetailViewButton" mnemonicParsing="false" onAction="#returnActionButton" text="&lt;--" />
-               </children>
-               <HBox.margin>
-                  <Insets right="50.0" />
-               </HBox.margin>
-            </HBox>
-            <HBox>
-               <children>
-                  <Label text="Create new Change Order">
-                     <font>
-                        <Font name="Inter Bold" size="30.0" />
-                     </font>
-                  </Label>
+                  <VBox>
+                     <children>
+                        <HBox>
+                           <children>
+                              <Button fx:id="backToProjectDetailViewButton" mnemonicParsing="false" onAction="#returnActionButton" text="&lt;--" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="34.0" prefWidth="816.0">
+                           <children>
+                              <Label text="Create new Change Order">
+                                 <font>
+                                    <Font name="Inter Bold" size="30.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
                </children>
             </HBox>
          </children>

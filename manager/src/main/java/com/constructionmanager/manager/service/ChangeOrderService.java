@@ -61,8 +61,6 @@ public class ChangeOrderService {
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This change order does not exist."));
 
-        // TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore
-        // argument in copy property.
         if (changeOrderDetails.getNumber() != null) {
             changeOrder.setNumber(changeOrderDetails.getNumber());
         }
@@ -81,6 +79,9 @@ public class ChangeOrderService {
 
         if (changeOrderDetails.getPrice() != null) {
             changeOrder.setPrice(changeOrderDetails.getPrice());
+        }
+        if (changeOrderDetails.getApproved() != null) {
+            changeOrder.setApproved(changeOrderDetails.getApproved());
         }
 
         if (changeOrderDetails.getProjects() != null) {

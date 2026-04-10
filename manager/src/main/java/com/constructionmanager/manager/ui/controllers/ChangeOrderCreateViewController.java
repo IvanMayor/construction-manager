@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
@@ -30,13 +31,20 @@ public class ChangeOrderCreateViewController {
     private ProjectService projectService;
     private Projects project;
 
-    @FXML private TextField changeOrderNumber;
-    @FXML private TextField changeOrderTitle;
-    @FXML private TextField changeOrderDescription;
-    @FXML private TextField changeOrderBreakdown;
-    @FXML private TextField changeOrderPrice;
-    @FXML private Button backToProjectDetailViewButton;
-
+    @FXML
+    private TextField changeOrderNumber;
+    @FXML
+    private TextField changeOrderTitle;
+    @FXML
+    private TextField changeOrderDescription;
+    @FXML
+    private TextField changeOrderBreakdown;
+    @FXML
+    private TextField changeOrderPrice;
+    @FXML
+    private CheckBox changeOrderApproved;
+    @FXML
+    private Button backToProjectDetailViewButton;
 
     public ChangeOrderCreateViewController(
             ChangeOrderService changeOrderService,
@@ -45,7 +53,9 @@ public class ChangeOrderCreateViewController {
         this.projectService = projectService;
     }
 
-    public void setProject(Projects project) {this.project = project;}
+    public void setProject(Projects project) {
+        this.project = project;
+    }
 
     @FXML
     public void initializeCreateButton(ActionEvent event) {
@@ -56,6 +66,7 @@ public class ChangeOrderCreateViewController {
                 changeOrderBreakdown.getText(),
                 LocalDate.now(),
                 new BigDecimal(changeOrderPrice.getText()),
+                changeOrderApproved.isSelected(),
                 project);
 
         changeOrderService.createChangeOrder(project.getId(), changeOrder);
@@ -71,7 +82,7 @@ public class ChangeOrderCreateViewController {
         loader.setControllerFactory(MainApp.springContext::getBean);
 
         root = loader.load();
-        ProjectDetailController projectDetailController =  loader.getController();
+        ProjectDetailController projectDetailController = loader.getController();
         projectDetailController.setupProjectDetail(project);
 
         stage = (Stage) changeOrderTitle.getScene().getWindow();
@@ -80,6 +91,7 @@ public class ChangeOrderCreateViewController {
         stage.setScene(scene);
         stage.show();
     }
+
     public void returnActionButton(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectDetailView.fxml"));
         loader.setControllerFactory(MainApp.springContext::getBean);

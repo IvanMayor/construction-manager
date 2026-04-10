@@ -25,8 +25,10 @@ public class ChangeOrders {
     @Column(nullable = true)
     private String breakdown;
 
-    private LocalDate dateCreated;
+    private LocalDate dateCreated = LocalDate.now();
     private BigDecimal price;
+
+    private Boolean approved = false;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -43,6 +45,7 @@ public class ChangeOrders {
             String breakdown,
             LocalDate dateCreated,
             BigDecimal price,
+            Boolean approved,
             Projects project) {
         this.number = number;
         this.title = title;
@@ -50,6 +53,7 @@ public class ChangeOrders {
         this.breakdown = breakdown;
         this.dateCreated = dateCreated;
         this.price = price;
+        this.approved = approved;
         this.project = project;
     }
 
@@ -107,6 +111,14 @@ public class ChangeOrders {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
     }
 
     public Projects getProjects() {

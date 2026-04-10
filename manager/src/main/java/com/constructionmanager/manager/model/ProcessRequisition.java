@@ -25,12 +25,6 @@ public class ProcessRequisition {
 	private BigDecimal currentlyPaymentDue;
 	private BigDecimal balanceToFinishIncludingRetainage;
 	private BigDecimal totalApprovedChangeOrdersThisMonth;
-	private BigDecimal previousContractItemBilled;
-	private BigDecimal thisContractItemBilled;
-	private BigDecimal totalCompletedItemToDate;
-	private BigDecimal totalBalanceToFinishItem;
-	private BigDecimal currentRetainageItemToDate;
-	private Integer percentCompletedItemToDate;
 	private LocalDate requisitionDate;
 
 	public ProcessRequisition() {
@@ -47,12 +41,6 @@ public class ProcessRequisition {
 			BigDecimal currentlyPaymnetDue,
 			BigDecimal balanceToFinishIncludingRetainage,
 			BigDecimal totalApprovedChangeOrdersThisMonth,
-			BigDecimal previousContractItemBilled,
-			BigDecimal thisContractItemBilled,
-			BigDecimal totalCompletedItemToDate,
-			BigDecimal totalBalanceToFinishItem,
-			BigDecimal currentRetainageItemToDate,
-			Integer percentCompletedItemToDate,
 			LocalDate requisitionDate) {
 		this.totalChangeOrdersToDate = totalChangeOrdersToDate;
 		this.totalChangeOrdersAndOriginalContract = totalChangeOrdersAndOriginalContract;
@@ -63,12 +51,6 @@ public class ProcessRequisition {
 		this.currentlyPaymentDue = currentlyPaymnetDue;
 		this.balanceToFinishIncludingRetainage = balanceToFinishIncludingRetainage;
 		this.totalApprovedChangeOrdersThisMonth = totalApprovedChangeOrdersThisMonth;
-		this.previousContractItemBilled = previousContractItemBilled;
-		this.thisContractItemBilled = thisContractItemBilled;
-		this.totalCompletedItemToDate = totalCompletedItemToDate;
-		this.totalBalanceToFinishItem = totalBalanceToFinishItem;
-		this.currentRetainageItemToDate = currentRetainageItemToDate;
-		this.percentCompletedItemToDate = percentCompletedItemToDate;
 		this.requisitionDate = requisitionDate;
 	}
 
@@ -142,54 +124,6 @@ public class ProcessRequisition {
 
 	public void setTotalApprovedChangeOrdersThisMonth(BigDecimal totalApprovedChangeOrdersThisMonth) {
 		this.totalApprovedChangeOrdersThisMonth = totalApprovedChangeOrdersThisMonth;
-	}
-
-	public BigDecimal getPreviousContractItemBilled() {
-		return previousContractItemBilled;
-	}
-
-	public void setPreviousContractItemBilled(BigDecimal previousContractItemBilled) {
-		this.previousContractItemBilled = previousContractItemBilled;
-	}
-
-	public BigDecimal getThisContractItemBilled() {
-		return thisContractItemBilled;
-	}
-
-	public void setThisContractItemBilled(BigDecimal thisContractItemBilled) {
-		this.thisContractItemBilled = thisContractItemBilled;
-	}
-
-	public BigDecimal getTotalCompletedItemToDate() {
-		return totalCompletedItemToDate;
-	}
-
-	public void setTotalCompletedItemToDate(BigDecimal totalCompletedItemToDate) {
-		this.totalCompletedItemToDate = totalCompletedItemToDate;
-	}
-
-	public BigDecimal getTotalBalanceToFinishItem() {
-		return totalBalanceToFinishItem;
-	}
-
-	public void setTotalBalanceToFinishItem(BigDecimal totalBalanceToFinishItem) {
-		this.totalBalanceToFinishItem = totalBalanceToFinishItem;
-	}
-
-	public BigDecimal getCurrentRetainageItemToDate() {
-		return currentRetainageItemToDate;
-	}
-
-	public void setCurrentRetainageItemToDate(BigDecimal currentRetainageItemToDate) {
-		this.currentRetainageItemToDate = currentRetainageItemToDate;
-	}
-
-	public Integer getPercentCompletedItemToDate() {
-		return percentCompletedItemToDate;
-	}
-
-	public void setPercentCompletedItemToDate(Integer percentCompletedItemToDate) {
-		this.percentCompletedItemToDate = percentCompletedItemToDate;
 	}
 
 	public LocalDate getRequisitionDate() {
