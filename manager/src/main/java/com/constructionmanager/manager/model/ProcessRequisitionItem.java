@@ -1,16 +1,19 @@
 package com.constructionmanager.manager.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "process_requisition_item")
-public class ProcessRequisitionItem {
+public class ProcessRequisitionItem implements Comparable<ProcessRequisitionItem> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -21,6 +24,11 @@ public class ProcessRequisitionItem {
 	private BigDecimal totalToFinishItem;
 	private BigDecimal retainageItemToDate;
 	private Integer percentItemCompleted;
+	private LocalDate dateCreated;
+
+	@ManyToOne
+	@JoinColumn(name = "requisition_contract_item_id")
+	private RequisitionContractItems requisitionContractItem;
 
 	public ProcessRequisitionItem(
 			BigDecimal previousRequisitionItemBilled,
@@ -28,13 +36,19 @@ public class ProcessRequisitionItem {
 			BigDecimal totalCompletedItemToDate,
 			BigDecimal totalToFinishItem,
 			BigDecimal retainageItemToDate,
-			Integer percentItemCompleted) {
+			Integer percentItemCompleted,
+			LocalDate dateCreated) {
 		this.previousRequisitionItemBilled = previousRequisitionItemBilled;
 		this.thisRequisitionItemBilled = thisRequisitionItemBilled;
 		this.totalCompletedItemToDate = totalCompletedItemToDate;
 		this.totalToFinishItem = totalToFinishItem;
 		this.retainageItemToDate = retainageItemToDate;
 		this.percentItemCompleted = percentItemCompleted;
+		this.dateCreated = dateCreated;
+	}
+
+	public int compareTo(ProcessRequisitionItem p) {
+		return dateCreated.compareTo(p.dateCreated);
 	}
 
 	public BigDecimal getPreviousRequisitionItemBilled() {
@@ -83,6 +97,22 @@ public class ProcessRequisitionItem {
 
 	public void setPercentItemCompleted(Integer percentItemCompleted) {
 		this.percentItemCompleted = percentItemCompleted;
+	}
+
+	public LocalDate getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(LocalDate dateCreated) {
+		this.dateCreated = dateCreated;
+	}
+
+	public RequisitionContractItems getRequisitionContractItem() {
+		return requisitionContractItem;
+	}
+
+	public void setRequisitionContractItem(RequisitionContractItems requisitionContractItem) {
+		this.requisitionContractItem = requisitionContractItem;
 	}
 
 }

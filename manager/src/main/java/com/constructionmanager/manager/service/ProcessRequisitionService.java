@@ -70,10 +70,6 @@ public class ProcessRequisitionService {
 			processRequisition.setTotalCompletedWorkNoRetainage(
 					processRequisitionDetail.getTotalCompletedWorkNoRetainage());
 		}
-		if (processRequisitionDetail.getPreviousRequisitionBilled() != null) {
-			processRequisition.setPreviousRequisitionBilled(
-					processRequisitionDetail.getPreviousContractItemBilled());
-		}
 		if (processRequisitionDetail.getCurrentlyPaymentDue() != null) {
 			processRequisition.setCurrentlyPaymentDue(processRequisitionDetail.getCurrentlyPaymentDue());
 		}
@@ -85,35 +81,6 @@ public class ProcessRequisitionService {
 			processRequisition.setTotalApprovedChangeOrdersThisMonth(
 					processRequisitionDetail.getTotalApprovedChangeOrdersThisMonth());
 		}
-		if (processRequisitionDetail.getPreviousContractItemBilled() != null) {
-			processRequisition.setPreviousContractItemBilled(
-					processRequisitionDetail.getPreviousContractItemBilled());
-		}
-		if (processRequisitionDetail.getThisContractItemBilled() != null) {
-			processRequisition.setPreviousContractItemBilled(
-					processRequisitionDetail.getPreviousContractItemBilled());
-		}
-		if (processRequisitionDetail.getThisContractItemBilled() != null) {
-			processRequisition.setThisContractItemBilled(
-					processRequisitionDetail.getThisContractItemBilled());
-		}
-		if (processRequisitionDetail.getTotalCompletedItemToDate() != null) {
-			processRequisition.setTotalCompletedItemToDate(
-					processRequisitionDetail.getTotalCompletedItemToDate());
-		}
-		if (processRequisitionDetail.getTotalBalanceToFinishItem() != null) {
-			processRequisition.setTotalBalanceToFinishItem(
-					processRequisitionDetail.getTotalBalanceToFinishItem());
-		}
-		if (processRequisitionDetail.getCurrentRetainageItemToDate() != null) {
-			processRequisition.setCurrentRetainageItemToDate(
-					processRequisitionDetail.getCurrentRetainageItemToDate());
-		}
-		if (processRequisitionDetail.getPercentCompletedItemToDate() != null) {
-			processRequisition.setPercentCompletedItemToDate(
-					processRequisitionDetail.getPercentCompletedItemToDate());
-		}
-
 		return processRequisitionRepository.save(processRequisition);
 	}
 

@@ -39,20 +39,7 @@ public class ProcessRequisitionController {
 	@FXML
 	private TextField totalApprovedChangeOrdersThisMonth;
 	@FXML
-	private TextField previousContractItemBilled;
-	@FXML
-	private TextField thisContractItemBilled;
-	@FXML
-	private TextField totalCompletedItemToDate;
-	@FXML
-	private TextField totalBalanceToFinishItem;
-	@FXML
-	private TextField currentRetainageItemToDate;
-	@FXML
-	private TextField percentCompletedItemToDate;
-	@FXML
 	private TextField requisitionDate;
-
 	@FXML
 	private TextField currentRequisitionBilling;
 
@@ -84,13 +71,6 @@ public class ProcessRequisitionController {
 				requisition.getContractPrice().subtract(processRequisition.getTotalCompletedWork()));
 		processRequisition.setTotalApprovedChangeOrdersThisMonth(
 				new BigDecimal(totalApprovedChangeOrdersThisMonth.getText()));
-		processRequisition.setPreviousContractItemBilled(new BigDecimal(previousContractItemBilled.getText()));
-		processRequisition.setThisContractItemBilled(new BigDecimal(thisContractItemBilled.getText()));
-		processRequisition.setTotalCompletedItemToDate(new BigDecimal(totalCompletedItemToDate.getText()));
-		processRequisition.setTotalBalanceToFinishItem(new BigDecimal(totalBalanceToFinishItem.getText()));
-		processRequisition.setCurrentRetainageItemToDate(new BigDecimal(currentRetainageItemToDate.getText()));
-		processRequisition
-				.setPercentCompletedItemToDate(Integer.parseInt(percentCompletedItemToDate.getText()));
 		processRequisition.setRequisitionDate(LocalDate.now());
 	}
 

@@ -1,6 +1,8 @@
 package com.constructionmanager.manager.service;
 
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,12 +12,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.constructionmanager.manager.model.ProcessRequisitionItem;
+import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.repository.ProcessRequisitionItemRepository;
+import com.constructionmanager.manager.repository.RequisitionContractItemsRepository;
 
 @Service
 public class ProcessRequisitionItemService {
 	@Autowired
 	private ProcessRequisitionItemRepository processRequisitionItemRepository;
+	@Autowired
+	private RequisitionContractItemsRepository requisitionContractItemsRepository;
 
 	public List<ProcessRequisitionItem> getAllProcessRequisitionItems() {
 		return processRequisitionItemRepository.findAll();
@@ -72,17 +78,38 @@ public class ProcessRequisitionItemService {
 		processRequisitionItemRepository.deleteById(id);
 	}
 
-	public BigDecimal getPreviousRequisitionItem(Integer id) {
-		try {
-			ProcessRequisitionItem processRequisitionItem = processRequisitionItemRepository
-					.findById(id - 1)
-					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-							"This Process Requisition Item does not exist."));
+	public BigDecimal getPreviousRequisitionItem(Integer requisitionContractItemId) {
+		RequisitionContractItems requisitionContractItem = requisitionContractItemsRepository
+				.findById(requisitionContractItemId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"This Requisition Contract Item doesnt exist!!!!!!!"));
 
-			return processRequisitionItem.getPreviousRequisitionItemBilled();
-		} catch (Exception e) {
-			e.printStackTrace();
+		List<ProcessRequisitionItem> processRequisitionItems = requisitionContractItem
+				.getProcessRequisitionContractItems();
+		if (processRequisitionItems.isEmpty()) {
 			return null;
 		}
+		Collections.sort(processRequisitionItems);
+		return processRequisitionItems.getLast().getThisRequisitionItemBilled();
+	}
+
+	public BigDecimal getTotalCompletedItemToDate(Integer requisitionContractItemId,
+			BigDecimal thisRequisitionBilling) {
+
+		BigDecimal prevReq = getPreviousRequisitionItem(requisitionContractItemId);
+		if (prevReq != null) {
+			return prevReq.add(thisRequisitionBilling);
+		} else {
+			return thisRequisitionBilling;
+		}
+	}
+
+	public BigDecimal getTotalItemToFinish(Integer requisitionContractItemId, BigDecimal thisRequisitionBilling) {
+		RequisitionContractItems requisitionContractItem = requisitionContractItemsRepository
+				.findById(requisitionContractItemId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"This Requisition Contract Item does not exist!!!"));
+		return requisitionContractItem.getTotalCost().subtract(
+				getTotalCompletedItemToDate(requisitionContractItemId, thisRequisitionBilling));
 	}
 }

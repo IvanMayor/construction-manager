@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "process_requisition")
-public class ProcessRequisition {
+public class ProcessRequisition implements Comparable<ProcessRequisition> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
