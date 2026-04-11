@@ -8,6 +8,7 @@ import com.constructionmanager.manager.model.ProcessRequisitionItem;
 import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.service.ChangeOrderService;
 import com.constructionmanager.manager.service.ProcessRequisitionItemService;
+import com.constructionmanager.manager.service.ProcessRequisitionService;
 import com.constructionmanager.manager.service.RequisitionService;
 
 import javafx.fxml.FXML;
@@ -22,7 +23,7 @@ public class ProcessRequisitionItemController {
 	@FXML
 	private TextField fieldPreviousRequisitionItemBilled;
 	@FXML
-	private TextField fieldThisRequisitionItemBuild;
+	private TextField fieldThisRequisitionItemBilled;
 	@FXML
 	private TextField fieldTotalCompletedItemToDate;
 	@FXML
@@ -47,6 +48,7 @@ public class ProcessRequisitionItemController {
 
 	// Named by Sarah D.
 	// Initialization method for pre defined fields
+	// Field being calculated before
 	public void madeForSomething() {
 		fieldPreviousRequisitionItemBilled.setText(String.valueOf(processRequisitionItemService
 				.getPreviousRequisitionItem(requisitionContractItem.getId())));
@@ -54,11 +56,21 @@ public class ProcessRequisitionItemController {
 
 	// Fields that being calculated afterwords
 	public void processRequisitionItemButton() {
-		fieldTotalCompletedItemToDate.setText(String.valueOf(processRequisitionItemService
-				.getTotalCompletedItemToDate(requisitionContractItem.getId(),
-						new BigDecimal(fieldThisRequisitionItemBuild.getText()))));
-		fieldTotalToFinishItem.setText(String.valueOf(
-				processRequisitionItemService.getTotalItemToFinish(requisitionContractItem.getId())));
+		BigDecimal thisRequisitionItemBilling = new BigDecimal(
+				fieldThisRequisitionItemBilled.getText());
+		BigDecimal totalCompletedItemToDate = processRequisitionItemService.getTotalCompletedItemToDate(
+				requisitionContractItem.getId(), thisRequisitionItemBilling);
+		BigDecimal totalToFinishItem = processRequisitionItemService
+				.getTotalItemToFinish(requisitionContractItem.getId(), thisRequisitionItemBilling);
+		BigDecimal retainageItemToDate = processRequisitionItemService
+				.getRetainageItemToDate(requisitionContractItem.getId(), thisRequisitionItemBilling);
+		BigDecimal percentItemCompleted = processRequisitionItemService
+				.getPercentItemCompleted(requisitionContractItem.getId(), totalCompletedItemToDate);
+
+		fieldTotalCompletedItemToDate.setText(String.valueOf(totalCompletedItemToDate));
+		fieldTotalToFinishItem.setText(String.valueOf(totalToFinishItem));
+		fieldRetainageItemToDate.setText(String.valueOf(retainageItemToDate));
+		fieldPercentItemCompleted.setText(String.valueOf(percentItemCompleted));
 	}
 
 }

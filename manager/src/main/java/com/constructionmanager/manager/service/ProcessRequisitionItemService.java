@@ -112,4 +112,23 @@ public class ProcessRequisitionItemService {
 		return requisitionContractItem.getTotalCost().subtract(
 				getTotalCompletedItemToDate(requisitionContractItemId, thisRequisitionBilling));
 	}
+
+	public BigDecimal getRetainageItemToDate(Integer requisitionContractItemId, BigDecimal thisRequisitionBilling) {
+		RequisitionContractItems requisitionContractItem = requisitionContractItemsRepository
+				.findById(requisitionContractItemId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"This Req Contract Item does not exist!!!"));
+		BigDecimal retainage = requisitionContractItem.getRetainage();
+		return getTotalCompletedItemToDate(requisitionContractItemId, thisRequisitionBilling)
+				.divide(new BigDecimal(100))
+				.multiply(retainage);
+	}
+
+	public BigDecimal getPercentItemCompleted(Integer requisitionContractItemId, BigDecimal totalCompleted) {
+		RequisitionContractItems requisitionContractItem = requisitionContractItemsRepository
+				.findById(requisitionContractItemId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"This Requisition Contract Item does not exist!!!"));
+		return totalCompleted.divide(requisitionContractItem.getTotalCost());
+	}
 }

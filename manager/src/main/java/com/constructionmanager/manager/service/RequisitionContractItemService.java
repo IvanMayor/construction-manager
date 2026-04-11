@@ -63,6 +63,9 @@ public class RequisitionContractItemService {
         if (requisitionContractItemDetail.getTotalCost() != null) {
             requisitionContractItem.setTotalCost(requisitionContractItemDetail.getTotalCost());
         }
+        if (requisitionContractItemDetail.getRetainage() != null) {
+            requisitionContractItem.setRetainage(requisitionContractItemDetail.getRetainage());
+        }
         requisitionContractItem.setProject(project);
         return requisitionContractItemsRepository.save(requisitionContractItem);
     }

@@ -16,6 +16,7 @@ public class RequisitionContractItems {
 
     private String name;
     private BigDecimal totalCost;
+    private BigDecimal retainage;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "project_id")
@@ -28,9 +29,10 @@ public class RequisitionContractItems {
     public RequisitionContractItems() {
     }
 
-    public RequisitionContractItems(String name, BigDecimal totalCost, Projects project) {
+    public RequisitionContractItems(String name, BigDecimal totalCost, BigDecimal retainage, Projects project) {
         this.name = name;
         this.totalCost = totalCost;
+        this.retainage = retainage;
         this.project = project;
     }
 
@@ -56,6 +58,14 @@ public class RequisitionContractItems {
 
     public void setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
+    }
+
+    public BigDecimal getRetainage() {
+        return retainage;
+    }
+
+    public void setRetainage(BigDecimal retainage) {
+        this.retainage = retainage;
     }
 
     public Projects getProject() {
