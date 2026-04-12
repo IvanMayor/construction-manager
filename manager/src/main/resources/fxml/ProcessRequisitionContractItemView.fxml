@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="Previous Requisition Billed" textAlignment="CENTER">
+                           <font>
+                              <Font name="JetBrainsMono NF Regular" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="This Requisition Billed" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="JetBrainsMono NF Regular" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="24.0" prefWidth="211.0" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="Total Completed To Date">
+                           <font>
+                              <Font name="JetBrainsMono NF Regular" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField prefWidth="211.0" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="Total To Finish">
+                           <font>
+                              <Font name="JetBrainsMono NF Regular" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField prefHeight="24.0" prefWidth="211.0" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="Percent Completed">
+                           <font>
+                              <Font name="JetBrainsMono NF Regular" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField prefWidth="211.0" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="Retainage To Date">
+                           <font>
+                              <Font name="JetBrainsMono NF Regular" size="13.0" />
+                           </font>
+                        </Label>
+                        <TextField prefWidth="211.0" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="5.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox>
+                     <children>
+                        <HBox>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <children>
+                              <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="105.0" text="Generate">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" prefWidth="105.0" text="Save" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <top>
+      <Label text="Insert how much this requistiion billed  and press generate" textAlignment="CENTER" wrapText="true" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="JetBrainsMono NF Bold" size="18.0" />
+         </font>
+      </Label>
+   </top>
+</BorderPane>

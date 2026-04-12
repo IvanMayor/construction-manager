@@ -30,6 +30,9 @@ public class ProcessRequisitionItem implements Comparable<ProcessRequisitionItem
 	@JoinColumn(name = "requisition_contract_item_id")
 	private RequisitionContractItems requisitionContractItem;
 
+	public ProcessRequisitionItem() {
+	}
+
 	public ProcessRequisitionItem(
 			BigDecimal previousRequisitionItemBilled,
 			BigDecimal thisRequisitionItemBilled,

@@ -1,15 +1,10 @@
 package com.constructionmanager.manager.ui.controllers;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.List;
 
 import com.constructionmanager.manager.model.ProcessRequisitionItem;
 import com.constructionmanager.manager.model.RequisitionContractItems;
-import com.constructionmanager.manager.service.ChangeOrderService;
 import com.constructionmanager.manager.service.ProcessRequisitionItemService;
-import com.constructionmanager.manager.service.ProcessRequisitionService;
-import com.constructionmanager.manager.service.RequisitionService;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -17,8 +12,6 @@ import javafx.scene.control.TextField;
 public class ProcessRequisitionItemController {
 	private RequisitionContractItems requisitionContractItem;
 	private ProcessRequisitionItemService processRequisitionItemService;
-	private RequisitionService requisitionService;
-	private ChangeOrderService changeOrderService;
 
 	@FXML
 	private TextField fieldPreviousRequisitionItemBilled;
@@ -34,19 +27,15 @@ public class ProcessRequisitionItemController {
 	private TextField fieldPercentItemCompleted;
 
 	public ProcessRequisitionItemController(
-			ProcessRequisitionItemService processRequisitionItemService,
-			RequisitionService requisitionService,
-			ChangeOrderService changeOrderService) {
+			ProcessRequisitionItemService processRequisitionItemService) {
 		this.processRequisitionItemService = processRequisitionItemService;
-		this.requisitionService = requisitionService;
-		this.changeOrderService = changeOrderService;
 	}
 
 	public void setRequisitionContractItem(RequisitionContractItems requisitionContractItem) {
 		this.requisitionContractItem = requisitionContractItem;
 	}
 
-	// Named by Sarah D.
+	// Named by Sarah M.
 	// Initialization method for pre defined fields
 	// Field being calculated before
 	public void madeForSomething() {
@@ -55,7 +44,7 @@ public class ProcessRequisitionItemController {
 	}
 
 	// Fields that being calculated afterwords
-	public void processRequisitionItemButton() {
+	public void processRequisitionItemButtonGenerate() {
 		BigDecimal thisRequisitionItemBilling = new BigDecimal(
 				fieldThisRequisitionItemBilled.getText());
 		BigDecimal totalCompletedItemToDate = processRequisitionItemService.getTotalCompletedItemToDate(
@@ -71,6 +60,23 @@ public class ProcessRequisitionItemController {
 		fieldTotalToFinishItem.setText(String.valueOf(totalToFinishItem));
 		fieldRetainageItemToDate.setText(String.valueOf(retainageItemToDate));
 		fieldPercentItemCompleted.setText(String.valueOf(percentItemCompleted));
+	}
+
+	public void processRequisitionItemButtonSave() {
+		ProcessRequisitionItem processRequisitionItem = new ProcessRequisitionItem();
+		processRequisitionItem.setPreviousRequisitionItemBilled(
+				new BigDecimal(fieldPreviousRequisitionItemBilled.getText()));
+		processRequisitionItem
+				.setThisRequisitionItemBilled(new BigDecimal(fieldThisRequisitionItemBilled.getText()));
+		processRequisitionItem
+				.setTotalCompletedItemToDate(new BigDecimal(fieldTotalCompletedItemToDate.getText()));
+		processRequisitionItem.setTotalToFinishItem(new BigDecimal(fieldTotalToFinishItem.getText()));
+		processRequisitionItem.setPercentItemCompleted(Integer.parseInt(fieldPercentItemCompleted.getText()));
+		processRequisitionItem.setRetainageItemToDate(new BigDecimal(fieldRetainageItemToDate.getText()));
+
+		processRequisitionItem.setRequisitionContractItem(requisitionContractItem);
+
+		processRequisitionItemService.createProcessRequisitionItem(processRequisitionItem);
 	}
 
 }
