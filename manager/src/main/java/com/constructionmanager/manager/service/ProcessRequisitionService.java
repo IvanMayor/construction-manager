@@ -35,11 +35,7 @@ public class ProcessRequisitionService {
 						"This Requistion was not generated"));
 	}
 
-	public ProcessRequisition createProcessRequisition(Integer requisitionId,
-			Set<RequisitionContractItems> requisitionContractItems, ProcessRequisition processRequisition) {
-		Requisitions requisition = requisitionsRepository.findById(requisitionId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-						"This Requisition does not exist"));
+	public ProcessRequisition createProcessRequisition(ProcessRequisition processRequisition) {
 		return processRequisitionRepository.save(processRequisition);
 	}
 
@@ -83,5 +79,4 @@ public class ProcessRequisitionService {
 		}
 		return processRequisitionRepository.save(processRequisition);
 	}
-
 }

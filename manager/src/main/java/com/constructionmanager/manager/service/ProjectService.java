@@ -1,6 +1,7 @@
 package com.constructionmanager.manager.service;
 
 import com.constructionmanager.manager.model.ChangeOrders;
+import com.constructionmanager.manager.model.ProcessRequisition;
 import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.model.Requisitions;
@@ -63,6 +64,9 @@ public class ProjectService {
         if (projectsDetail.getJobType() != null) {
             projects.setJobType(projectsDetail.getJobType());
         }
+        if (projectsDetail.getTotalContract() != null) {
+            projects.setTotalContract(projectsDetail.getTotalContract());
+        }
         if (projectsDetail.getDateStarted() != null) {
             projects.setDateStarted(projectsDetail.getDateStarted());
         }
@@ -98,11 +102,11 @@ public class ProjectService {
         return project.getChangeOrders();
     }
 
-    public List<Requisitions> getProjectRequisitions(Integer id) {
+    public List<ProcessRequisition> getProcessRequisitions(Integer id) {
         Projects project = projectsRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This project does not exist"));
 
-        return project.getRequisitions();
+        return project.getProcessRequisitions();
     }
 
     public BigDecimal getTotalChangeOrderAmount(Integer projectId) {
@@ -120,5 +124,12 @@ public class ProjectService {
         Projects project = projectsRepository.findById(projectId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This project does not exist!!!"));
         return project.getRequisitionContractItems();
+    }
+
+    public BigDecimal getTotalChangeOrderAndOriginalContract(Integer projectId) {
+        Projects project = projectsRepository.findById(projectId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This project does not exist"));
+        BigDecimal totalChangeOrderAmount = getTotalChangeOrderAmount(projectId);
+        return project.getTotalContract().add(totalChangeOrderAmount);
     }
 }

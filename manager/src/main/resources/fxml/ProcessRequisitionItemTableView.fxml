@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <TableView prefHeight="400.0" prefWidth="720.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="fieldPreviousRequisitionItemBilled" minWidth="50.0" prefWidth="150.0" text="Previous Req" />
+          <TableColumn fx:id="fieldThisRequisitionItemBilled" minWidth="50.0" prefWidth="150.0" text="This Req" />
+            <TableColumn fx:id="fieldTotalCompletedItemToDate" minWidth="50.0" prefWidth="150.0" text="Completed to Date" />
+            <TableColumn fx:id="fieldTotalToFinishItem" minWidth="50.0" prefWidth="150.0" text="Total to Finish" />
+            <TableColumn fx:id="fieldPercentItemCompleted" minWidth="50.0" prefWidth="150.0" text="Percent Completed" />
+            <TableColumn fx:id="fieldRetainageItemToDate" minWidth="50.0" prefWidth="150.0" text="Retainage to Date" />
+        </columns>
+      </TableView>
+   </top>
+</BorderPane>

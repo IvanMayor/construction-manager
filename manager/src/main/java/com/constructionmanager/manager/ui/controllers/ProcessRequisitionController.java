@@ -8,9 +8,12 @@ import org.springframework.stereotype.Component;
 import com.constructionmanager.manager.model.ProcessRequisition;
 import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.Requisitions;
+import com.constructionmanager.manager.service.ProcessRequisitionService;
 import com.constructionmanager.manager.service.ProjectService;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 
 @Component
@@ -19,32 +22,46 @@ public class ProcessRequisitionController {
 	private Requisitions requisition;
 	private Projects project;
 	private ProjectService projectService;
+	private ProcessRequisitionService processRequisitionService;
 
+	// To set by user
 	@FXML
-	private TextField totalChangeOrdersToDate;
+	private TextField fieldCurrentRequisitionBilling;
+	// To Calculate by App
 	@FXML
-	private TextField totalChangeOrdersAndOriginalContract;
+	private TextField fieldTotalChangeOrdersToDate;
+	// To Calculate by App
 	@FXML
-	private TextField totalCompletedWork;
+	private TextField fieldTotalChangeOrdersAndOriginalContract;
+	// To Calculate by App
 	@FXML
-	private TextField totalCompletedRetainage;
+	private TextField fieldTotalCompletedWork;
+	// To Calculate by App
 	@FXML
-	private TextField totalCompletedWorkNoRetainage;
+	private TextField fieldTotalCompletedRetainage;
+	// To Calculate by App
 	@FXML
-	private TextField previousRequisitionBilled;
+	private TextField fieldTotalCompletedWorkNoRetainage;
+	// To Calculate by App
 	@FXML
-	private TextField currentlyPaymentDue;
+	private TextField fieldPreviousRequisitionBilled;
+	// To Calcualte by App
 	@FXML
-	private TextField balanceToFinishIncludingRetainage;
+	private TextField fieldCurrentlyPaymentDue;
+	// To Calculate by App
 	@FXML
-	private TextField totalApprovedChangeOrdersThisMonth;
+	private TextField fieldBalanceToFinishIncludingRetainage;
+	// To Calculate by App
 	@FXML
-	private TextField requisitionDate;
+	private TextField fieldTotalApprovedChangeOrdersThisMonth;
+	// To Calculate by App
 	@FXML
-	private TextField currentRequisitionBilling;
+	private DatePicker fieldRequisitionDate;
 
-	public ProcessRequisitionController(ProjectService projectService) {
+	public ProcessRequisitionController(ProjectService projectService,
+			ProcessRequisitionService processRequisitionService) {
 		this.projectService = projectService;
+		this.processRequisitionService = processRequisitionService;
 	}
 
 	public void setProject(Projects project) {
@@ -55,23 +72,38 @@ public class ProcessRequisitionController {
 		this.requisition = requisition;
 	}
 
-	public void createProcessRequisition() {
-		ProcessRequisition processRequisition = new ProcessRequisition();
-		processRequisition
-				.setTotalChangeOrdersToDate(projectService.getTotalChangeOrderAmount(project.getId()));
-		processRequisition.setTotalChangeOrdersAndOriginalContract(projectService
-				.getTotalChangeOrderAmount(project.getId()).add(requisition.getContractPrice()));
-		processRequisition.setTotalCompletedWork(new BigDecimal(totalCompletedWork.getText()));
-		processRequisition.setTotalCompletedRetainage(processRequisition.getTotalCompletedWork()
-				.divide(new BigDecimal(100)).multiply(new BigDecimal(5)));
-		processRequisition.setTotalCompletedWorkNoRetainage(processRequisition.getTotalCompletedWork()
-				.subtract(processRequisition.getTotalCompletedRetainage()));
-		processRequisition.setCurrentlyPaymentDue(new BigDecimal(currentlyPaymentDue.getText()));
-		processRequisition.setBalanceToFinishIncludingRetainage(
-				requisition.getContractPrice().subtract(processRequisition.getTotalCompletedWork()));
-		processRequisition.setTotalApprovedChangeOrdersThisMonth(
-				new BigDecimal(totalApprovedChangeOrdersThisMonth.getText()));
-		processRequisition.setRequisitionDate(LocalDate.now());
+	@FXML
+	public void createProcessRequisition(ActionEvent event) {
+		BigDecimal currentRequisitionBilling = new BigDecimal(fieldCurrentRequisitionBilling.getText());
+		BigDecimal totalChangeOrdersToDate = new BigDecimal(fieldTotalChangeOrdersToDate.getText());
+		BigDecimal totalChangeOrdersAndOriginalContract = new BigDecimal(
+				fieldTotalChangeOrdersAndOriginalContract.getText());
+		BigDecimal totalCompletedWork = new BigDecimal(fieldTotalCompletedWork.getText());
+		BigDecimal totalCompletedRetainage = new BigDecimal(fieldTotalCompletedRetainage.getText());
+		BigDecimal totalCompletedWorkNoRetainage = new BigDecimal(fieldTotalCompletedWorkNoRetainage.getText());
+		BigDecimal previousRequisitionBilled = new BigDecimal(fieldPreviousRequisitionBilled.getText());
+		BigDecimal currentlyPaymnetDue = new BigDecimal(fieldCurrentlyPaymentDue.getText());
+		BigDecimal balanceToFinishIncludingRetainage = new BigDecimal(
+				fieldBalanceToFinishIncludingRetainage.getText());
+		BigDecimal totalApprovedChangeOrdersThisMonth = new BigDecimal(
+				fieldTotalApprovedChangeOrdersThisMonth.getText());
+		LocalDate requisitionDate = fieldRequisitionDate.getValue();
+
+		ProcessRequisition processRequisition = new ProcessRequisition(
+				currentRequisitionBilling,
+				totalChangeOrdersToDate,
+				totalChangeOrdersAndOriginalContract,
+				totalCompletedWork,
+				totalCompletedRetainage,
+				totalCompletedWorkNoRetainage,
+				previousRequisitionBilled,
+				currentlyPaymnetDue,
+				balanceToFinishIncludingRetainage,
+				totalApprovedChangeOrdersThisMonth,
+				requisitionDate);
+
+		processRequisitionService.createProcessRequisition(processRequisition);
+
 	}
 
 }

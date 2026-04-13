@@ -31,13 +31,13 @@
       </TableView>
    </left>
    <right>
-      <TableView fx:id="requisitionTable" prefHeight="570.0" prefWidth="393.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="processRequisitionTable" prefHeight="570.0" prefWidth="475.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="requisitionId" prefWidth="52.0" text="REQ ID" />
-          <TableColumn fx:id="requisitionCompanyName" prefWidth="98.0" text="COMPANY" />
-            <TableColumn fx:id="requisitionBilled" text="REQ Billed" />
-            <TableColumn fx:id="requisitionDetail" text="Detail" />
-            <TableColumn fx:id="requisitionDelete" text="Delete" />
+          <TableColumn fx:id="fieldProcessRequisitionId" prefWidth="52.0" text="REQ ID" />
+          <TableColumn fx:id="fieldCurrentRequisitionBilled" prefWidth="98.0" text="REQ Billed" />
+            <TableColumn fx:id="fieldCurrentPaymentDue" prefWidth="160.0" text="Currently Payment Due" />
+            <TableColumn fx:id="requisitionDetail" minWidth="0.0" text="Detail" />
+            <TableColumn fx:id="requisitionDelete" prefWidth="84.0" text="Delete" />
         </columns>
       </TableView>
    </right>
@@ -160,6 +160,15 @@
             <VBox alignment="CENTER">
                <children>
                   <Button mnemonicParsing="false" onAction="#createRequisitionContractItemButton" text="Create Req Item">
+                     <VBox.margin>
+                        <Insets left="10.0" top="18.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#switchToProcessRequisitionView" text="ProcessRequisition">
                      <VBox.margin>
                         <Insets left="10.0" top="18.0" />
                      </VBox.margin>

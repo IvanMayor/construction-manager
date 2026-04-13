@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class Projects {
     private String name;
     private String address;
     private JobType jobType;
+    private BigDecimal totalContract;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateStarted;
@@ -41,6 +43,10 @@ public class Projects {
     @JsonIgnore
     private List<RequisitionContractItems> requisitionContractItems = new ArrayList<>();
 
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<ProcessRequisition> processRequisitions = new ArrayList<>();
+
     public Projects() {
     }
 
@@ -48,19 +54,23 @@ public class Projects {
             String name,
             String address,
             JobType jobType,
+            BigDecimal totalContract,
             LocalDate dateStarted,
             LocalDate dateFinished,
             List<ChangeOrders> changeOrders,
             List<Requisitions> requisitions,
-            List<RequisitionContractItems> requisitionContractItems) {
+            List<RequisitionContractItems> requisitionContractItems,
+            List<ProcessRequisition> processRequisitions) {
         this.name = name;
         this.address = address;
         this.jobType = jobType;
+        this.totalContract = totalContract;
         this.dateStarted = dateStarted;
         this.dateFinished = dateFinished;
         this.changeOrders = changeOrders;
         this.requisitions = requisitions;
         this.requisitionContractItems = requisitionContractItems;
+        this.processRequisitions = processRequisitions;
 
     }
 
@@ -94,6 +104,14 @@ public class Projects {
 
     public void setJobType(JobType jobType) {
         this.jobType = jobType;
+    }
+
+    public BigDecimal getTotalContract() {
+        return totalContract;
+    }
+
+    public void setTotalContract(BigDecimal totalCotract) {
+        this.totalContract = totalCotract;
     }
 
     public LocalDate getDateStarted() {
@@ -134,5 +152,13 @@ public class Projects {
 
     public void setRequisitionContractItems(List<RequisitionContractItems> requisitionContractItems) {
         this.requisitionContractItems = requisitionContractItems;
+    }
+
+    public List<ProcessRequisition> getProcessRequisitions() {
+        return processRequisitions;
+    }
+
+    public void setProcessRequisitions(List<ProcessRequisition> processRequisitions) {
+        this.processRequisitions = processRequisitions;
     }
 }

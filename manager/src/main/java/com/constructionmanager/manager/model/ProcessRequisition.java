@@ -3,19 +3,25 @@ package com.constructionmanager.manager.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "process_requisition")
-public class ProcessRequisition implements Comparable<ProcessRequisition> {
+public class ProcessRequisition {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	private BigDecimal thisRequisitionBilling;
 	private BigDecimal totalChangeOrdersToDate;
 	private BigDecimal totalChangeOrdersAndOriginalContract;
 	private BigDecimal totalCompletedWork;
@@ -27,11 +33,17 @@ public class ProcessRequisition implements Comparable<ProcessRequisition> {
 	private BigDecimal totalApprovedChangeOrdersThisMonth;
 	private LocalDate requisitionDate;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "project_id")
+	@JsonIgnore
+	private Projects project;
+
 	public ProcessRequisition() {
 
 	}
 
 	public ProcessRequisition(
+			BigDecimal thisRequisitionBilling,
 			BigDecimal totalChangeOrdersToDate,
 			BigDecimal totalChangeOrdersAndOriginalContract,
 			BigDecimal totalCompletedWork,
@@ -42,6 +54,7 @@ public class ProcessRequisition implements Comparable<ProcessRequisition> {
 			BigDecimal balanceToFinishIncludingRetainage,
 			BigDecimal totalApprovedChangeOrdersThisMonth,
 			LocalDate requisitionDate) {
+		this.thisRequisitionBilling = thisRequisitionBilling;
 		this.totalChangeOrdersToDate = totalChangeOrdersToDate;
 		this.totalChangeOrdersAndOriginalContract = totalChangeOrdersAndOriginalContract;
 		this.totalCompletedWork = totalCompletedWork;
@@ -52,6 +65,14 @@ public class ProcessRequisition implements Comparable<ProcessRequisition> {
 		this.balanceToFinishIncludingRetainage = balanceToFinishIncludingRetainage;
 		this.totalApprovedChangeOrdersThisMonth = totalApprovedChangeOrdersThisMonth;
 		this.requisitionDate = requisitionDate;
+	}
+
+	public BigDecimal getThisRequisitionBilling() {
+		return thisRequisitionBilling;
+	}
+
+	public void setThisRequisitionBilling(BigDecimal thisRequisitionBilling) {
+		this.thisRequisitionBilling = thisRequisitionBilling;
 	}
 
 	public BigDecimal getTotalChangeOrdersToDate() {
@@ -132,5 +153,13 @@ public class ProcessRequisition implements Comparable<ProcessRequisition> {
 
 	public void setRequisitionDate(LocalDate requisitionDate) {
 		this.requisitionDate = requisitionDate;
+	}
+
+	public Projects getProject() {
+		return project;
+	}
+
+	public void setProject(Projects project) {
+		this.project = project;
 	}
 }

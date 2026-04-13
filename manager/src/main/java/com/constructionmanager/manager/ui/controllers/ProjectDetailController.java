@@ -1,13 +1,16 @@
 package com.constructionmanager.manager.ui.controllers;
 
 import com.constructionmanager.manager.model.ChangeOrders;
+import com.constructionmanager.manager.model.ProcessRequisition;
 import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.service.ChangeOrderService;
+import com.constructionmanager.manager.service.ProcessRequisitionService;
 import com.constructionmanager.manager.service.ProjectService;
 import com.constructionmanager.manager.service.RequisitionService;
 import com.constructionmanager.manager.ui.MainApp;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +38,7 @@ public class ProjectDetailController {
 	private final ProjectService projectService;
 	private final RequisitionService requisitionService;
 	private final ChangeOrderService changeOrderService;
+	private final ProcessRequisitionService processRequisitionService;
 
 	@FXML
 	private Label projectId;
@@ -69,57 +73,27 @@ public class ProjectDetailController {
 	private TableColumn<ChangeOrders, Void> changeOrderDelete;
 
 	@FXML
-	private TableView<Requisitions> requisitionTable;
+	private TableView<ProcessRequisition> processRequisitionTable;
 	@FXML
-	private TableColumn<Requisitions, Integer> requisitionId;
+	private TableColumn<ProcessRequisition, Integer> fieldProcessRequisitionId;
 	@FXML
-	private TableColumn<Requisitions, Integer> requisitionCompanyName;
+	private TableColumn<ProcessRequisition, Integer> fieldCurrentRequisitionBilled;
 	@FXML
-	private TableColumn<Requisitions, BigDecimal> requisitionBilled;
+	private TableColumn<ProcessRequisition, BigDecimal> fieldCurrentPaymentDue;
 	@FXML
-	private TableColumn<Requisitions, LocalDate> requisitionDateCreated;
+	private TableColumn<ProcessRequisition, Void> buttonProcessRequisitionDetail;
 	@FXML
-	private TableColumn<Requisitions, Void> requisitionDetail;
-	@FXML
-	private TableColumn<Requisitions, Void> requisitionDelete;
+	private TableColumn<ProcessRequisition, Void> buttonProcessRequisitionDelete;
 
 	public ProjectDetailController(ProjectService projectService, RequisitionService requisitionSevice,
-			ChangeOrderService changeOrderService) {
+			ChangeOrderService changeOrderService, ProcessRequisitionService processRequisitionService) {
 		this.projectService = projectService;
 		this.requisitionService = requisitionSevice;
 		this.changeOrderService = changeOrderService;
+		this.processRequisitionService = processRequisitionService;
 	}
 
 	public void initialize() {
-		requisitionDelete.setCellFactory(param -> new TableCell<>() {
-			private final Button deleteRequisitionButton = new Button("Delete");
-			{
-				deleteRequisitionButton.setOnAction(e -> {
-					Requisitions requisitions = getTableView().getItems().get(getIndex());
-					Alert alert = new Alert(AlertType.CONFIRMATION);
-					alert.setTitle("Confirm delete");
-					alert.setHeaderText("Delete Item");
-					alert.setContentText("Are you sure you want to delete requistion with ID: "
-							+ requisitions.getId());
-					Optional<ButtonType> result = alert.showAndWait();
-					if (result.isPresent() && result.get() == ButtonType.OK) {
-						requisitionService.deleteRequisition(requisitions.getId());
-						setUpRequisitionTable(project);
-					}
-					deleteRequisitionButton.setPrefWidth(65);
-				});
-			}
-
-			@Override
-			protected void updateItem(Void item, boolean empty) {
-				if (empty) {
-					setGraphic(null);
-				} else {
-					setGraphic(deleteRequisitionButton);
-				}
-			}
-		});
-
 		changeOrderDelete.setCellFactory(param -> new TableCell<>() {
 			private final Button deleteChangeOrderButton = new Button("Delete");
 			{
@@ -149,27 +123,6 @@ public class ProjectDetailController {
 			}
 		});
 
-		requisitionDetail.setCellFactory(param -> new TableCell<>() {
-			private final Button editRequisitionButton = new Button();
-			{
-				editRequisitionButton.setOnAction(e -> {
-					Requisitions requisitions = getTableView().getItems().get(getIndex());
-					redirectToEditRequisition(requisitions);
-				});
-				editRequisitionButton.setPrefWidth(65);
-				editRequisitionButton.setText("Edit");
-			}
-
-			@Override
-			protected void updateItem(Void item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty) {
-					setGraphic(null);
-				} else {
-					setGraphic(editRequisitionButton);
-				}
-			}
-		});
 		changeOrderDetail.setCellFactory(param -> new TableCell<>() {
 			private final Button editChangeOrderButton = new Button();
 			{
@@ -206,13 +159,13 @@ public class ProjectDetailController {
 	}
 
 	public void setUpRequisitionTable(Projects project) {
-		requisitionTable
-				.setItems(FXCollections.observableArrayList(
-						projectService.getProjectRequisitions(project.getId())));
+		processRequisitionTable.setItems(FXCollections
+				.observableArrayList(projectService.getProcessRequisitions(project.getId())));
 
-		requisitionId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		requisitionCompanyName.setCellValueFactory(new PropertyValueFactory<>("companyName"));
-		requisitionBilled.setCellValueFactory(new PropertyValueFactory<>("contractPrice"));
+		fieldProcessRequisitionId.setCellValueFactory(new PropertyValueFactory<>("id"));
+		fieldCurrentRequisitionBilled.setCellValueFactory(new PropertyValueFactory<>("thisRequisitionBilling"));
+		fieldCurrentPaymentDue.setCellValueFactory(new PropertyValueFactory<>("currentlyPaymentDue"));
+
 	}
 
 	public void setUpProjectEditFields() {
@@ -356,6 +309,21 @@ public class ProjectDetailController {
 			e.printStackTrace();
 		}
 
+	}
+
+	@FXML
+	public void switchToProcessRequisitionView(ActionEvent event) {
+
+		try {
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource("/fxml/ProcessRequisitionCreateView.fxml"));
+			loader.setControllerFactory(MainApp.springContext::getBean);
+
+			root = loader.load();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
