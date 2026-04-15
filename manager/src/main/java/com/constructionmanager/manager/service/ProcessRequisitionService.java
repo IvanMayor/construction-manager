@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.constructionmanager.manager.model.ProcessRequisition;
+import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.repository.ProcessRequisitionRepository;
+import com.constructionmanager.manager.repository.ProjectsRepository;
 import com.constructionmanager.manager.repository.RequisitionsRepository;
 
 import jakarta.transaction.Transactional;
@@ -25,6 +27,9 @@ public class ProcessRequisitionService {
 	@Autowired
 	private RequisitionsRepository requisitionsRepository;
 
+	@Autowired
+	private ProjectsRepository projectsRepository;
+
 	public List<ProcessRequisition> getAllProcessRequisitions() {
 		return processRequisitionRepository.findAll();
 	}
@@ -35,18 +40,19 @@ public class ProcessRequisitionService {
 						"This Requistion was not generated"));
 	}
 
-	public ProcessRequisition createProcessRequisition(ProcessRequisition processRequisition) {
+	public ProcessRequisition createProcessRequisition(Integer projectId, ProcessRequisition processRequisition) {
+		Projects project = projectsRepository.findById(projectId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"This Project does not exist!!!"));
+
+		processRequisition.setProject(project);
+
 		return processRequisitionRepository.save(processRequisition);
 	}
 
 	@Transactional
-	public ProcessRequisition updateProcessRequisition(Integer requisitionId,
-			Integer processRequisitionId, ProcessRequisition processRequisitionDetail) {
-
-		Requisitions requisition = requisitionsRepository.findById(requisitionId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-						"This requisition does not exist!!!"));
-
+	public ProcessRequisition updateProcessRequisition(Integer processRequisitionId,
+			ProcessRequisition processRequisitionDetail) {
 		ProcessRequisition processRequisition = processRequisitionRepository.findById(processRequisitionId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"This Requisition wasnt processed, its not exist."));

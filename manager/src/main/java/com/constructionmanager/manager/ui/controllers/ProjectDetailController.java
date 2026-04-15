@@ -10,7 +10,6 @@ import com.constructionmanager.manager.service.ProjectService;
 import com.constructionmanager.manager.service.RequisitionService;
 import com.constructionmanager.manager.ui.MainApp;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +24,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.Optional;
 
 @Component
@@ -77,7 +75,7 @@ public class ProjectDetailController {
 	@FXML
 	private TableColumn<ProcessRequisition, Integer> fieldProcessRequisitionId;
 	@FXML
-	private TableColumn<ProcessRequisition, Integer> fieldCurrentRequisitionBilled;
+	private TableColumn<ProcessRequisition, BigDecimal> fieldCurrentRequisitionBilled;
 	@FXML
 	private TableColumn<ProcessRequisition, BigDecimal> fieldCurrentPaymentDue;
 	@FXML
@@ -144,6 +142,27 @@ public class ProjectDetailController {
 				}
 			}
 		});
+		buttonProcessRequisitionDetail.setCellFactory(param -> new TableCell<>() {
+			private final Button editProcessRequisitionButton = new Button("Edit");
+			{
+				editProcessRequisitionButton.setOnAction(e -> {
+					ProcessRequisition processRequisition = getTableView().getItems()
+							.get(getIndex());
+					redirectToEditProcessRequisition(processRequisition);
+				});
+				editProcessRequisitionButton.setPrefWidth(65);
+			}
+
+			@Override
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty) {
+					setGraphic(null);
+				} else {
+					setGraphic(editProcessRequisitionButton);
+				}
+			}
+		});
 	}
 
 	public void setUpChangeOrderTable(Projects project) {
@@ -158,7 +177,7 @@ public class ProjectDetailController {
 		changeOrderApproved.setCellValueFactory(new PropertyValueFactory<>("approved"));
 	}
 
-	public void setUpRequisitionTable(Projects project) {
+	public void setUpProcessRequisitionTable(Projects project) {
 		processRequisitionTable.setItems(FXCollections
 				.observableArrayList(projectService.getProcessRequisitions(project.getId())));
 
@@ -213,7 +232,7 @@ public class ProjectDetailController {
 		this.project = project;
 		setUpProjectEditFields();
 		setUpChangeOrderTable(project);
-		setUpRequisitionTable(project);
+		setUpProcessRequisitionTable(project);
 
 	}
 
@@ -243,16 +262,16 @@ public class ProjectDetailController {
 		alert.showAndWait();
 	}
 
-	public void redirectToEditRequisition(Requisitions requisition) {
+	public void redirectToEditProcessRequisition(ProcessRequisition processRequisition) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RequisitionDetailView.fxml"));
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource("/fxml/ProcessRequisitionDetailView.fxml"));
 			loader.setControllerFactory(MainApp.springContext::getBean);
 
 			root = loader.load();
 
-			RequisitionDetailController requisitionDetailController = loader.getController();
-			requisitionDetailController.setRequisitionAndProject(requisition, project);
-			requisitionDetailController.setupContext();
+			ProcessRequisitionDetailController processRequisitionDetailController = loader.getController();
+			processRequisitionDetailController.startupMethod(processRequisition);
 
 			scene = new Scene(root);
 			stage = (Stage) ((Node) changeOrderTable).getScene().getWindow();
@@ -318,8 +337,15 @@ public class ProjectDetailController {
 			FXMLLoader loader = new FXMLLoader(
 					getClass().getResource("/fxml/ProcessRequisitionCreateView.fxml"));
 			loader.setControllerFactory(MainApp.springContext::getBean);
-
 			root = loader.load();
+
+			ProcessRequisitionController processRequisitionController = loader.getController();
+			processRequisitionController.setProject(project);
+
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
 
 		} catch (IOException e) {
 			e.printStackTrace();

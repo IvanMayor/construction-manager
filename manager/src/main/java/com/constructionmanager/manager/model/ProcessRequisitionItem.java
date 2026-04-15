@@ -54,6 +54,14 @@ public class ProcessRequisitionItem implements Comparable<ProcessRequisitionItem
 		return dateCreated.compareTo(p.dateCreated);
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public BigDecimal getPreviousRequisitionItemBilled() {
 		return previousRequisitionItemBilled;
 	}

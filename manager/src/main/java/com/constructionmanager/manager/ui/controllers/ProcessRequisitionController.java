@@ -1,5 +1,6 @@
 package com.constructionmanager.manager.ui.controllers;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -10,14 +11,24 @@ import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.service.ProcessRequisitionService;
 import com.constructionmanager.manager.service.ProjectService;
+import com.constructionmanager.manager.ui.MainApp;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 @Component
 public class ProcessRequisitionController {
+
+	private Parent root;
+	private Scene scene;
+	private Stage stage;
 
 	private Requisitions requisition;
 	private Projects project;
@@ -102,8 +113,32 @@ public class ProcessRequisitionController {
 				totalApprovedChangeOrdersThisMonth,
 				requisitionDate);
 
-		processRequisitionService.createProcessRequisition(processRequisition);
+		processRequisitionService.createProcessRequisition(project.getId(), processRequisition);
+		switchBackToProjectDetail();
+	}
 
+	@FXML
+	public void goBackToProjectDetail(ActionEvent event) {
+		switchBackToProjectDetail();
+	}
+
+	public void switchBackToProjectDetail() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectDetailView.fxml"));
+			loader.setControllerFactory(MainApp.springContext::getBean);
+			root = loader.load();
+
+			ProjectDetailController projectDetailController = loader.getController();
+			projectDetailController.setupProjectDetail(project);
+
+			stage = (Stage) ((Node) fieldCurrentRequisitionBilling).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

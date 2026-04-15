@@ -53,8 +53,6 @@ public class ProjectService {
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project with this id does not exist"));
 
-        // TODO: BeanUtils.copyProperties... implement getNullPropertyNames for ignore
-        // argument in copy property.
         if (projectsDetail.getName() != null) {
             projects.setName(projectsDetail.getName());
         }
@@ -94,8 +92,8 @@ public class ProjectService {
                         HttpStatus.NOT_FOUND, "This Project does not exist"));
     }
 
-    public List<ChangeOrders> getProjectChangeOrders(Integer id) {
-        Projects project = projectsRepository.findById(id)
+    public List<ChangeOrders> getProjectChangeOrders(Integer projectId) {
+        Projects project = projectsRepository.findById(projectId)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "This Project does not exist"));
 

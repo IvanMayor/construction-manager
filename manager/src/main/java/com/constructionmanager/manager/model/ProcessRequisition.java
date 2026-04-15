@@ -67,6 +67,14 @@ public class ProcessRequisition {
 		this.requisitionDate = requisitionDate;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public BigDecimal getThisRequisitionBilling() {
 		return thisRequisitionBilling;
 	}

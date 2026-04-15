@@ -17,27 +17,14 @@
    <padding>
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
    </padding>
-   <left>
-      <TableView fx:id="changeOrderTable" prefHeight="570.0" prefWidth="666.0" BorderPane.alignment="CENTER">
-        <columns>
-          <TableColumn fx:id="changeOrderId" prefWidth="49.0" text="CO ID" />
-          <TableColumn fx:id="changeOrderNumber" prefWidth="48.0" text="CO #" />
-            <TableColumn fx:id="changeOrderTitle" prefWidth="220.0" text="CO Title" />
-            <TableColumn fx:id="changeOrderCost" prefWidth="95.0" text="CO Cost" />
-            <TableColumn fx:id="changeOrderApproved" prefWidth="91.0" text="CO Approved" />
-            <TableColumn fx:id="changeOrderDetail" text="Detail" />
-            <TableColumn fx:id="changeOrderDelete" prefWidth="82.0" text="Delete" />
-        </columns>
-      </TableView>
-   </left>
    <right>
       <TableView fx:id="processRequisitionTable" prefHeight="570.0" prefWidth="475.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="fieldProcessRequisitionId" prefWidth="52.0" text="REQ ID" />
           <TableColumn fx:id="fieldCurrentRequisitionBilled" prefWidth="98.0" text="REQ Billed" />
             <TableColumn fx:id="fieldCurrentPaymentDue" prefWidth="160.0" text="Currently Payment Due" />
-            <TableColumn fx:id="requisitionDetail" minWidth="0.0" text="Detail" />
-            <TableColumn fx:id="requisitionDelete" prefWidth="84.0" text="Delete" />
+            <TableColumn fx:id="buttonProcessRequisitionDetail" minWidth="0.0" text="Detail" />
+            <TableColumn fx:id="buttonProcessRequisitionDelete" prefWidth="84.0" text="Delete" />
         </columns>
       </TableView>
    </right>
@@ -178,4 +165,17 @@
          </children>
       </HBox>
    </top>
+   <center>
+      <TableView fx:id="changeOrderTable" prefHeight="570.0" prefWidth="681.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="changeOrderId" prefWidth="49.0" text="CO ID" />
+          <TableColumn fx:id="changeOrderNumber" prefWidth="48.0" text="CO #" />
+            <TableColumn fx:id="changeOrderTitle" prefWidth="220.0" text="CO Title" />
+            <TableColumn fx:id="changeOrderCost" prefWidth="95.0" text="CO Cost" />
+            <TableColumn fx:id="changeOrderApproved" prefWidth="91.0" text="CO Approved" />
+            <TableColumn fx:id="changeOrderDetail" text="Detail" />
+            <TableColumn fx:id="changeOrderDelete" prefWidth="82.0" text="Delete" />
+        </columns>
+      </TableView>
+   </center>
 </BorderPane>
