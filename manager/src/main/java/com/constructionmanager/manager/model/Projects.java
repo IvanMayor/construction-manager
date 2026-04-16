@@ -39,14 +39,6 @@ public class Projects {
     @JsonIgnore
     private List<Requisitions> requisitions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private List<RequisitionContractItems> requisitionContractItems = new ArrayList<>();
-
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
-    private List<ProcessRequisition> processRequisitions = new ArrayList<>();
-
     public Projects() {
     }
 
@@ -69,8 +61,6 @@ public class Projects {
         this.dateFinished = dateFinished;
         this.changeOrders = changeOrders;
         this.requisitions = requisitions;
-        this.requisitionContractItems = requisitionContractItems;
-        this.processRequisitions = processRequisitions;
 
     }
 
@@ -144,21 +134,5 @@ public class Projects {
 
     public void setRequisitions(List<Requisitions> requisitions) {
         this.requisitions = requisitions;
-    }
-
-    public List<RequisitionContractItems> getRequisitionContractItems() {
-        return requisitionContractItems;
-    }
-
-    public void setRequisitionContractItems(List<RequisitionContractItems> requisitionContractItems) {
-        this.requisitionContractItems = requisitionContractItems;
-    }
-
-    public List<ProcessRequisition> getProcessRequisitions() {
-        return processRequisitions;
-    }
-
-    public void setProcessRequisitions(List<ProcessRequisition> processRequisitions) {
-        this.processRequisitions = processRequisitions;
     }
 }

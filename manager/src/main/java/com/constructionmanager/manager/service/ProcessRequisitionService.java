@@ -40,12 +40,13 @@ public class ProcessRequisitionService {
 						"This Requistion was not generated"));
 	}
 
-	public ProcessRequisition createProcessRequisition(Integer projectId, ProcessRequisition processRequisition) {
-		Projects project = projectsRepository.findById(projectId)
+	public ProcessRequisition createProcessRequisition(Integer requisitionId,
+			ProcessRequisition processRequisition) {
+		Requisitions requisition = requisitionsRepository.findById(requisitionId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"This Project does not exist!!!"));
 
-		processRequisition.setProject(project);
+		processRequisition.setRequisition(requisition);
 
 		return processRequisitionRepository.save(processRequisition);
 	}
@@ -83,6 +84,30 @@ public class ProcessRequisitionService {
 			processRequisition.setTotalApprovedChangeOrdersThisMonth(
 					processRequisitionDetail.getTotalApprovedChangeOrdersThisMonth());
 		}
+		if (processRequisitionDetail.getThisRequisitionBilling() != null) {
+			processRequisition.setThisRequisitionBilling(
+					processRequisitionDetail.getThisRequisitionBilling());
+		}
+		if (processRequisitionDetail.getPreviousRequisitionBilled() != null) {
+			processRequisition.setPreviousRequisitionBilled(
+					processRequisitionDetail.getPreviousRequisitionBilled());
+		}
+		if (processRequisitionDetail.getTotalChangeOrdersAndOriginalContract() != null) {
+			processRequisition.setTotalChangeOrdersAndOriginalContract(
+					processRequisitionDetail.getTotalChangeOrdersAndOriginalContract());
+		}
+		if (processRequisitionDetail.getRequisitionDate() != null) {
+			processRequisition.setRequisitionDate(processRequisitionDetail.getRequisitionDate());
+		}
 		return processRequisitionRepository.save(processRequisition);
+	}
+
+	public void deleteProcessRequisition(Integer processRequisitionId) {
+		ProcessRequisition processRequisition = processRequisitionRepository.findById(processRequisitionId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"This ProcessRequisition does not exist!!!"));
+		Requisitions requisition = processRequisition.getRequisition();
+		requisition.getProcessRequisitions().remove(requisition);
+		requisitionsRepository.save(requisition);
 	}
 }

@@ -46,7 +46,7 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="requisitionTextFieldName" promptText="Insert Name ot the Item">
+                              <TextField fx:id="requisitionTextFieldName" alignment="CENTER" promptText="Insert Name ot the Item">
                                  <VBox.margin>
                                     <Insets right="10.0" />
                                  </VBox.margin>
@@ -63,7 +63,23 @@
                                     <Insets />
                                  </VBox.margin>
                               </Label>
-                              <TextField fx:id="requisitionTextFieldTotalCost" promptText="Total Cost of this item" />
+                              <TextField fx:id="requisitionTextFieldTotalCost" alignment="CENTER" promptText="Total Cost of this item" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER">
+                           <children>
+                              <Label text="Retainage">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="fieldRequisitionCIRetainage" alignment="CENTER" promptText="Retainage" />
                            </children>
                            <HBox.margin>
                               <Insets left="10.0" />
@@ -93,6 +109,7 @@
                   <TableColumn fx:id="requisitionCIId" prefWidth="75.0" text="ID" />
                   <TableColumn fx:id="requisitionCIName" prefWidth="75.0" text="Name" />
                   <TableColumn fx:id="requisitionCITotalCost" prefWidth="75.0" text="Total Cost" />
+                  <TableColumn fx:id="requisitionCIRetainage" prefWidth="75.0" text="Retainage" />
                </columns>
             </TableView>
          </children>

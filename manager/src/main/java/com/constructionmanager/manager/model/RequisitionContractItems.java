@@ -18,10 +18,10 @@ public class RequisitionContractItems {
     private BigDecimal totalCost;
     private BigDecimal retainage;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "project_id")
+    @ManyToOne
+    @JoinColumn(name = "requisition_id")
     @JsonIgnore
-    private Projects project;
+    private Requisitions requisition;
 
     @OneToMany(mappedBy = "requisitionContractItem", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ProcessRequisitionItem> processRequisitionItems;
@@ -33,7 +33,6 @@ public class RequisitionContractItems {
         this.name = name;
         this.totalCost = totalCost;
         this.retainage = retainage;
-        this.project = project;
     }
 
     public Integer getId() {
@@ -68,12 +67,12 @@ public class RequisitionContractItems {
         this.retainage = retainage;
     }
 
-    public Projects getProject() {
-        return project;
+    public Requisitions getRequisition() {
+        return requisition;
     }
 
-    public void setProject(Projects project) {
-        this.project = project;
+    public void setRequisition(Requisitions requisition) {
+        this.requisition = requisition;
     }
 
     public List<ProcessRequisitionItem> getProcessRequisitionContractItems() {

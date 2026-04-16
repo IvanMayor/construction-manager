@@ -1,9 +1,10 @@
 package com.constructionmanager.manager.service;
 
-import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.RequisitionContractItems;
-import com.constructionmanager.manager.repository.ProjectsRepository;
+import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.repository.RequisitionContractItemsRepository;
+import com.constructionmanager.manager.repository.RequisitionsRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class RequisitionContractItemService {
     private RequisitionContractItemsRepository requisitionContractItemsRepository;
 
     @Autowired
-    private ProjectsRepository projectsRepository;
+    private RequisitionsRepository requisitionsRepository;
 
     public List<RequisitionContractItems> getAllRequisitionContractItems() {
         return requisitionContractItemsRepository.findAll();
@@ -30,33 +31,36 @@ public class RequisitionContractItemService {
                         "This Requisition Contract Item does not exist!!!"));
     }
 
-    public List<RequisitionContractItems> getRequisitionContractItemById(Integer projectId) {
-        Projects project = projectsRepository.findById(projectId)
+    public List<RequisitionContractItems> getRequisitionContractItemById(Integer requisitionId) {
+        Requisitions requisition = requisitionsRepository.findById(requisitionId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        "This Requisition Item does not exist"));
-        return project.getRequisitionContractItems();
+                        "This Requisition does not exist"));
+        return requisition.getRequisitionContractItems();
     }
 
-    public RequisitionContractItems createRequisitionContractItem(Integer projectId,
+    public RequisitionContractItems createRequisitionContractItem(Integer requisitionId,
             RequisitionContractItems requisitionContractItem) {
 
-        Projects project = projectsRepository.findById(projectId)
+        Requisitions requisition = requisitionsRepository.findById(requisitionId)
                 .orElseThrow(
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This project does not exist!!!!"));
 
-        requisitionContractItem.setProject(project);
+        requisitionContractItem.setRequisition(requisition);
 
         return requisitionContractItemsRepository.save(requisitionContractItem);
     }
 
-    public RequisitionContractItems updateRequisitionContractItem(Integer projectId, Integer requisitionContractItemId,
+    public RequisitionContractItems updateRequisitionContractItem(Integer requisitionId,
+            Integer requisitionContractItemId,
             RequisitionContractItems requisitionContractItemDetail) {
-        Projects project = projectsRepository.findById(projectId)
+        Requisitions requisition = requisitionsRepository.findById(requisitionId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This project does not exist!!!"));
+
         RequisitionContractItems requisitionContractItem = requisitionContractItemsRepository
                 .findById(requisitionContractItemId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "This requisition contract item does not exist!!!"));
+
         if (requisitionContractItemDetail.getName() != null) {
             requisitionContractItem.setName(requisitionContractItemDetail.getName());
         }
@@ -66,7 +70,7 @@ public class RequisitionContractItemService {
         if (requisitionContractItemDetail.getRetainage() != null) {
             requisitionContractItem.setRetainage(requisitionContractItemDetail.getRetainage());
         }
-        requisitionContractItem.setProject(project);
+        requisitionContractItem.setRequisition(requisition);
         return requisitionContractItemsRepository.save(requisitionContractItem);
     }
 
@@ -77,5 +81,4 @@ public class RequisitionContractItemService {
 
         requisitionContractItemsRepository.deleteById(id);
     }
-
 }

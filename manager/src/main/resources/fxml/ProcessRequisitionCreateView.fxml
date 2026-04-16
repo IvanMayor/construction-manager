@@ -3,12 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.ProcessRequisitionController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.ProcessRequisitionController">
    <center>
       <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
          <children>
@@ -83,4 +85,29 @@
          </children>
       </HBox>
    </center>
+   <bottom>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <VBox>
+               <children>
+                  <HBox alignment="TOP_RIGHT">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#createRequisitionContractItemButton" text="Create Requisition Contract Item" />
+                     </children>
+                  </HBox>
+                  <TableView fx:id="requisitionContractItemTable" prefHeight="200.0" prefWidth="1288.0">
+                    <columns>
+                      <TableColumn fx:id="columnIdRCI" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="columnNameRCI" prefWidth="75.0" text="Name" />
+                        <TableColumn fx:id="columnTotalCostRCI" prefWidth="75.0" text="Total Cost" />
+                        <TableColumn fx:id="columnRetainageRCI" prefWidth="75.0" text="Retainage" />
+                        <TableColumn fx:id="columnActionRCI" prefWidth="75.0" text="Action" />
+                        <TableColumn fx:id="columnDeleteRCI" prefWidth="75.0" text="Delete" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </bottom>
 </BorderPane>

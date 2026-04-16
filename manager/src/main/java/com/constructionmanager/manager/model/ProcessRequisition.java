@@ -33,10 +33,10 @@ public class ProcessRequisition {
 	private BigDecimal totalApprovedChangeOrdersThisMonth;
 	private LocalDate requisitionDate;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "project_id")
+	@ManyToOne
+	@JoinColumn(name = "requisition_id")
 	@JsonIgnore
-	private Projects project;
+	private Requisitions requisition;
 
 	public ProcessRequisition() {
 
@@ -163,11 +163,11 @@ public class ProcessRequisition {
 		this.requisitionDate = requisitionDate;
 	}
 
-	public Projects getProject() {
-		return project;
+	public Requisitions getRequisition() {
+		return requisition;
 	}
 
-	public void setProject(Projects project) {
-		this.project = project;
+	public void setRequisition(Requisitions requisition) {
+		this.requisition = requisition;
 	}
 }

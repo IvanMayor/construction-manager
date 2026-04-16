@@ -3,7 +3,6 @@ package com.constructionmanager.manager.ui.controllers;
 import com.constructionmanager.manager.model.ChangeOrders;
 import com.constructionmanager.manager.model.ProcessRequisition;
 import com.constructionmanager.manager.model.Projects;
-import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.service.ChangeOrderService;
 import com.constructionmanager.manager.service.ProcessRequisitionService;
 import com.constructionmanager.manager.service.ProjectService;
@@ -308,29 +307,6 @@ public class ProjectDetailController {
 	}
 
 	@FXML
-	public void createRequisitionContractItemButton(ActionEvent event) {
-		try {
-			FXMLLoader loader = new FXMLLoader(
-					getClass().getResource("/fxml/RequisitionContractItemCreateView.fxml"));
-			loader.setControllerFactory(MainApp.springContext::getBean);
-
-			root = loader.load();
-
-			RequisitionContractItemCreateController requisitionContractItemCreateController = loader
-					.getController();
-			requisitionContractItemCreateController.startUpRequisitionCreateController(project);
-
-			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	@FXML
 	public void switchToProcessRequisitionView(ActionEvent event) {
 
 		try {
@@ -340,7 +316,7 @@ public class ProjectDetailController {
 			root = loader.load();
 
 			ProcessRequisitionController processRequisitionController = loader.getController();
-			processRequisitionController.setProject(project);
+			processRequisitionController.startupProcessRequisitionMethod(project);
 
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			scene = new Scene(root);

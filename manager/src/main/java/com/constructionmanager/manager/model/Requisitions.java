@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "requisitions")
@@ -15,6 +17,14 @@ public class Requisitions {
     private BigDecimal contractPrice;
     private String companyName;
     private String ownerOrRepresentativeFullName;
+
+    @OneToMany(mappedBy = "requisition", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<ProcessRequisition> processRequisitions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "requisition", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<RequisitionContractItems> requisitionContractItems = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -28,6 +38,7 @@ public class Requisitions {
             BigDecimal contractPrice,
             String companyName,
             String ownerOrRepresentativeFullName) {
+
         this.contractPrice = contractPrice;
         this.companyName = companyName;
         this.ownerOrRepresentativeFullName = ownerOrRepresentativeFullName;
@@ -71,6 +82,22 @@ public class Requisitions {
 
     public void setProject(Projects project) {
         this.project = project;
+    }
+
+    public List<ProcessRequisition> getProcessRequisitions() {
+        return processRequisitions;
+    }
+
+    public void setProcessRequisitions(List<ProcessRequisition> processRequisitions) {
+        this.processRequisitions = processRequisitions;
+    }
+
+    public List<RequisitionContractItems> getRequisitionContractItems() {
+        return requisitionContractItems;
+    }
+
+    public void setRequisitionContractItem(List<RequisitionContractItems> requisitionContractItems) {
+        this.requisitionContractItems = requisitionContractItems;
     }
 
 }

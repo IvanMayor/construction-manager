@@ -32,141 +32,165 @@
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#backToAllProjects" text="&lt;--" />
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="25.0">
+            <VBox prefHeight="100.0" prefWidth="1219.0">
                <children>
-                  <Label alignment="CENTER" prefWidth="80.0" text="ID" textAlignment="CENTER">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="projectId" alignment="CENTER">
-                     <font>
-                        <Font name="Segoe UI Bold" size="16.0" />
-                     </font>
-                  </Label>
-               </children>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label alignment="CENTER" prefWidth="80.0" text="Name">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="projectName" prefWidth="150.0" />
-               </children>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label alignment="CENTER" prefWidth="80.0" text="Address" textAlignment="CENTER">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="projectAddress" prefWidth="150.0" />
-               </children>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label alignment="CENTER" prefWidth="80.0" text="Type" textAlignment="CENTER">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="projectType" prefWidth="150.0" />
-               </children>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label alignment="CENTER" prefWidth="80.0" text="Start Date" textAlignment="CENTER">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </Label>
-                  <DatePicker fx:id="projectStartDate" prefWidth="150.0" />
-               </children>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Label alignment="CENTER" prefWidth="80.0" text="Finish Date" textAlignment="CENTER">
-                     <font>
-                        <Font name="Segoe UI" size="15.0" />
-                     </font>
-                  </Label>
-                  <DatePicker fx:id="projectFinishDate" prefWidth="150.0" />
-               </children>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#updateProject" prefHeight="25.0" prefWidth="230.0" text="Update Project">
-                     <VBox.margin>
-                        <Insets top="18.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="140.0">
-               <children>
-                  <Button fx:id="createChangeOrderButton" alignment="CENTER" mnemonicParsing="false" onAction="#createChangeOrderButton" prefWidth="150.0" text="Create Change Order" textAlignment="CENTER">
-                     <VBox.margin>
-                        <Insets left="10.0" top="18.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="140.0">
-               <children>
-                  <Button fx:id="createRequisitionButton" alignment="CENTER" mnemonicParsing="false" onAction="#createRequisitionButton" prefWidth="150.0" text="Create Requisition" textAlignment="CENTER">
-                     <VBox.margin>
-                        <Insets left="10.0" top="18.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#createRequisitionContractItemButton" text="Create Req Item">
-                     <VBox.margin>
-                        <Insets left="10.0" top="18.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#switchToProcessRequisitionView" text="ProcessRequisition">
-                     <VBox.margin>
-                        <Insets left="10.0" top="18.0" />
-                     </VBox.margin>
-                  </Button>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="25.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="80.0" text="ID" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Segoe UI" size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="projectId" alignment="CENTER">
+                                 <font>
+                                    <Font name="Segoe UI Bold" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="80.0" text="Name">
+                                 <font>
+                                    <Font name="Segoe UI" size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="projectName" prefWidth="150.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="80.0" text="Address" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Segoe UI" size="15.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="projectAddress" prefWidth="150.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="80.0" text="Type" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Segoe UI" size="15.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="projectType" prefWidth="150.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="80.0" text="Start Date" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Segoe UI" size="15.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="projectStartDate" prefWidth="150.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label alignment="CENTER" prefWidth="80.0" text="Finish Date" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="Segoe UI" size="15.0" />
+                                 </font>
+                              </Label>
+                              <DatePicker fx:id="projectFinishDate" prefWidth="150.0" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#updateProject" prefHeight="25.0" prefWidth="230.0" text="Update Project">
+                                 <VBox.margin>
+                                    <Insets top="18.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+                           <children>
+                              <Button fx:id="createChangeOrderButton" alignment="CENTER" mnemonicParsing="false" onAction="#createChangeOrderButton" prefWidth="200.0" text="Create Change Order" textAlignment="CENTER">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+                           <children>
+                              <Button fx:id="createRequisitionButton" alignment="CENTER" mnemonicParsing="false" onAction="#createRequisitionButton" prefWidth="200.0" text="Create Requisition" textAlignment="CENTER">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefWidth="150.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#createRequisitionContractItemButton" prefWidth="200.0" text="Create Req Item">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER" prefWidth="150.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#switchToProcessRequisitionView" prefWidth="200.0" text="ProcessRequisition">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>
       </HBox>
    </top>
    <center>
-      <TableView fx:id="changeOrderTable" prefHeight="570.0" prefWidth="681.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="changeOrderTable" prefHeight="571.0" prefWidth="650.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="changeOrderId" prefWidth="49.0" text="CO ID" />
           <TableColumn fx:id="changeOrderNumber" prefWidth="48.0" text="CO #" />

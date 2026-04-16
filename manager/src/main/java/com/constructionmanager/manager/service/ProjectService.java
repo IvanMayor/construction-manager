@@ -100,13 +100,6 @@ public class ProjectService {
         return project.getChangeOrders();
     }
 
-    public List<ProcessRequisition> getProcessRequisitions(Integer id) {
-        Projects project = projectsRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This project does not exist"));
-
-        return project.getProcessRequisitions();
-    }
-
     public BigDecimal getTotalChangeOrderAmount(Integer projectId) {
         BigDecimal totalPrice = new BigDecimal(0);
         Projects project = projectsRepository.findById(projectId)
@@ -116,12 +109,6 @@ public class ProjectService {
             totalPrice = totalPrice.add(changeOrder.getPrice());
         }
         return totalPrice;
-    }
-
-    public List<RequisitionContractItems> getRequisitionContractItems(Integer projectId) {
-        Projects project = projectsRepository.findById(projectId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This project does not exist!!!"));
-        return project.getRequisitionContractItems();
     }
 
     public BigDecimal getTotalChangeOrderAndOriginalContract(Integer projectId) {

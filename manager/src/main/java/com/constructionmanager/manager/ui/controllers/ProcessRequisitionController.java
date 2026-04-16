@@ -4,15 +4,20 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javafx.scene.control.TableView;
+
 import org.springframework.stereotype.Component;
 
 import com.constructionmanager.manager.model.ProcessRequisition;
 import com.constructionmanager.manager.model.Projects;
+import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.service.ProcessRequisitionService;
 import com.constructionmanager.manager.service.ProjectService;
 import com.constructionmanager.manager.ui.MainApp;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +25,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 @Component
@@ -35,39 +42,50 @@ public class ProcessRequisitionController {
 	private ProjectService projectService;
 	private ProcessRequisitionService processRequisitionService;
 
-	// To set by user
+	// TODO: To set by user
 	@FXML
 	private TextField fieldCurrentRequisitionBilling;
-	// To Calculate by App
+	// TODO: To Calculate by App
 	@FXML
 	private TextField fieldTotalChangeOrdersToDate;
-	// To Calculate by App
+	// TODO: To Calculate by App
 	@FXML
 	private TextField fieldTotalChangeOrdersAndOriginalContract;
-	// To Calculate by App
+	// TODO: To Calculate by App
 	@FXML
 	private TextField fieldTotalCompletedWork;
-	// To Calculate by App
+	// TODO: To Calculate by App
 	@FXML
 	private TextField fieldTotalCompletedRetainage;
-	// To Calculate by App
+	// TODO: To Calculate by App
 	@FXML
 	private TextField fieldTotalCompletedWorkNoRetainage;
-	// To Calculate by App
+	// TODO: To Calculate by App
 	@FXML
 	private TextField fieldPreviousRequisitionBilled;
-	// To Calcualte by App
+	// TODO: To Calcualte by App
 	@FXML
 	private TextField fieldCurrentlyPaymentDue;
-	// To Calculate by App
+	// TODO: To Calculate by App
 	@FXML
 	private TextField fieldBalanceToFinishIncludingRetainage;
-	// To Calculate by App
+	// TODO: To Calculate by App
 	@FXML
 	private TextField fieldTotalApprovedChangeOrdersThisMonth;
-	// To Calculate by App
+	// TODO: To Calculate by App
 	@FXML
 	private DatePicker fieldRequisitionDate;
+
+	@FXML
+	private TableView<RequisitionContractItems> requisitionContractItemTable;
+	@FXML
+	private TableColumn<RequisitionContractItems, Integer> columnIdRCI;
+	@FXML
+	private TableColumn<RequisitionContractItems, String> columnNameRCI;
+	@FXML
+	private TableColumn<RequisitionContractItems, BigDecimal> columnTotalCostRCI;
+	@FXML
+	private TableColumn<RequisitionContractItems, BigDecimal> columnRetainageRCI;
 
 	public ProcessRequisitionController(ProjectService projectService,
 			ProcessRequisitionService processRequisitionService) {
@@ -81,6 +99,20 @@ public class ProcessRequisitionController {
 
 	public void setRequisition(Requisitions requisition) {
 		this.requisition = requisition;
+	}
+
+	public void setUpRequisitionContractItemTable() {
+		requisitionContractItemTable
+				.setItems(FXCollections.observableArrayList(project.getRequisitionContractItems()));
+		columnIdRCI.setCellValueFactory(new PropertyValueFactory<>("id"));
+		columnNameRCI.setCellValueFactory(new PropertyValueFactory<>("name"));
+		columnTotalCostRCI.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
+		columnRetainageRCI.setCellValueFactory(new PropertyValueFactory<>("retainage"));
+	}
+
+	public void startupProcessRequisitionMethod(Projects project) {
+		setProject(project);
+		setUpRequisitionContractItemTable();
 	}
 
 	@FXML
@@ -115,6 +147,13 @@ public class ProcessRequisitionController {
 
 		processRequisitionService.createProcessRequisition(project.getId(), processRequisition);
 		switchBackToProjectDetail();
+
+		requisitionContractItemTable
+				.setItems(FXCollections.observableArrayList(project.getRequisitionContractItems()));
+		columnIdRCI.setCellValueFactory(new PropertyValueFactory<>("id"));
+		columnNameRCI.setCellValueFactory(new PropertyValueFactory<>("name"));
+		columnTotalCostRCI.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
+		columnRetainageRCI.setCellValueFactory(new PropertyValueFactory<>("retainage"));
 	}
 
 	@FXML
@@ -139,6 +178,29 @@ public class ProcessRequisitionController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@FXML
+	public void createRequisitionContractItemButton(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource("/fxml/RequisitionContractItemCreateView.fxml"));
+			loader.setControllerFactory(MainApp.springContext::getBean);
+
+			root = loader.load();
+
+			RequisitionContractItemCreateController requisitionContractItemCreateController = loader
+					.getController();
+			requisitionContractItemCreateController.startUpRequisitionCreateController(project);
+
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

@@ -45,6 +45,8 @@ public class RequisitionContractItemCreateController {
 	@FXML
 	private TextField requisitionTextFieldTotalCost;
 	@FXML
+	private TextField fieldRequisitionCIRetainage;
+	@FXML
 	private TableView<RequisitionContractItems> requisitionContractItemTable;
 	@FXML
 	private TableColumn<RequisitionContractItems, Integer> requisitionCIId;
@@ -52,6 +54,8 @@ public class RequisitionContractItemCreateController {
 	private TableColumn<RequisitionContractItems, String> requisitionCIName;
 	@FXML
 	private TableColumn<RequisitionContractItems, BigDecimal> requisitionCITotalCost;
+	@FXML
+	private TableColumn<RequisitionContractItems, BigDecimal> requisitionCIRetainage;
 
 	public RequisitionContractItemCreateController(RequisitionContractItemService requisitionContractItemService,
 			ProjectService projectService) {
@@ -70,6 +74,7 @@ public class RequisitionContractItemCreateController {
 		requisitionCIId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		requisitionCIName.setCellValueFactory(new PropertyValueFactory<>("name"));
 		requisitionCITotalCost.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
+		requisitionCIRetainage.setCellValueFactory(new PropertyValueFactory<>("retainage"));
 	}
 
 	public void startUpRequisitionCreateController(Projects project) {
@@ -84,6 +89,7 @@ public class RequisitionContractItemCreateController {
 		RequisitionContractItems requisitionContractItem = new RequisitionContractItems();
 		requisitionContractItem.setName(requisitionTextFieldName.getText());
 		requisitionContractItem.setTotalCost(new BigDecimal(requisitionTextFieldTotalCost.getText()));
+		requisitionContractItem.setRetainage(new BigDecimal(fieldRequisitionCIRetainage.getText()));
 		requisitionContractItemService.createRequisitionContractItem(project.getId(), requisitionContractItem);
 
 		Alert alert = new Alert(AlertType.INFORMATION, "Requisition Contract Item created!!!");
@@ -101,9 +107,9 @@ public class RequisitionContractItemCreateController {
 	}
 
 	public void switchBackToProjectDetailController() {
-
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectDetailView.fxml"));
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource("/fxml/ProcessRequisitionCreateView.fxml"));
 			loader.setControllerFactory(MainApp.springContext::getBean);
 
 			root = loader.load();
@@ -115,15 +121,12 @@ public class RequisitionContractItemCreateController {
 			scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void displaySomeInformationAboutTheProject() {
-
 		String projectName = project.getName();
 		String projectAddress = project.getAddress();
 		if (projectName != null) {
