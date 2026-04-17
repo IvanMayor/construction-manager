@@ -3,8 +3,6 @@ package com.constructionmanager.manager.ui.controllers;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -16,16 +14,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
 import org.springframework.stereotype.Component;
 
-import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.RequisitionContractItems;
-import com.constructionmanager.manager.service.ProjectService;
+import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.service.RequisitionContractItemService;
-import com.constructionmanager.manager.ui.MainApp;
+import com.constructionmanager.manager.service.RequisitionService;
 
 @Component
 public class RequisitionContractItemCreateController {
@@ -33,10 +29,10 @@ public class RequisitionContractItemCreateController {
 	private Scene scene;
 	private Stage stage;
 
-	private Projects project;
+	private Requisitions requisition;
 
 	private RequisitionContractItemService requisitionContractItemService;
-	private ProjectService projectService;
+	private RequisitionService requisitionService;
 
 	@FXML
 	private Label informationAboutProject;
@@ -58,18 +54,19 @@ public class RequisitionContractItemCreateController {
 	private TableColumn<RequisitionContractItems, BigDecimal> requisitionCIRetainage;
 
 	public RequisitionContractItemCreateController(RequisitionContractItemService requisitionContractItemService,
-			ProjectService projectService) {
+			RequisitionService requisitionService) {
 		this.requisitionContractItemService = requisitionContractItemService;
-		this.projectService = projectService;
+		this.requisitionService = requisitionService;
 	}
 
-	public void setProject(Projects project) {
-		this.project = project;
+	public void setRequisition(Requisitions requisition) {
+		this.requisition = requisition;
 	}
 
-	public void setUpRequisitionCreateItemTable(Projects project) {
+	public void setUpRequisitionCreateItemTable(Requisitions requisition) {
 		requisitionContractItemTable.setItems(FXCollections
-				.observableArrayList(projectService.getRequisitionContractItems(project.getId())));
+				.observableArrayList(
+						requisitionService.getRequisitionContractItems(requisition.getId())));
 
 		requisitionCIId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		requisitionCIName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -77,10 +74,10 @@ public class RequisitionContractItemCreateController {
 		requisitionCIRetainage.setCellValueFactory(new PropertyValueFactory<>("retainage"));
 	}
 
-	public void startUpRequisitionCreateController(Projects project) {
-		setProject(project);
-		displaySomeInformationAboutTheProject();
-		setUpRequisitionCreateItemTable(project);
+	public void startUpRequisitionCreateController(Requisitions requisition) {
+		setRequisition(requisition);
+		displaySomeInformationAboutTheRequisition();
+		setUpRequisitionCreateItemTable(requisition);
 	}
 
 	@FXML
@@ -90,51 +87,26 @@ public class RequisitionContractItemCreateController {
 		requisitionContractItem.setName(requisitionTextFieldName.getText());
 		requisitionContractItem.setTotalCost(new BigDecimal(requisitionTextFieldTotalCost.getText()));
 		requisitionContractItem.setRetainage(new BigDecimal(fieldRequisitionCIRetainage.getText()));
-		requisitionContractItemService.createRequisitionContractItem(project.getId(), requisitionContractItem);
+		requisitionContractItemService.createRequisitionContractItem(requisition.getId(),
+				requisitionContractItem);
 
 		Alert alert = new Alert(AlertType.INFORMATION, "Requisition Contract Item created!!!");
 		alert.setTitle("Info");
 		alert.setHeaderText("Operation Completed!");
 		alert.setContentText("Requisition contract item created!!!");
 
-		setUpRequisitionCreateItemTable(project);
+		setUpRequisitionCreateItemTable(requisition);
 		alert.showAndWait();
 	}
 
 	@FXML
 	public void returnToDetailProjectController(ActionEvent event) {
-		switchBackToProjectDetailController();
 	}
 
-	public void switchBackToProjectDetailController() {
-		try {
-			FXMLLoader loader = new FXMLLoader(
-					getClass().getResource("/fxml/ProcessRequisitionCreateView.fxml"));
-			loader.setControllerFactory(MainApp.springContext::getBean);
-
-			root = loader.load();
-
-			ProjectDetailController projectDetailController = loader.getController();
-			projectDetailController.setupProjectDetail(project);
-
-			stage = (Stage) ((Node) requisitionTextFieldName).getScene().getWindow();
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void displaySomeInformationAboutTheProject() {
-		String projectName = project.getName();
-		String projectAddress = project.getAddress();
-		if (projectName != null) {
-			informationAboutProject.setText("Please create Requisition Contract Items for " + projectName);
-		}
-		if (projectAddress != null && projectName == null) {
-			informationAboutProject.setText(
-					"Please create Requisition Contract Items for project at: " + projectAddress);
+	public void displaySomeInformationAboutTheRequisition() {
+		String companyName = requisition.getCompanyName();
+		if (companyName != null) {
+			informationAboutProject.setText("Please create Requisition Contract Items for " + companyName);
 		}
 	}
 }

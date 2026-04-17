@@ -3,88 +3,104 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.RequisitionDetailController">
-   <center>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox>
-               <children>
-                  <VBox alignment="CENTER" minWidth="200.0" prefHeight="200.0" prefWidth="400.0">
-                     <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="300.0">
-                           <children>
-                              <VBox alignment="TOP_CENTER" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Contract Price" />
-                                    <TextField fx:id="requisitionContractPrice" alignment="CENTER" promptText="Contract Price" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <VBox alignment="TOP_CENTER" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Company Name" />
-                                    <TextField fx:id="requisitionCompanyName" alignment="CENTER" promptText="Company Name" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <VBox alignment="TOP_CENTER" prefWidth="200.0">
-                                 <children>
-                                    <Label text="Owner Full Name" />
-                                    <TextField fx:id="requisitionOwnerFullName" alignment="CENTER" promptText="Owner Full Name" />
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </HBox>
-   </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.RequisitionDetailController">
    <bottom>
       <HBox alignment="CENTER" BorderPane.alignment="CENTER">
-         <children>
-            <Button minWidth="50.0" mnemonicParsing="false" onAction="#requisitionUpdateButton" prefWidth="150.0" text="Update">
-               <HBox.margin>
-                  <Insets bottom="10.0" />
-               </HBox.margin>
-            </Button>
-         </children>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </HBox>
    </bottom>
    <top>
-      <HBox BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#switchToProjectDetailController" text="&lt;--">
-               <HBox.margin>
-                  <Insets left="5.0" top="5.0" />
-               </HBox.margin>
-            </Button>
+            <VBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="494.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#switchToProjectDetailController" text="&lt;--" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="100.0">
+                           <children>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Label text="Contract Price" />
+                                    <TextField fx:id="requisitionContractPrice" alignment="CENTER" promptText="Contract Price" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Label text="Company Name" />
+                                    <TextField fx:id="requisitionCompanyName" alignment="CENTER" promptText="Company Name" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <Label text="Owner Full Name" />
+                                    <TextField fx:id="requisitionOwnerFullName" alignment="CENTER" promptText="Owner Full Name" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <Button minWidth="50.0" mnemonicParsing="false" onAction="#requisitionUpdateButton" prefWidth="150.0" text="Update" />
+               </children>
+            </VBox>
          </children>
       </HBox>
    </top>
+   <center>
+      <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+         <children>
+            <TableView maxWidth="1.7976931348623157E308">
+              <columns>
+                <TableColumn prefWidth="30.0" text="ID" />
+                <TableColumn prefWidth="120.0" text="This Requisition" />
+                  <TableColumn prefWidth="160.0" text="Total Completed Work" />
+                  <TableColumn prefWidth="120.0" text="Payment Due" />
+                  <TableColumn prefWidth="130.0" text="Balance To Finish" />
+                  <TableColumn prefWidth="120.0" text="Requisition Date" />
+                  <TableColumn prefWidth="65.0" text="Detail" />
+              </columns>
+            </TableView>
+            <TableView maxWidth="1.7976931348623157E308">
+              <columns>
+                <TableColumn prefWidth="30.0" text="ID" />
+                <TableColumn prefWidth="110.0" text="Title" />
+                  <TableColumn minWidth="0.0" prefWidth="120.0" text="Total Cost" />
+                  <TableColumn prefWidth="110.0" text="Retainage" />
+                  <TableColumn prefWidth="110.0" text="Retainage" />
+              </columns>
+            </TableView>
+         </children>
+      </HBox>
+   </center>
 </BorderPane>

@@ -18,13 +18,13 @@
       <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
    </padding>
    <right>
-      <TableView fx:id="processRequisitionTable" prefHeight="570.0" prefWidth="475.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="requisitionsTable" prefHeight="570.0" prefWidth="498.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="fieldProcessRequisitionId" prefWidth="52.0" text="REQ ID" />
-          <TableColumn fx:id="fieldCurrentRequisitionBilled" prefWidth="98.0" text="REQ Billed" />
-            <TableColumn fx:id="fieldCurrentPaymentDue" prefWidth="160.0" text="Currently Payment Due" />
-            <TableColumn fx:id="buttonProcessRequisitionDetail" minWidth="0.0" text="Detail" />
-            <TableColumn fx:id="buttonProcessRequisitionDelete" prefWidth="84.0" text="Delete" />
+          <TableColumn fx:id="columnRequisitionId" prefWidth="40.0" text="ID" />
+            <TableColumn fx:id="columnRequisitionContractPrice" prefWidth="120.0" text="Contract Price" />
+            <TableColumn fx:id="columnRequisitionCompanyName" prefWidth="120.0" text="Company Name" />
+            <TableColumn fx:id="columnRequisitionOwnerName" prefWidth="120.0" text="Owner Name" />
+            <TableColumn fx:id="columnRequisitionDetailButton" prefWidth="65.0" text="Detail" />
         </columns>
       </TableView>
    </right>
@@ -158,30 +158,6 @@
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>
                         </VBox>
-                        <VBox alignment="CENTER" prefWidth="150.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#createRequisitionContractItemButton" prefWidth="200.0" text="Create Req Item">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </HBox.margin>
-                        </VBox>
-                        <VBox alignment="CENTER" prefWidth="150.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#switchToProcessRequisitionView" prefWidth="200.0" text="ProcessRequisition">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Button>
-                           </children>
-                           <HBox.margin>
-                              <Insets left="5.0" right="5.0" />
-                           </HBox.margin>
-                        </VBox>
                      </children>
                   </HBox>
                </children>
@@ -189,8 +165,8 @@
          </children>
       </HBox>
    </top>
-   <center>
-      <TableView fx:id="changeOrderTable" prefHeight="571.0" prefWidth="650.0" BorderPane.alignment="CENTER">
+   <left>
+      <TableView fx:id="changeOrderTable" prefHeight="570.0" prefWidth="668.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="changeOrderId" prefWidth="49.0" text="CO ID" />
           <TableColumn fx:id="changeOrderNumber" prefWidth="48.0" text="CO #" />
@@ -201,5 +177,5 @@
             <TableColumn fx:id="changeOrderDelete" prefWidth="82.0" text="Delete" />
         </columns>
       </TableView>
-   </center>
+   </left>
 </BorderPane>

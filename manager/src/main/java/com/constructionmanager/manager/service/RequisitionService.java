@@ -1,6 +1,7 @@
 package com.constructionmanager.manager.service;
 
 import com.constructionmanager.manager.model.Projects;
+import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.repository.ProjectsRepository;
 import com.constructionmanager.manager.repository.RequisitionsRepository;
@@ -75,6 +76,14 @@ public class RequisitionService {
         Projects project = requisition.getProject();
         project.getRequisitions().remove(requisition);
         projectsRepository.save(project);
+    }
+
+    public List<RequisitionContractItems> getRequisitionContractItems(Integer requisitionId) {
+        Requisitions requisition = requisitionsRepository.findById(requisitionId)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Requisition does not exist!!!"));
+
+        return requisition.getRequisitionContractItems();
     }
 
 }

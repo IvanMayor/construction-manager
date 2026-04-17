@@ -100,6 +100,13 @@ public class ProjectService {
         return project.getChangeOrders();
     }
 
+    public List<Requisitions> getProjectRequisitions(Integer projectId) {
+        Projects project = projectsRepository.findById(projectId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Project does not exist!!!"));
+
+        return project.getRequisitions();
+    }
+
     public BigDecimal getTotalChangeOrderAmount(Integer projectId) {
         BigDecimal totalPrice = new BigDecimal(0);
         Projects project = projectsRepository.findById(projectId)

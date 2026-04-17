@@ -3,6 +3,7 @@ package com.constructionmanager.manager.ui.controllers;
 import com.constructionmanager.manager.model.ChangeOrders;
 import com.constructionmanager.manager.model.ProcessRequisition;
 import com.constructionmanager.manager.model.Projects;
+import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.service.ChangeOrderService;
 import com.constructionmanager.manager.service.ProcessRequisitionService;
 import com.constructionmanager.manager.service.ProjectService;
@@ -70,17 +71,17 @@ public class ProjectDetailController {
 	private TableColumn<ChangeOrders, Void> changeOrderDelete;
 
 	@FXML
-	private TableView<ProcessRequisition> processRequisitionTable;
+	private TableView<Requisitions> requisitionsTable;
 	@FXML
-	private TableColumn<ProcessRequisition, Integer> fieldProcessRequisitionId;
+	private TableColumn<Requisitions, Integer> columnRequisitionId;
 	@FXML
-	private TableColumn<ProcessRequisition, BigDecimal> fieldCurrentRequisitionBilled;
+	private TableColumn<Requisitions, BigDecimal> columnRequisitionContractPrice;
 	@FXML
-	private TableColumn<ProcessRequisition, BigDecimal> fieldCurrentPaymentDue;
+	private TableColumn<Requisitions, String> columnRequisitionCompanyName;
 	@FXML
-	private TableColumn<ProcessRequisition, Void> buttonProcessRequisitionDetail;
+	private TableColumn<Requisitions, String> columnRequisitionOwnerName;
 	@FXML
-	private TableColumn<ProcessRequisition, Void> buttonProcessRequisitionDelete;
+	private TableColumn<Requisitions, Void> columnRequisitionDetailButton;
 
 	public ProjectDetailController(ProjectService projectService, RequisitionService requisitionSevice,
 			ChangeOrderService changeOrderService, ProcessRequisitionService processRequisitionService) {
@@ -120,6 +121,27 @@ public class ProjectDetailController {
 			}
 		});
 
+		columnRequisitionDetailButton.setCellFactory(param -> new TableCell<>() {
+			private final Button requisitionDetailButton = new Button("Detail");
+			{
+				requisitionDetailButton.setOnAction(e -> {
+					Requisitions requisition = getTableView().getItems().get(getIndex());
+					redirectToRequisitionDetailView(requisition);
+				});
+				requisitionDetailButton.setPrefWidth(65);
+			}
+
+			@Override
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty) {
+					setGraphic(null);
+				} else {
+					setGraphic(requisitionDetailButton);
+				}
+			}
+		});
+
 		changeOrderDetail.setCellFactory(param -> new TableCell<>() {
 			private final Button editChangeOrderButton = new Button();
 			{
@@ -141,27 +163,6 @@ public class ProjectDetailController {
 				}
 			}
 		});
-		buttonProcessRequisitionDetail.setCellFactory(param -> new TableCell<>() {
-			private final Button editProcessRequisitionButton = new Button("Edit");
-			{
-				editProcessRequisitionButton.setOnAction(e -> {
-					ProcessRequisition processRequisition = getTableView().getItems()
-							.get(getIndex());
-					redirectToEditProcessRequisition(processRequisition);
-				});
-				editProcessRequisitionButton.setPrefWidth(65);
-			}
-
-			@Override
-			protected void updateItem(Void item, boolean empty) {
-				super.updateItem(item, empty);
-				if (empty) {
-					setGraphic(null);
-				} else {
-					setGraphic(editProcessRequisitionButton);
-				}
-			}
-		});
 	}
 
 	public void setUpChangeOrderTable(Projects project) {
@@ -176,14 +177,15 @@ public class ProjectDetailController {
 		changeOrderApproved.setCellValueFactory(new PropertyValueFactory<>("approved"));
 	}
 
-	public void setUpProcessRequisitionTable(Projects project) {
-		processRequisitionTable.setItems(FXCollections
-				.observableArrayList(projectService.getProcessRequisitions(project.getId())));
+	public void setUpRequisitionsTable(Projects project) {
+		requisitionsTable.setItems(FXCollections
+				.observableArrayList(projectService.getProjectRequisitions(project.getId())));
 
-		fieldProcessRequisitionId.setCellValueFactory(new PropertyValueFactory<>("id"));
-		fieldCurrentRequisitionBilled.setCellValueFactory(new PropertyValueFactory<>("thisRequisitionBilling"));
-		fieldCurrentPaymentDue.setCellValueFactory(new PropertyValueFactory<>("currentlyPaymentDue"));
-
+		columnRequisitionId.setCellValueFactory(new PropertyValueFactory<>("id"));
+		columnRequisitionContractPrice.setCellValueFactory(new PropertyValueFactory<>("contractPrice"));
+		columnRequisitionCompanyName.setCellValueFactory(new PropertyValueFactory<>("companyName"));
+		columnRequisitionOwnerName
+				.setCellValueFactory(new PropertyValueFactory<>("ownerOrRepresentativeFullName"));
 	}
 
 	public void setUpProjectEditFields() {
@@ -231,7 +233,7 @@ public class ProjectDetailController {
 		this.project = project;
 		setUpProjectEditFields();
 		setUpChangeOrderTable(project);
-		setUpProcessRequisitionTable(project);
+		setUpRequisitionsTable(project);
 
 	}
 
@@ -240,7 +242,6 @@ public class ProjectDetailController {
 		loader.setControllerFactory(MainApp.springContext::getBean);
 
 		root = loader.load();
-
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 		scene = new Scene(root);
 		stage.setScene(scene);
@@ -259,27 +260,6 @@ public class ProjectDetailController {
 
 		Alert alert = new Alert(Alert.AlertType.INFORMATION, "Project was successfully updated!!");
 		alert.showAndWait();
-	}
-
-	public void redirectToEditProcessRequisition(ProcessRequisition processRequisition) {
-		try {
-			FXMLLoader loader = new FXMLLoader(
-					getClass().getResource("/fxml/ProcessRequisitionDetailView.fxml"));
-			loader.setControllerFactory(MainApp.springContext::getBean);
-
-			root = loader.load();
-
-			ProcessRequisitionDetailController processRequisitionDetailController = loader.getController();
-			processRequisitionDetailController.startupMethod(processRequisition);
-
-			scene = new Scene(root);
-			stage = (Stage) ((Node) changeOrderTable).getScene().getWindow();
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException exception) {
-			exception.printStackTrace();
-		}
-
 	}
 
 	@FXML
@@ -307,18 +287,15 @@ public class ProjectDetailController {
 	}
 
 	@FXML
-	public void switchToProcessRequisitionView(ActionEvent event) {
-
+	public void redirectToRequisitionDetailView(Requisitions requisition) {
 		try {
-			FXMLLoader loader = new FXMLLoader(
-					getClass().getResource("/fxml/ProcessRequisitionCreateView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RequisitionDetailView.fxml"));
 			loader.setControllerFactory(MainApp.springContext::getBean);
 			root = loader.load();
+			RequisitionDetailController requisitionDetailController = loader.getController();
+			requisitionDetailController.setRequisitionAndProject(requisition, project);
 
-			ProcessRequisitionController processRequisitionController = loader.getController();
-			processRequisitionController.startupProcessRequisitionMethod(project);
-
-			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage = (Stage) ((Node) projectName).getScene().getWindow();
 			scene = new Scene(root);
 			stage.setScene(scene);
 			stage.show();
@@ -326,6 +303,6 @@ public class ProjectDetailController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
 
+	}
 }

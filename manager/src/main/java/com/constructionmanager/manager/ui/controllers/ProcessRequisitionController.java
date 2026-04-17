@@ -103,14 +103,15 @@ public class ProcessRequisitionController {
 
 	public void setUpRequisitionContractItemTable() {
 		requisitionContractItemTable
-				.setItems(FXCollections.observableArrayList(project.getRequisitionContractItems()));
+				.setItems(FXCollections.observableArrayList(requisition.getRequisitionContractItems()));
 		columnIdRCI.setCellValueFactory(new PropertyValueFactory<>("id"));
 		columnNameRCI.setCellValueFactory(new PropertyValueFactory<>("name"));
 		columnTotalCostRCI.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
 		columnRetainageRCI.setCellValueFactory(new PropertyValueFactory<>("retainage"));
 	}
 
-	public void startupProcessRequisitionMethod(Projects project) {
+	public void startupProcessRequisitionMethod(Projects project, Requisitions requisition) {
+		setRequisition(requisition);
 		setProject(project);
 		setUpRequisitionContractItemTable();
 	}
@@ -149,7 +150,7 @@ public class ProcessRequisitionController {
 		switchBackToProjectDetail();
 
 		requisitionContractItemTable
-				.setItems(FXCollections.observableArrayList(project.getRequisitionContractItems()));
+				.setItems(FXCollections.observableArrayList(requisition.getRequisitionContractItems()));
 		columnIdRCI.setCellValueFactory(new PropertyValueFactory<>("id"));
 		columnNameRCI.setCellValueFactory(new PropertyValueFactory<>("name"));
 		columnTotalCostRCI.setCellValueFactory(new PropertyValueFactory<>("totalCost"));
@@ -191,7 +192,7 @@ public class ProcessRequisitionController {
 
 			RequisitionContractItemCreateController requisitionContractItemCreateController = loader
 					.getController();
-			requisitionContractItemCreateController.startUpRequisitionCreateController(project);
+			requisitionContractItemCreateController.startUpRequisitionCreateController(requisition);
 
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			scene = new Scene(root);

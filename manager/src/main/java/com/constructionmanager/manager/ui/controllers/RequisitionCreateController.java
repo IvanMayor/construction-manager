@@ -65,6 +65,25 @@ public class RequisitionCreateController {
 		scene = new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+	}
+
+	@FXML
+	public void switchBackToProjectDetail(ActionEvent event) {
+		try {
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectDetailView.fxml"));
+			loader.setControllerFactory(MainApp.springContext::getBean);
+			root = loader.load();
+			ProjectDetailController projectDetailController = loader.getController();
+			projectDetailController.setupProjectDetail(project);
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

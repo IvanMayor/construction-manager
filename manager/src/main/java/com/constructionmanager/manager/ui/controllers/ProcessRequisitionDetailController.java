@@ -104,31 +104,9 @@ public class ProcessRequisitionDetailController {
 		processRequisition.setRequisitionDate(fieldRequisitionDate.getValue());
 
 		processRequisitionService.updateProcessRequisition(processRequisition.getId(), processRequisition);
-
-		redirectToProjectDetailView();
 	}
 
 	@FXML
 	public void returnToProjectDetailView(ActionEvent event) {
-		redirectToProjectDetailView();
-	}
-
-	public void redirectToProjectDetailView() {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectDetailView.fxml"));
-			loader.setControllerFactory(MainApp.springContext::getBean);
-
-			root = loader.load();
-
-			ProjectDetailController projectDetailController = loader.getController();
-			projectDetailController.setupProjectDetail(processRequisition.getProject());
-
-			stage = (Stage) ((Node) fieldThisRequisitionBilling).getScene().getWindow();
-			scene = new Scene(root);
-			stage.setScene(scene);
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 }
