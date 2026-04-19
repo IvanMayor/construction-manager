@@ -64,7 +64,7 @@ public class ProcessRequisitionDetailController {
 		this.processRequisition = processRequisition;
 	}
 
-	public void startupMethod(ProcessRequisition processRequisition) {
+	public void startupProcessRequisitionDetailMethod(ProcessRequisition processRequisition) {
 		setProcessRequisiton(processRequisition);
 
 		fieldId.setText(String.valueOf(processRequisition.getId()));

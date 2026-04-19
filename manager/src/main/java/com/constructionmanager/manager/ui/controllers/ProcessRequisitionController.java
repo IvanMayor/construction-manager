@@ -17,7 +17,6 @@ import com.constructionmanager.manager.service.ProjectService;
 import com.constructionmanager.manager.ui.MainApp;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -38,8 +37,6 @@ public class ProcessRequisitionController {
 	private Stage stage;
 
 	private Requisitions requisition;
-	private Projects project;
-	private ProjectService projectService;
 	private ProcessRequisitionService processRequisitionService;
 
 	// TODO: To set by user
@@ -89,12 +86,7 @@ public class ProcessRequisitionController {
 
 	public ProcessRequisitionController(ProjectService projectService,
 			ProcessRequisitionService processRequisitionService) {
-		this.projectService = projectService;
 		this.processRequisitionService = processRequisitionService;
-	}
-
-	public void setProject(Projects project) {
-		this.project = project;
 	}
 
 	public void setRequisition(Requisitions requisition) {
@@ -110,9 +102,8 @@ public class ProcessRequisitionController {
 		columnRetainageRCI.setCellValueFactory(new PropertyValueFactory<>("retainage"));
 	}
 
-	public void startupProcessRequisitionMethod(Projects project, Requisitions requisition) {
+	public void startupProcessRequisitionMethod(Requisitions requisition) {
 		setRequisition(requisition);
-		setProject(project);
 		setUpRequisitionContractItemTable();
 	}
 
@@ -146,8 +137,8 @@ public class ProcessRequisitionController {
 				totalApprovedChangeOrdersThisMonth,
 				requisitionDate);
 
-		processRequisitionService.createProcessRequisition(project.getId(), processRequisition);
-		switchBackToProjectDetail();
+		processRequisitionService.createProcessRequisition(requisition.getId(), processRequisition);
+		switchToRequisitionDetailController(requisition);
 
 		requisitionContractItemTable
 				.setItems(FXCollections.observableArrayList(requisition.getRequisitionContractItems()));
@@ -158,18 +149,19 @@ public class ProcessRequisitionController {
 	}
 
 	@FXML
-	public void goBackToProjectDetail(ActionEvent event) {
-		switchBackToProjectDetail();
+	public void returnToRequisitionDetail(ActionEvent event) {
+		switchToRequisitionDetailController(requisition);
 	}
 
-	public void switchBackToProjectDetail() {
+	public void switchToRequisitionDetailController(Requisitions requisition) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ProjectDetailView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RequisitionDetailView.fxml"));
 			loader.setControllerFactory(MainApp.springContext::getBean);
+
 			root = loader.load();
 
-			ProjectDetailController projectDetailController = loader.getController();
-			projectDetailController.setupProjectDetail(project);
+			RequisitionDetailController requisitionDetailController = loader.getController();
+			requisitionDetailController.startupRequisitionControllerMethod(requisition);
 
 			stage = (Stage) ((Node) fieldCurrentRequisitionBilling).getScene().getWindow();
 			scene = new Scene(root);

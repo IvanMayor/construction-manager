@@ -16,63 +16,63 @@
          <children>
             <VBox>
                <children>
-                  <Button mnemonicParsing="false" onAction="#goBackToProjectDetail" text="&lt;--" />
+                  <Button mnemonicParsing="false" onAction="#returnToRequisitionDetail" text="&lt;--" />
                </children>
             </VBox>
-            <VBox alignment="CENTER_LEFT">
+            <VBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308">
                <children>
-                  <TextField fx:id="fieldCurrentRequisitionBilling" promptText="Current Requisition Billing">
+                  <TextField fx:id="fieldCurrentRequisitionBilling" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Current Requisition Billing">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="fieldTotalChangeOrdersToDate" promptText="Total Change Orders To Date">
+                  <TextField fx:id="fieldTotalChangeOrdersToDate" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Total Change Orders To Date">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="fieldTotalChangeOrdersAndOriginalContract" promptText="Total Change Orders and Contract">
+                  <TextField fx:id="fieldTotalChangeOrdersAndOriginalContract" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Total Change Orders and Contract">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="fieldTotalCompletedWork" promptText="Total Completed work">
+                  <TextField fx:id="fieldTotalCompletedWork" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Total Completed work">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="fieldTotalCompletedRetainage" promptText="Total Completed Retainage">
+                  <TextField fx:id="fieldTotalCompletedRetainage" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Total Completed Retainage">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="fieldTotalCompletedWorkNoRetainage" promptText="Total Completed Work no retainage">
+                  <TextField fx:id="fieldTotalCompletedWorkNoRetainage" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Total Completed Work no retainage">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="fieldPreviousRequisitionBilled" promptText="Previous Requisition Billed">
+                  <TextField fx:id="fieldPreviousRequisitionBilled" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Previous Requisition Billed">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="fieldCurrentlyPaymentDue" promptText="Currently Paymnet Due">
+                  <TextField fx:id="fieldCurrentlyPaymentDue" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Currently Paymnet Due">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="fieldBalanceToFinishIncludingRetainage" promptText="Balance to finish including retainage">
+                  <TextField fx:id="fieldBalanceToFinishIncludingRetainage" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Balance to finish including retainage">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <TextField fx:id="fieldTotalApprovedChangeOrdersThisMonth" promptText="Total Approved Change Orders">
+                  <TextField fx:id="fieldTotalApprovedChangeOrdersThisMonth" alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Total Approved Change Orders">
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </TextField>
-                  <DatePicker fx:id="fieldRequisitionDate" />
-                  <HBox alignment="CENTER">
+                  <DatePicker fx:id="fieldRequisitionDate" maxWidth="1.7976931348623157E308" />
+                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308">
                      <children>
                         <Button mnemonicParsing="false" onAction="#createProcessRequisition" text="Create" />
                      </children>

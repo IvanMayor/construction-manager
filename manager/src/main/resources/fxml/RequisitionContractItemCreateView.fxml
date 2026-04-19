@@ -17,7 +17,7 @@
          <children>
             <HBox>
                <children>
-                  <Button mnemonicParsing="false" onAction="#returnToDetailProjectController" text="&lt;--" />
+                  <Button mnemonicParsing="false" onAction="#switchBackToRequisitionDetailController" text="&lt;--" />
                </children>
             </HBox>
             <HBox alignment="CENTER">

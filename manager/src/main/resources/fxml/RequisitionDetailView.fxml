@@ -80,26 +80,52 @@
    <center>
       <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
-            <TableView maxWidth="1.7976931348623157E308">
-              <columns>
-                <TableColumn prefWidth="30.0" text="ID" />
-                <TableColumn prefWidth="120.0" text="This Requisition" />
-                  <TableColumn prefWidth="160.0" text="Total Completed Work" />
-                  <TableColumn prefWidth="120.0" text="Payment Due" />
-                  <TableColumn prefWidth="130.0" text="Balance To Finish" />
-                  <TableColumn prefWidth="120.0" text="Requisition Date" />
-                  <TableColumn prefWidth="65.0" text="Detail" />
-              </columns>
-            </TableView>
-            <TableView maxWidth="1.7976931348623157E308">
-              <columns>
-                <TableColumn prefWidth="30.0" text="ID" />
-                <TableColumn prefWidth="110.0" text="Title" />
-                  <TableColumn minWidth="0.0" prefWidth="120.0" text="Total Cost" />
-                  <TableColumn prefWidth="110.0" text="Retainage" />
-                  <TableColumn prefWidth="110.0" text="Retainage" />
-              </columns>
-            </TableView>
+            <HBox>
+               <children>
+                  <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#switchToProcessRequisitionCreateController" text="Create Process Requisition" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="processRequisitionTable" maxWidth="1.7976931348623157E308">
+                          <columns>
+                            <TableColumn fx:id="columnPRId" prefWidth="30.0" text="ID" />
+                            <TableColumn fx:id="columnPRThisRequisition" prefWidth="120.0" text="This Requisition" />
+                              <TableColumn fx:id="columnPRTotalCompletedWork" prefWidth="160.0" text="Total Completed Work" />
+                              <TableColumn fx:id="columnPRPaymentDue" prefWidth="120.0" text="Payment Due" />
+                              <TableColumn fx:id="columnPRBalanceToFinish" prefWidth="130.0" text="Balance To Finish" />
+                              <TableColumn fx:id="columnPRRequisitionDate" prefWidth="120.0" text="Requisition Date" />
+                              <TableColumn fx:id="columnPRDetailButton" prefWidth="65.0" text="Detail" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox>
+               <children>
+                  <VBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#switchToRequisitionContractItemCreateController" text="Create Requisition Contract Item" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="requisitionContractItemTable" maxWidth="1.7976931348623157E308">
+                          <columns>
+                            <TableColumn fx:id="columnRCIId" prefWidth="30.0" text="ID" />
+                            <TableColumn fx:id="columnRCITitle" prefWidth="110.0" text="Title" />
+                              <TableColumn fx:id="columnRCITotalCost" minWidth="0.0" prefWidth="120.0" text="Total Cost" />
+                              <TableColumn fx:id="columnRCIRetainage" prefWidth="110.0" text="Retainage" />
+                              <TableColumn fx:id="columnRCIDetailButton" prefWidth="110.0" text="Detail" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children>
       </HBox>
    </center>

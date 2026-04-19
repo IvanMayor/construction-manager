@@ -1,7 +1,6 @@
 package com.constructionmanager.manager.ui.controllers;
 
 import com.constructionmanager.manager.model.ChangeOrders;
-import com.constructionmanager.manager.model.ProcessRequisition;
 import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.service.ChangeOrderService;
@@ -293,7 +292,7 @@ public class ProjectDetailController {
 			loader.setControllerFactory(MainApp.springContext::getBean);
 			root = loader.load();
 			RequisitionDetailController requisitionDetailController = loader.getController();
-			requisitionDetailController.setRequisitionAndProject(requisition, project);
+			requisitionDetailController.startupRequisitionControllerMethod(requisition);
 
 			stage = (Stage) ((Node) projectName).getScene().getWindow();
 			scene = new Scene(root);

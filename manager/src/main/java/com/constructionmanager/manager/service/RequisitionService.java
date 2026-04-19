@@ -1,5 +1,6 @@
 package com.constructionmanager.manager.service;
 
+import com.constructionmanager.manager.model.ProcessRequisition;
 import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.model.Requisitions;
@@ -84,6 +85,13 @@ public class RequisitionService {
                         () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Requisition does not exist!!!"));
 
         return requisition.getRequisitionContractItems();
+    }
+
+    public List<ProcessRequisition> getProcessRequisitions(Integer requisitionId) {
+        Requisitions requisition = requisitionsRepository.findById(requisitionId)
+                .orElseThrow(
+                        () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "This Requisition does not exist!!!!"));
+        return requisition.getProcessRequisitions();
     }
 
 }

@@ -3,6 +3,8 @@ package com.constructionmanager.manager.ui.controllers;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -14,6 +16,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 
 import org.springframework.stereotype.Component;
@@ -22,6 +25,7 @@ import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.service.RequisitionContractItemService;
 import com.constructionmanager.manager.service.RequisitionService;
+import com.constructionmanager.manager.ui.MainApp;
 
 @Component
 public class RequisitionContractItemCreateController {
@@ -97,10 +101,28 @@ public class RequisitionContractItemCreateController {
 
 		setUpRequisitionCreateItemTable(requisition);
 		alert.showAndWait();
+		switchBackToRequisitionDetailController();
 	}
 
 	@FXML
-	public void returnToDetailProjectController(ActionEvent event) {
+	public void returnToRequisitionDetailController(ActionEvent event) {
+		switchBackToRequisitionDetailController();
+	}
+
+	public void switchBackToRequisitionDetailController() {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RequisitionDetailView.fxml"));
+			loader.setControllerFactory(MainApp.springContext::getBean);
+			root = loader.load();
+			RequisitionDetailController requisitionDetailController = loader.getController();
+			requisitionDetailController.startupRequisitionControllerMethod(requisition);
+			stage = (Stage) ((Node) requisitionTextFieldName).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void displaySomeInformationAboutTheRequisition() {
