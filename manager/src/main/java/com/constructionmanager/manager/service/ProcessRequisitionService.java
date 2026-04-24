@@ -107,7 +107,7 @@ public class ProcessRequisitionService {
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
 						"This ProcessRequisition does not exist!!!"));
 		Requisitions requisition = processRequisition.getRequisition();
-		requisition.getProcessRequisitions().remove(requisition);
+		requisition.getProcessRequisitions().remove(processRequisition);
 		requisitionsRepository.save(requisition);
 	}
 }

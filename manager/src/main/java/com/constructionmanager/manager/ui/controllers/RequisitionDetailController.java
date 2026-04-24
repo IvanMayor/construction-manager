@@ -89,6 +89,27 @@ public class RequisitionDetailController {
 	}
 
 	public void initialize() {
+		columnRCIDetailButton.setCellFactory(param -> new TableCell<>() {
+			private final Button detailRequisitionContractItemButton = new Button("Detail");
+			{
+				detailRequisitionContractItemButton.setOnAction(e -> {
+					RequisitionContractItems requisitionContractItem = getTableView().getItems()
+							.get(getIndex());
+					switchToRequisitionContractItemDetailController(requisitionContractItem);
+				});
+				detailRequisitionContractItemButton.setPrefWidth(65);
+			}
+
+			@Override
+			protected void updateItem(Void item, boolean empty) {
+				super.updateItem(item, empty);
+				if (empty) {
+					setGraphic(null);
+				} else {
+					setGraphic(detailRequisitionContractItemButton);
+				}
+			}
+		});
 		columnPRDetailButton.setCellFactory(param -> new TableCell<>() {
 			private final Button detailProcessRequisitionButton = new Button("Detail");
 			{
@@ -192,6 +213,7 @@ public class RequisitionDetailController {
 					getClass().getResource("/fxml/ProcessRequisitionCreateView.fxml"));
 			loader.setControllerFactory(MainApp.springContext::getBean);
 			root = loader.load();
+
 			ProcessRequisitionController processRequisitionController = loader.getController();
 			processRequisitionController.startupProcessRequisitionMethod(requisition);
 			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -240,5 +262,32 @@ public class RequisitionDetailController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void switchToRequisitionContractItemDetailController(RequisitionContractItems requisitionContractItem) {
+		try {
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource("/fxml/RequisitionContractItemDetailView.fxml"));
+			loader.setControllerFactory(MainApp.springContext::getBean);
+			root = loader.load();
+
+			RequisitionContractItemDetailController requisitionContractItemDetailController = loader
+					.getController();
+			requisitionContractItemDetailController
+					.startupRCIDetailControllerMethod(requisitionContractItem);
+
+			stage = (Stage) ((Node) requisitionCompanyName).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void startGlobalRequisitionController(ActionEvent event) {
+
 	}
 }

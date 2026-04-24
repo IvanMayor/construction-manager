@@ -33,7 +33,14 @@ public class ProcessRequisitionItemService {
 						"Not Found: Process Requisition Item with ID: " + id));
 	}
 
-	public ProcessRequisitionItem createProcessRequisitionItem(ProcessRequisitionItem processRequisitionItem) {
+	public ProcessRequisitionItem createProcessRequisitionItem(Integer requisitionCIId,
+			ProcessRequisitionItem processRequisitionItem) {
+		RequisitionContractItems requisitionContractItem = requisitionContractItemsRepository
+				.findById(requisitionCIId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+						"Thie requisition contract item does not exist!!!"));
+		processRequisitionItem.setRequisitionContractItem(requisitionContractItem);
+
 		return processRequisitionItemRepository.save(processRequisitionItem);
 	}
 

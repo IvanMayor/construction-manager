@@ -75,10 +75,11 @@ public class RequisitionContractItemService {
     }
 
     public void deleteRequisitionContractItem(Integer id) {
-        if (!requisitionContractItemsRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This requisition contract item does not exist.");
-        }
-
-        requisitionContractItemsRepository.deleteById(id);
+        RequisitionContractItems requisitionContractItem = requisitionContractItemsRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "This Requisition Contract Item does not exist!!!"));
+        Requisitions requisition = requisitionContractItem.getRequisition();
+        requisition.getRequisitionContractItems().remove(requisitionContractItem);
+        requisitionsRepository.save(requisition);
     }
 }

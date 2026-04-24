@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import com.constructionmanager.manager.model.ProcessRequisition;
 import com.constructionmanager.manager.service.ProcessRequisitionService;
 import com.constructionmanager.manager.ui.MainApp;
-import com.sun.javafx.fxml.FXMLLoaderHelper.FXMLLoaderAccessor;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -107,6 +106,28 @@ public class ProcessRequisitionDetailController {
 	}
 
 	@FXML
-	public void returnToProjectDetailView(ActionEvent event) {
+	public void returnToRequisitionDetailView(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RequisitionDetailView.fxml"));
+			loader.setControllerFactory(MainApp.springContext::getBean);
+			root = loader.load();
+			RequisitionDetailController requisitionDetailController = loader.getController();
+			requisitionDetailController
+					.startupRequisitionControllerMethod(processRequisition.getRequisition());
+
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void deleteProcessRequisitionButton(ActionEvent event) {
+		processRequisitionService.deleteProcessRequisition(processRequisition.getId());
+		returnToRequisitionDetailView(event);
 	}
 }

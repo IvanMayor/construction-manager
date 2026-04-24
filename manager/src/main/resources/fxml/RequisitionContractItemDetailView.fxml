@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.constructionmanager.manager.ui.controllers.RequisitionContractItemDetailController">
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER">
+               <children>
+                  <VBox>
+                     <children>
+                        <HBox prefHeight="24.0" prefWidth="760.0">
+                           <children>
+                              <Button mnemonicParsing="false" onAction="#returnToRequisitionDetailController" text="&lt;--" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label fx:id="fieldId" text="Label">
+                                 <font>
+                                    <Font name="Hack Nerd Font Regular" size="30.0" />
+                                 </font>
+                              </Label>
+                              <VBox />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" text="Name" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="fieldName" promptText="RCI Name" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="Total Cost">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="fieldTotalCost" promptText="RCI Total Cost" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER">
+               <children>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Label text="Retainage">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="fieldRetainage" promptText="RCI Retainage" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="40.0" prefWidth="425.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#updateRCIButton" text="Update" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tableProcessRequisitionItem" prefHeight="200.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="columnPRIId" prefWidth="28.0" text="ID" />
+                <TableColumn fx:id="columnPRIPrevBill" minWidth="50.0" prefWidth="120.0" text="Prev Bill" />
+                  <TableColumn fx:id="columnPRIThisBill" minWidth="50.0" prefWidth="120.0" text="This Bill" />
+                  <TableColumn fx:id="columnPRITotalComplete" minWidth="50.0" prefWidth="120.0" text="Total Complete" />
+                  <TableColumn fx:id="columnPRITotalToFinish" minWidth="50.0" prefWidth="120.0" text="Total to Finish" />
+                  <TableColumn fx:id="columnPRIRetainage" minWidth="50.0" prefWidth="120.0" text="Retainage" />
+                  <TableColumn fx:id="columnPRIPercentComplete" minWidth="50.0" prefWidth="120.0" text="Percent Complete" />
+                  <TableColumn fx:id="columnPRIDateCreated" minWidth="50.0" prefWidth="120.0" text="Date Created" />
+              </columns>
+            </TableView>
+            <HBox alignment="BOTTOM_RIGHT">
+               <children>
+                  <HBox>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#processReuqisitionItemButton" text="Process Requisition Item" textFill="#018d19" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <HBox.margin>
+                        <Insets bottom="5.0" right="5.0" />
+                     </HBox.margin>
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#deleteThisItemButton" text="Delete" textFill="#e40606" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>

@@ -78,55 +78,64 @@
       </HBox>
    </top>
    <center>
-      <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+      <VBox BorderPane.alignment="CENTER">
          <children>
-            <HBox>
+            <HBox alignment="CENTER" maxWidth="1.7976931348623157E308">
                <children>
-                  <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308">
+                  <HBox>
                      <children>
-                        <HBox alignment="CENTER">
+                        <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308">
                            <children>
-                              <Button mnemonicParsing="false" onAction="#switchToProcessRequisitionCreateController" text="Create Process Requisition" />
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#switchToProcessRequisitionCreateController" text="Create Process Requisition" />
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="processRequisitionTable" maxWidth="1.7976931348623157E308">
+                                <columns>
+                                  <TableColumn fx:id="columnPRId" prefWidth="30.0" text="ID" />
+                                  <TableColumn fx:id="columnPRThisRequisition" prefWidth="120.0" text="This Requisition" />
+                                    <TableColumn fx:id="columnPRTotalCompletedWork" prefWidth="160.0" text="Total Completed Work" />
+                                    <TableColumn fx:id="columnPRPaymentDue" prefWidth="120.0" text="Payment Due" />
+                                    <TableColumn fx:id="columnPRBalanceToFinish" prefWidth="130.0" text="Balance To Finish" />
+                                    <TableColumn fx:id="columnPRRequisitionDate" prefWidth="120.0" text="Requisition Date" />
+                                    <TableColumn fx:id="columnPRDetailButton" prefWidth="65.0" text="Detail" />
+                                </columns>
+                              </TableView>
                            </children>
-                        </HBox>
-                        <TableView fx:id="processRequisitionTable" maxWidth="1.7976931348623157E308">
-                          <columns>
-                            <TableColumn fx:id="columnPRId" prefWidth="30.0" text="ID" />
-                            <TableColumn fx:id="columnPRThisRequisition" prefWidth="120.0" text="This Requisition" />
-                              <TableColumn fx:id="columnPRTotalCompletedWork" prefWidth="160.0" text="Total Completed Work" />
-                              <TableColumn fx:id="columnPRPaymentDue" prefWidth="120.0" text="Payment Due" />
-                              <TableColumn fx:id="columnPRBalanceToFinish" prefWidth="130.0" text="Balance To Finish" />
-                              <TableColumn fx:id="columnPRRequisitionDate" prefWidth="120.0" text="Requisition Date" />
-                              <TableColumn fx:id="columnPRDetailButton" prefWidth="65.0" text="Detail" />
-                          </columns>
-                        </TableView>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <VBox alignment="TOP_CENTER">
+                           <children>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <Button mnemonicParsing="false" onAction="#switchToRequisitionContractItemCreateController" text="Create Requisition Contract Item" />
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="requisitionContractItemTable" maxWidth="1.7976931348623157E308">
+                                <columns>
+                                  <TableColumn fx:id="columnRCIId" prefWidth="30.0" text="ID" />
+                                  <TableColumn fx:id="columnRCITitle" prefWidth="110.0" text="Title" />
+                                    <TableColumn fx:id="columnRCITotalCost" minWidth="0.0" prefWidth="120.0" text="Total Cost" />
+                                    <TableColumn fx:id="columnRCIRetainage" prefWidth="110.0" text="Retainage" />
+                                    <TableColumn fx:id="columnRCIDetailButton" prefWidth="110.0" text="Detail" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
                </children>
             </HBox>
-            <HBox>
+            <HBox alignment="TOP_CENTER">
                <children>
-                  <VBox alignment="TOP_CENTER">
-                     <children>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#switchToRequisitionContractItemCreateController" text="Create Requisition Contract Item" />
-                           </children>
-                        </HBox>
-                        <TableView fx:id="requisitionContractItemTable" maxWidth="1.7976931348623157E308">
-                          <columns>
-                            <TableColumn fx:id="columnRCIId" prefWidth="30.0" text="ID" />
-                            <TableColumn fx:id="columnRCITitle" prefWidth="110.0" text="Title" />
-                              <TableColumn fx:id="columnRCITotalCost" minWidth="0.0" prefWidth="120.0" text="Total Cost" />
-                              <TableColumn fx:id="columnRCIRetainage" prefWidth="110.0" text="Retainage" />
-                              <TableColumn fx:id="columnRCIDetailButton" prefWidth="110.0" text="Detail" />
-                          </columns>
-                        </TableView>
-                     </children>
-                  </VBox>
+                  <Button mnemonicParsing="false" onAction="#startGlobalRequisitionController" text="Start New Requisition" textFill="#007c0cc2" />
                </children>
             </HBox>
          </children>
-      </HBox>
+      </VBox>
    </center>
 </BorderPane>

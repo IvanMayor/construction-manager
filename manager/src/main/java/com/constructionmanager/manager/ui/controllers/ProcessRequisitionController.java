@@ -9,7 +9,6 @@ import javafx.scene.control.TableView;
 import org.springframework.stereotype.Component;
 
 import com.constructionmanager.manager.model.ProcessRequisition;
-import com.constructionmanager.manager.model.Projects;
 import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.model.Requisitions;
 import com.constructionmanager.manager.service.ProcessRequisitionService;
