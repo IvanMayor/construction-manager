@@ -3,6 +3,7 @@ package com.constructionmanager.manager.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,6 +30,10 @@ public class ProcessRequisitionItem implements Comparable<ProcessRequisitionItem
 	@ManyToOne
 	@JoinColumn(name = "requisition_contract_item_id")
 	private RequisitionContractItems requisitionContractItem;
+
+	@ManyToOne
+	@JoinColumn(name = "process_global_requisition_id")
+	private ProcessGlobalRequisition processGlobalRequisition;
 
 	public ProcessRequisitionItem() {
 	}
@@ -124,6 +129,10 @@ public class ProcessRequisitionItem implements Comparable<ProcessRequisitionItem
 
 	public void setRequisitionContractItem(RequisitionContractItems requisitionContractItem) {
 		this.requisitionContractItem = requisitionContractItem;
+	}
+
+	public String getName() {
+		return requisitionContractItem.getName();
 	}
 
 }

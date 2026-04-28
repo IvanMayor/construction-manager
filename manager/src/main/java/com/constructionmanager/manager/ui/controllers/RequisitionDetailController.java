@@ -288,6 +288,24 @@ public class RequisitionDetailController {
 
 	@FXML
 	public void startGlobalRequisitionController(ActionEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(
+					getClass().getResource("/fxml/ProcessGlobalRequisitionCreateView.fxml"));
+			loader.setControllerFactory(MainApp.springContext::getBean);
+			root = loader.load();
 
+			ProcessGlobalRequisitionCreateController processGlobalRequisitionCreateController = loader
+					.getController();
+			processGlobalRequisitionCreateController.startupProcessGlobalRequisitionMethod(
+					requisition.getRequisitionContractItems(), requisition);
+
+			stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			scene = new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

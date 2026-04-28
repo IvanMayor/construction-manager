@@ -65,7 +65,6 @@ public class ProcessRequisitionItemController {
 		System.out.println("----------");
 	}
 
-	// TODO: Create ProcessRequisitionItem from percent work done!!!
 	@FXML
 	public void createProcessItemButton(ActionEvent event) {
 		ProcessRequisitionItem processRequisitionItem = new ProcessRequisitionItem();

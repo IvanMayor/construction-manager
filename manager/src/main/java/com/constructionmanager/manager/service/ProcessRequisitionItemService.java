@@ -1,6 +1,7 @@
 package com.constructionmanager.manager.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -138,4 +139,56 @@ public class ProcessRequisitionItemService {
 						"This Requisition Contract Item does not exist!!!"));
 		return totalCompleted.divide(requisitionContractItem.getTotalCost());
 	}
+
+	public ProcessRequisitionItem setAllFieldsByPercentCompleted(RequisitionContractItems requisitionContractItem,
+			ProcessRequisitionItem processRequisitionItem) {
+		System.out.println("----------------------------here------------------------");
+		Integer percentCompleted = processRequisitionItem.getPercentItemCompleted();
+		BigDecimal hundred = new BigDecimal(100);
+		BigDecimal totalMoneyCompleted = requisitionContractItem.getTotalCost().divide(hundred)
+				.multiply(new BigDecimal(percentCompleted));
+		List<ProcessRequisitionItem> processRequisitionItems = requisitionContractItem
+				.getProcessRequisitionContractItems();
+		if (!processRequisitionItems.isEmpty()) {
+			Collections.sort(processRequisitionItems);
+			processRequisitionItem.setPreviousRequisitionItemBilled(
+					processRequisitionItems.getLast().getThisRequisitionItemBilled());
+		} else {
+			processRequisitionItem.setPreviousRequisitionItemBilled(new BigDecimal(0));
+		}
+		BigDecimal thisRequisitionBilling = totalMoneyCompleted
+				.subtract(processRequisitionItem.getPreviousRequisitionItemBilled());
+		processRequisitionItem.setThisRequisitionItemBilled(thisRequisitionBilling);
+		processRequisitionItem.setTotalCompletedItemToDate(
+				requisitionContractItem.getTotalCost().divide(hundred)
+						.multiply(new BigDecimal(percentCompleted)));
+		BigDecimal retainageToDate = (totalMoneyCompleted.divide(hundred))
+				.multiply(requisitionContractItem.getRetainage());
+		processRequisitionItem.setRetainageItemToDate(retainageToDate);
+		processRequisitionItem.setDateCreated(LocalDate.now());
+
+		testForSetFildsByPercent(processRequisitionItem);
+
+		return processRequisitionItem;
+	}
+
+	public void testForSetFildsByPercent(ProcessRequisitionItem processRequisitionItem) {
+		String message = "Total cost of Item is: "
+				+ String.valueOf(processRequisitionItem.getRequisitionContractItem().getTotalCost())
+				+ ". \nPrev Req: "
+				+ String.valueOf(processRequisitionItem.getPreviousRequisitionItemBilled())
+				+ "\nThis Req Bill: "
+				+ String.valueOf(processRequisitionItem.getThisRequisitionItemBilled())
+				+ "\nTotal Complete to date: "
+				+ String.valueOf(processRequisitionItem.getTotalCompletedItemToDate())
+				+ "\nTotal To Finish: " +
+				String.valueOf(processRequisitionItem.getTotalToFinishItem()) + "\nRetainage Item: "
+				+ String.valueOf(processRequisitionItem.getRetainageItemToDate())
+				+ "\nPercent item Complete: "
+				+ String.valueOf(processRequisitionItem.getPercentItemCompleted()) +
+				"\nDate Created: " + String.valueOf(processRequisitionItem.getDateCreated());
+
+		System.out.println(message);
+	}
+
 }
