@@ -44,6 +44,8 @@ public class ProjectDetailController {
 	@FXML
 	private TextField projectAddress;
 	@FXML
+	private TextField projectTotalPrice;
+	@FXML
 	private ComboBox<Projects.JobType> projectType;
 	@FXML
 	private DatePicker projectStartDate;
@@ -192,6 +194,7 @@ public class ProjectDetailController {
 		projectId.setText(String.valueOf(project.getId()));
 		projectName.setText(project.getName());
 		projectAddress.setText(project.getAddress());
+		projectTotalPrice.setText(String.valueOf(project.getTotalContract()));
 		projectType.setValue(project.getJobType());
 		projectStartDate.setValue(project.getDateStarted());
 		projectFinishDate.setValue(project.getDateFinished());
@@ -251,6 +254,7 @@ public class ProjectDetailController {
 		Projects project = new Projects();
 		project.setName(projectName.getText());
 		project.setAddress(projectAddress.getText());
+		project.setTotalContract(new BigDecimal(projectTotalPrice.getText()));
 		project.setJobType(projectType.getValue());
 		project.setDateStarted(projectStartDate.getValue());
 		project.setDateFinished(projectFinishDate.getValue());

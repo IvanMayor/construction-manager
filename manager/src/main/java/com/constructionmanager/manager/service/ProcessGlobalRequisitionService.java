@@ -67,4 +67,13 @@ public class ProcessGlobalRequisitionService {
 
 	}
 
+	public void deleteProcessGlobalRequisition(Integer processGlobalReqId) {
+		if (!processRequisitionRepository.existsById(processGlobalReqId)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+					"This Process Global Requisition does not exist!!!");
+		}
+
+		processGlobalRequisitionRepository.deleteById(processGlobalReqId);
+	}
+
 }

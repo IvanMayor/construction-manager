@@ -156,8 +156,13 @@ public class ProcessRequisitionItemService {
 		} else {
 			processRequisitionItem.setPreviousRequisitionItemBilled(new BigDecimal(0));
 		}
-		BigDecimal thisRequisitionBilling = totalMoneyCompleted
-				.subtract(processRequisitionItem.getPreviousRequisitionItemBilled());
+		BigDecimal thisRequisitionBilling;
+		if (processRequisitionItem.getPreviousRequisitionItemBilled() != null) {
+			thisRequisitionBilling = totalMoneyCompleted
+					.subtract(processRequisitionItem.getPreviousRequisitionItemBilled());
+		} else {
+			thisRequisitionBilling = totalMoneyCompleted;
+		}
 		processRequisitionItem.setThisRequisitionItemBilled(thisRequisitionBilling);
 		processRequisitionItem.setTotalCompletedItemToDate(
 				requisitionContractItem.getTotalCost().divide(hundred)

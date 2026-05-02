@@ -27,7 +27,7 @@ public class ProcessGlobalRequisition {
 	@OneToOne(mappedBy = "processGlobalRequisition")
 	private ProcessRequisition processRequisition;
 
-	@OneToMany(mappedBy = "processRequisitionItem", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "processGlobalRequisition", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JsonIgnore
 	private List<ProcessRequisitionItem> processRequisitionItems = new ArrayList<>();
 

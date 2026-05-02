@@ -12,6 +12,7 @@ import com.constructionmanager.manager.model.ProcessRequisition;
 import com.constructionmanager.manager.model.ProcessRequisitionItem;
 import com.constructionmanager.manager.model.RequisitionContractItems;
 import com.constructionmanager.manager.model.Requisitions;
+import com.constructionmanager.manager.service.ProcessGlobalRequisitionService;
 import com.constructionmanager.manager.service.ProcessRequisitionItemService;
 import com.constructionmanager.manager.service.ProcessRequisitionService;
 import com.constructionmanager.manager.service.RequisitionContractItemService;
@@ -26,6 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -36,7 +38,9 @@ import javafx.stage.Stage;
 
 @Component
 public class ProcessGlobalRequisitionCreateController {
+	private ProcessGlobalRequisitionService processGlobalRequisitionService;
 	private ProcessRequisitionItemService processRequisitionItemService;
+	private ProcessRequisitionService processRequisitionService;
 	private RequisitionContractItemService requisitionContractItemService;
 	private List<ProcessRequisitionItem> processRequisitionItems = new ArrayList<>();
 	private List<RequisitionContractItems> requisitionContractItems;
@@ -47,12 +51,14 @@ public class ProcessGlobalRequisitionCreateController {
 	private Scene scene;
 	private Stage stage;
 
-	public ProcessGlobalRequisitionCreateController(ProcessRequisitionItemService processRequisitionItemService,
+	public ProcessGlobalRequisitionCreateController(ProcessGlobalRequisitionService processGlobalRequisitionService,
+			ProcessRequisitionItemService processRequisitionItemService,
 			ProcessRequisitionService processRequisitionService,
 			RequisitionContractItemService requisitionContractItemService) {
+		this.processGlobalRequisitionService = processGlobalRequisitionService;
 		this.processRequisitionItemService = processRequisitionItemService;
 		this.requisitionContractItemService = requisitionContractItemService;
-		this.processRequisitionItemService = processRequisitionItemService;
+		this.processRequisitionService = processRequisitionService;
 	}
 
 	@FXML
@@ -76,6 +82,29 @@ public class ProcessGlobalRequisitionCreateController {
 	private TableColumn<ProcessRequisitionItem, Integer> columnPercentComplete;
 	@FXML
 	private TableColumn<ProcessRequisitionItem, LocalDate> columnDate;
+
+	@FXML
+	private TextField fieldPreviousReqBill;
+	@FXML
+	private TextField fieldThisReqBill;
+	@FXML
+	private TextField fieldChangeOrderToDate;
+	@FXML
+	private TextField fieldCOAndOriginalContract;
+	@FXML
+	private TextField fieldCompletedWork;
+	@FXML
+	private TextField fieldCompletedRetainage;
+	@FXML
+	private TextField fieldCompWorkNoRetainage;
+	@FXML
+	private TextField fieldPaymentDue;
+	@FXML
+	private TextField fieldBalanceToFinish;
+	@FXML
+	private TextField fieldTotalApprovedCO;
+	@FXML
+	private DatePicker fieldRequisitionDate;
 
 	private void setListRequisitionContractItems(List<RequisitionContractItems> requisitionContractItems) {
 		this.requisitionContractItems = requisitionContractItems;
@@ -137,7 +166,23 @@ public class ProcessGlobalRequisitionCreateController {
 	}
 
 	public void setupProcessRequisitionFields() {
+		processRequisition = processRequisitionService
+				.generatePGRFromProcessRequisitionItems(processRequisitionItems);
 
+		fieldPreviousReqBill.setText(String.valueOf(processRequisition.getPreviousRequisitionBilled()));
+		fieldThisReqBill.setText(String.valueOf(processRequisition.getThisRequisitionBilling()));
+		fieldChangeOrderToDate.setText(String.valueOf(processRequisition.getTotalChangeOrdersToDate()));
+		fieldCOAndOriginalContract
+				.setText(String.valueOf(processRequisition.getTotalChangeOrdersAndOriginalContract()));
+		fieldCompletedWork.setText(String.valueOf(processRequisition.getTotalCompletedWork()));
+		fieldCompletedRetainage.setText(String.valueOf(processRequisition.getTotalCompletedRetainage()));
+		fieldCompWorkNoRetainage
+				.setText(String.valueOf(processRequisition.getTotalCompletedWorkNoRetainage()));
+		fieldPaymentDue.setText(String.valueOf(processRequisition.getCurrentlyPaymentDue()));
+		fieldBalanceToFinish.setText(String.valueOf(processRequisition.getBalanceToFinishIncludingRetainage()));
+		fieldTotalApprovedCO
+				.setText(String.valueOf(processRequisition.getTotalApprovedChangeOrdersThisMonth()));
+		fieldRequisitionDate.setValue(processRequisition.getRequisitionDate());
 	}
 
 	@FXML
@@ -147,6 +192,14 @@ public class ProcessGlobalRequisitionCreateController {
 					processRequisitionItem.getRequisitionContractItem().getId(),
 					processRequisitionItem);
 		}
+		setupProcessRequisitionFields();
+	}
+
+	@FXML
+	public void createProcessGlobalRequisition(ActionEvent event) {
+		processRequisitionService.createProcessRequisition(requisition.getId(), processRequisition);
+		processGlobalRequisitionService.createProcessGlobalRequisition(processRequisition.getId(),
+				processRequisitionItems);
 		returnToRequisitionDetailController(event);
 	}
 
